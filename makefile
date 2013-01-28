@@ -3,6 +3,7 @@ default: all
 clean:
 	tools/cleandir .
 	tools/cleandir tests
+	tools/cleandir tools
 remove-results:
 	rm -rf results/*
 all: locals
