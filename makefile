@@ -6,6 +6,11 @@ clean:
 	tools/cleandir tools
 remove-results:
 	rm -rf results/*
+git-prepare: clean
+	git add -u
+	git add *
+
+#groups
 all: locals
 locals:
 tests: \
