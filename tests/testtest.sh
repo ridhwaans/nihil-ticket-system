@@ -6,4 +6,6 @@ cat \
 	<tests/$testname.input \
 	>results/$dts/$testname.output
 diff tests/$testname.output results/$dts/$testname.output \
-	>results/$dts/$testname.diff
+	>results/$dts/$testname.output.diff
+diff tests/$testname.dtf results/$dts/$testname.dtf \
+	>results/$dts/$testname.dtf.diff
