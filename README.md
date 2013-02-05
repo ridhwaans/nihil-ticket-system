@@ -4,7 +4,7 @@ nihil-ticket-system
 By:
 	*Bryce asdf
 	*Kalev Kalda Sikes
-	*Ridhwaan asdf
+	*Ridhwaan Shakeeld
 	*Wes Unwin
 
 blah
