@@ -1,0 +1,13 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as ‘admin’
+Please enter the following:
+Username:
+Type of user:
+[Success] User ‘manager’ of user type ‘AA’ created
+Please enter the following:
+Event title:
+Sale price:
+Number of tickets:
+[Success] Event ‘Celine Dion Show’ on sale. Sale price for tickets is $15.00. Number of tickets for sale is 100.
+Logged out
