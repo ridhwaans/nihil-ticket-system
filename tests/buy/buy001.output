@@ -1,0 +1,13 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as ‘admin’
+Enter event title:
+Enter number of tickets:
+Enter seller’s username:	
+Summary:
+Event: Grand-Event
+Number of tickets: 3
+Seller: seller
+Confirm [Yes/No]
+[Success] Tickets bought 
+Logged out
