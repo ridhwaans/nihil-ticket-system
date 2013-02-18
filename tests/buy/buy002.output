@@ -1,0 +1,13 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as ‘buyer’
+Enter event title:
+Enter number of tickets:
+Enter seller’s username:
+Summary:
+Event:VIP Show
+Number of tickets: 3
+Seller: manager
+Confirm [Yes/No]
+[Fail] Requested number of tickets not available
+Logged out
