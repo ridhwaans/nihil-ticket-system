@@ -1,0 +1,10 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as 'admin'
+Enter event name:
+Enter event price:
+Enter number of tickets
+[Success] Tickets put up for sale
+[Fail] Event name contains bad characters
+Logged out
+

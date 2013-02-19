@@ -1,6 +1,2 @@
-LOGIN admin__________
-04_Grand-Event_________seller__________099_100.00
-admin___________AA_000900.00 (loss)
-seller__________TT_001100.00 (gain)
-Grand-Event_________seller_________098_100.00(loss)
-00____________________000000.00
+04 Grand-Events        seller        003 100.00
+05 admin           seller          000100.00

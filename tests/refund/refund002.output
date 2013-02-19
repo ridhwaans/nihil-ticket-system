@@ -2,7 +2,6 @@ Welcome to Ticket sales
 Please enter your username to login
 [Success] Logged in as 'admin'
 Enter buyer’s username:
-Enter seller’s username:
-Would you like to perform this action?
-[Fail] Duplicate usernames. Seller cannot be same as Buyer
+Enter seller’s username:Enter amount of credit to refund:
+[Fail] Refunder is Refundee
 Logged out

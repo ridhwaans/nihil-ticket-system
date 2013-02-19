@@ -1,0 +1,7 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as 'manager'
+Enter user name:
+Enter account type:
+[Fail] Username has invalid characters
+Logged out

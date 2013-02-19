@@ -1,0 +1,29 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as 'manager'
+Enter user name:
+Enter account type:
+[Success] User created
+Enter user: 
+[Success] User deleted
+Enter Credit Amount: 
+Enter User: 
+[Success] Credit added
+Enter event title:
+Enter number of tickets:
+Enter seller's username:
+Summary:
+Event: Grand-Event
+Number of tickets: 1
+Seller: seller
+Confirm [Yes/No]
+[Success] Tickets bought
+Enter event name:
+Enter event price:
+Enter number of tickets
+[Success] Tickets put up for sale
+Enter buyer's username:
+Enter seller's username:
+Enter amount of credit to refund:
+[Success] Refund transaction completed
+Logged out

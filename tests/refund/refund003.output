@@ -4,6 +4,6 @@ Login Successful, Logged in as 'admin'
 Enter buyer’s username:
 Enter seller’s username:
 Enter amount of refund:
-Would you like to perform this action?
-[Fail] Insufficient seller balance for credit amount refund
+Enter amount of credit to refund:
+[Fail] Seller does not have enough credit
 Logged out

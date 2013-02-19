@@ -1,7 +1,7 @@
 login
 admin
 create
-manager
+newmanager
 AA
 1000.00
 sell
@@ -9,3 +9,4 @@ Celine Dion Show
 15.00
 100
 logout
+quit

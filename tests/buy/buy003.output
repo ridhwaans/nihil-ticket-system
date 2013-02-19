@@ -9,5 +9,5 @@ Event: Grand-Event
 Number of tickets: 5
 Seller: seller
 Confirm [Yes/No]
-[Fail] Number of tickets exceeds user limit 
+[Fail] You cannot buy that many tickets
 Logged out
