@@ -17,6 +17,7 @@ tests: \
 		test-login
 #locals
 
+#assets
 
 #tests
 test-test:
