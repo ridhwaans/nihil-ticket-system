@@ -5,6 +5,7 @@ public:
 	char* filename;
 	
 	TransactionFile( char* filename);
+	void add(Transaction transaction)
 	void update();
 private:
 }

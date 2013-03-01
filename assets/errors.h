@@ -1,0 +1,5 @@
+
+namespace Error{
+
+asljfdsafsdlError="fasdoifhfe";
+}

@@ -2,7 +2,7 @@
 
 int main( int argc, char *argv[], char *envp[]) {
 	//load
-	//load user accounts file
+	//load user accounts file to this:
 	//load available tickets file
 	while( !exit){
 		//prompt
