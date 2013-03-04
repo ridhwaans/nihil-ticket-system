@@ -1,5 +1,10 @@
+#ifndef assets_errors_h
+#define assets_errors_h
 
 namespace Error{
 
-asljfdsafsdlError="fasdoifhfe";
+char[] badParameterError;
+char[] 
 }
+
+#endif

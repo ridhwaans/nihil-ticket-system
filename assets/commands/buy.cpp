@@ -1,6 +1,6 @@
 #include "../commands.h"
 
-void buy(){
+int buy(){
 	//get parameter
 	//check for EOF
 	//format input

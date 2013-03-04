@@ -1,4 +1,4 @@
-#include "assets.h"
+#include "nts-lib.h"
 
 int main( int argc, char *argv[], char *envp[]) {
 	//load
@@ -38,5 +38,4 @@ int main( int argc, char *argv[], char *envp[]) {
 		transactionFile.update();}
 	
 	//clean up
-	}
-			
+}

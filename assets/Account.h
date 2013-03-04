@@ -1,3 +1,6 @@
+#ifndef assets_Account_h
+#define assets_Account_h
+
 class Account{
 public:
 	char[username_size] username;
@@ -5,6 +8,7 @@ public:
 	Type type;
 	
 	Account( char* line);
+	bool isEnd();
 	
 	enum Type{
 		Admin,
@@ -13,3 +17,5 @@ public:
 		Full };
 private:
 };
+
+#endif

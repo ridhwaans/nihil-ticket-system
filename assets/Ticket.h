@@ -1,3 +1,5 @@
+#ifndef assets_Ticket_h
+#define assets_Ticket_h
 
 class Ticket{
 public:
@@ -7,5 +9,8 @@ public:
 	char[username_size] username;
 	
 	Ticket( char* line);
+	bool isEnd();
 public:
 }
+
+#endif

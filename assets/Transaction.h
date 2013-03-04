@@ -1,3 +1,5 @@
+#ifndef assets_Transaction_h
+#define assets_Transaction_h
 
 class Transaction{
 public:
@@ -23,3 +25,5 @@ public:
 		Sell };
 private:
 };
+
+#endif
