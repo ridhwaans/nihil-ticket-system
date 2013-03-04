@@ -1,13 +1,16 @@
 #ifndef assets_commands_h
 #define assets_commands_h
 
-int command_addCredit();
-int command_addCredit_admin();
-int command_buy();
-int command_create();
-int command_delete();
-int command_refund();
-int command_sell();
+//library headers
+//local headers
+
+void command_addCredit();
+void command_addCredit_admin();
+void command_buy();
+void command_create();
+void command_delete();
+void command_refund();
+void command_sell();
 
 //basic command pseudocode:
 	//get all inputs
@@ -18,7 +21,7 @@ int command_sell();
 		//only command this applies to is buy
 	//prepare relevant objects
 		//e.g. new account, new tickets, etc
-	//perform internal actions
+	//perform voidernal actions
 		//e.g. accounts.add(newAccount) or tickets[4].quantity-=4
 	//construct transaction
 		//e.g. Transaction transaction(Transaction.create);

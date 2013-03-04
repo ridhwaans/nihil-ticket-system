@@ -1,20 +1,25 @@
 #ifndef assets_Account_h
 #define assets_Account_h
 
-class Account{
+//library headers
+//local headers
+
+class Account {
 public:
-	char[username_size] username;
-	int credit;
-	Type type;
-	
-	Account( char* line);
-	bool isEnd();
-	
-	enum Type{
+	enum Type {
 		Admin,
 		Buy,
 		Sell,
 		Full };
+	
+	char* username;
+	int credit;
+	Type type;
+	
+	Account( char* line);
+	Account( char* username, int credit, Type type);
+	
+	bool isEnd();
 private:
 };
 

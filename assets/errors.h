@@ -1,10 +1,14 @@
 #ifndef assets_errors_h
 #define assets_errors_h
 
-namespace Error{
+//library headers
+//local headers
 
-char[] badParameterError;
-char[] 
+namespace Error {
+	extern char badParameterError[];
+	extern char badTicketStringError[];
+	extern char badAccountStringError[];
+	extern char invalidUsernameCharactersError[];
 }
 
 #endif

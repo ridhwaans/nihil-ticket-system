@@ -2,6 +2,10 @@
 default: all
 clean:
 	tools/cleandir .
+	tools/cleandir assets
+	tools/cleandir assets/commands
+	tools/cleandir results
+	tools/cleandir scripts
 	tools/cleandir tests
 	tools/cleandir tools
 remove-results:
@@ -18,9 +22,10 @@ locals: \
 	nts-lib.a
 assets: \
 	assets/Account.o \
-	assets/commands.a \
+	assets/commands.o \
 	assets/errors.o \
-	assets/globals.o \
+	assets/functions.o \
+	assets/variables.o \
 	assets/Ticket.o \
 	assets/Transaction.o \
 	assets/TransactionFile.o
@@ -46,15 +51,16 @@ nts-client: nts-client.o \
 		nts-lib.a
 nts-client.o: nts-client.cpp \
 		assets
-	g++ -o nts-client.o \
+	g++ -c -o nts-client.o \
 		nts-client.cpp
 
 nts-lib.a: assets
 	ar rc nts-lib.a \
 		assets/Account.o \
-		assets/commands.a \
+		assets/commands.o \
 		assets/errors.o \
-		assets/globals.o \
+		assets/functions.o \
+		assets/variables.o \
 		assets/Ticket.o \
 		assets/Transaction.o \
 		assets/TransactionFile.o
@@ -66,9 +72,7 @@ assets/Account.o: \
 		assets/Account.cpp
 	g++ -c -o assets/Account.o \
 		assets/Account.cpp
-assets/commands.a: \
-		commands
-	ar rc assets/commands.a \
+assets/commands.o: \
 		assets/commands/addCredit.o \
 		assets/commands/addCredit_admin.o \
 		assets/commands/buy.o \
@@ -76,22 +80,46 @@ assets/commands.a: \
 		assets/commands/delete.o \
 		assets/commands/refund.o \
 		assets/commands/sell.o
-	ranlib assets/commands.a
+	ld -r -o assets/commands.o \
+		assets/commands/addCredit.o \
+		assets/commands/addCredit_admin.o \
+		assets/commands/buy.o \
+		assets/commands/create.o \
+		assets/commands/delete.o \
+		assets/commands/refund.o \
+		assets/commands/sell.o
 assets/errors.o: \
 		assets/errors.h \
 		assets/errors.cpp
 	g++ -c -o assets/errors.o \
-		asests/errors.cpp
-assets/globals.o \
+		assets/errors.cpp
+assets/functions.o: \
 		assets/globals.h \
-		assets/constants.cpp \
 		assets/functions.cpp
-	g++ -c -o assets/globals.o \
-		asests/constants.cpp \
-		asests/functions.cpp
-assets/Ticket.o
-assets/Transaction.o
-assets/TransactionFile.o
+	g++ -c -o assets/functions.o \
+		assets/functions.cpp
+assets/variables.o: \
+		assets/globals.h \
+		assets/variables.cpp
+	g++ -c -o assets/variables.o \
+		assets/variables.cpp
+assets/Ticket.o: \
+		assets/Ticket.h \
+		assets/Ticket.cpp
+	g++ -c -o assets/Ticket.o \
+		assets/Ticket.cpp
+assets/Transaction.o: \
+		assets/Transaction.h \
+		assets/Transaction.cpp
+	g++ -c -o assets/Transaction.o \
+		assets/Transaction.cpp
+assets/TransactionFile.o: \
+		assets/TransactionFile.h \
+		assets/TransactionFile.cpp \
+		assets/Transaction.h \
+		assets/Transaction.o
+	g++ -c -o assets/TransactionFile.o \
+		assets/TransactionFile.cpp
 
 #tests
 test-test:

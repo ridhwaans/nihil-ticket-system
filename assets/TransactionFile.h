@@ -1,20 +1,21 @@
 #ifndef assets_TransactionFile_h
-#define assets_TransactoinFile_h
+#define assets_TransactionFile_h
 
-#include <vector.h>
-
+//library includes
+#include <vector>
+//local includes
 #include "Transaction.h"
 
 class TransactionFile{
 public:
-	vector<Transaction> transactions;
+	std::vector<Transaction> transactions;
 	char* filename;
 	
 	TransactionFile( char* filename);
 	
-	void add(Transaction transaction)
+	void add(Transaction transaction);
 	void update();
 private:
-}
+};
 
 #endif

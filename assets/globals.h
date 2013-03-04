@@ -1,17 +1,43 @@
 #ifndef assets_globals_h
 #define assets_globals_h
 
-#include <vector.h>
+//library headers
+#include <vector>
+//local headers
+#include "Ticket.h"
+#include "TransactionFile.h"
 
+//forward declarations
+class Account;
+class Ticket;
+
+//account string sizes
 #define username_size 15
+#define credit_size 9
+#define type_size 2
+//ticket string sizes
 #define eventName_size 30
+#define quantity_size 5
+#define price_size 9
+//string format chars
+#define token ' '
+#define filler ' '
 
-char input[255];
-int input_size = 255;
-vector<Account> accounts;
-vector<Ticket> tickets;
+#define input_size 255
+extern char* input;
+
+extern bool error;
+extern char* error_string;
+
+extern std::vector<Account> accounts;
+extern std::vector<Ticket> tickets;
+extern TransactionFile* transactionFile;
 
 char* format( char* original);
-char* get line();
+char* getLine();
+
+bool init();
+bool loadAccounts();
+bool loadTickets();
 
 #endif
