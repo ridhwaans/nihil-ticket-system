@@ -13,6 +13,20 @@ remove-results:
 git-prepare: clean
 	git add -u
 	git add *
+git-pushAll:
+	git push origin working
+	git push origin merging
+	git push origin master
+git-updateall:
+	git checkout master
+	git merge merging
+	git merge working
+	git checkout merging
+	git merge master
+	git merge working
+	git checkout working
+	git merge master
+	git merge merging
 
 #groups
 all: locals assets commands
@@ -124,6 +138,18 @@ assets/TransactionFile.o: \
 #tests
 test-test:
 	tests/testtest.sh
+	
+test-functions: tests/testFunctions.out
+	tests/testFunctions.out
+tests/testFunctions.out: tests/testFunctions.cpp \
+		assets/globals.h \
+		assets/functions.o \
+		assets/variables.o
+	g++ -o tests/testFunctions.out \
+			tests/testFunctions.cpp \
+			assets/functions.o \
+			assets/variables.o
+
 test-login:
 	tests/login001.sh
 

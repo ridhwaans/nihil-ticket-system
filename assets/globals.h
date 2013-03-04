@@ -11,7 +11,8 @@
 class Account;
 class Ticket;
 
-#define 
+//transaction string sizes
+#define code_size 2
 //account string sizes
 #define username_size 15
 #define credit_size 9
