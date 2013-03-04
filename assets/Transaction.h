@@ -15,6 +15,7 @@ public:
 		Refund,
 		Sell };
 	
+	Code code;
 	char* username;
 	Account::Type type;
 	char* eventName;

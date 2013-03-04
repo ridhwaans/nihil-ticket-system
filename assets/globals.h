@@ -11,14 +11,15 @@
 class Account;
 class Ticket;
 
+#define 
 //account string sizes
 #define username_size 15
 #define credit_size 9
 #define type_size 2
 //ticket string sizes
-#define eventName_size 30
-#define quantity_size 5
-#define price_size 9
+#define eventName_size 19
+#define quantity_size 3
+#define price_size 6
 //string format chars
 #define token ' '
 #define filler ' '

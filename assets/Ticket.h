@@ -15,7 +15,6 @@ public:
 	Ticket( char* eventname, int quantity, int price,
 		char* username);
 	
-	
 	bool isEnd();
 public:
 };
