@@ -1,12 +1,15 @@
 #include <cstdio>
 #include <string.h>
+#include <iostream>
 #include "../assets/globals.h"
 
 int main ( int argc, char** argv, char** envp) {
-	// test format and get line
+	input = new char[input_size];
+	// test format and get line\
 	/*
 	char* asdf = getLine();
 	printf("%s\n",asdf);
+	printf("%d\n",std::cin.eof());
 	//*/
 	
 	// test the init and deinit functions

@@ -8,3 +8,9 @@ const char Error::badAccountStringError[] =
 	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
 	"[Fail] Username has invalid characters.";
+const char Error::LoginRequiredError[] =
+	"[Fail] Login required";
+const char Error::InvalidLoginError[] =
+	"[Fail] Login required";
+const char Error::UnrecognizedCommandError[] =
+	"[Fail] Login required";

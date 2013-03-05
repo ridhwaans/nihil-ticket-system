@@ -33,6 +33,9 @@ bool init(
 	char* transactionFilename);
 bool deinit();
 
+//session variables
+extern int currentAccount_index;
+
 //data definitions
 //variables and constants
 extern std::vector<Account> accounts;
@@ -44,20 +47,22 @@ bool loadTickets( char* ticketsFilename);
 
 //input definitions
 //variables and constants
-#define input_size 255
+#define input_size 256
 extern char* input;
-#define buffer_size 255
+#define buffer_size 256
 extern char* buffer;
 //functions
 char* format( char* original);
+char* format_command( char* original);
 char* getLine();
 
 //error definitions
 //variables and constants
-#define error_size 255
+#define error_size 256
 extern bool error;
 extern char* error_string;
 //functions
 void throwError( const char* error_string);
+void clearError();
 
 #endif

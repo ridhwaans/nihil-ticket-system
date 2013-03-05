@@ -1,3 +1,5 @@
+#include <cstdio>
+#include <ctype.h>
 #include <iostream>
 #include <string.h>	
 #include "globals.h"
@@ -45,6 +47,10 @@ char* format( char* original){
 			for example print statements, know when the string ends.
 	//finish
 	return original;}
+char* format_command( char* original){
+	for(int i = 0; original[i]; i++)
+		original[i] = (char) tolower(original[i]);
+	return original;}
 
 char* getLine(){
 	//get input
@@ -72,3 +78,5 @@ void throwError( const char* newError_string){
 	error = true;
 	strcpy(error_string, newError_string);}
 	//*/
+void clearError(){
+	error = false;}

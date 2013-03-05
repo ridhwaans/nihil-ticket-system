@@ -1,6 +1,6 @@
 #globals
 default: all
-clean:
+clean: clean-specials
 	tools/cleandir .
 	tools/cleandir assets
 	tools/cleandir assets/commands
@@ -8,12 +8,14 @@ clean:
 	tools/cleandir scripts
 	tools/cleandir tests
 	tools/cleandir tools
+clean-specials:
+	rm -f nts-client
 remove-results:
 	rm -rf results/*
 git-prepare: clean
 	git add -u
 	git add *
-git-pushAll:
+git-pushall:
 	git push origin working
 	git push origin merging
 	git push origin master
@@ -60,7 +62,7 @@ resources: \
 #locals
 nts-client: nts-client.o \
 		nts-lib.a
-	g++ -o ntsclient \
+	g++ -o nts-client \
 		nts-client.o \
 		nts-lib.a
 nts-client.o: nts-client.cpp \
@@ -159,4 +161,3 @@ tests/testError.out: tests/testError.cpp \
 
 test-login:
 	tests/login001.sh
-
