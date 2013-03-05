@@ -25,8 +25,9 @@ public:
 	char* buyer;
 	char* seller;
 
-	Transaction();
-	char* write();
+	Transaction(); //default null constructor
+	char* write(); //
+	char* transaction_digit(Transaction::Code);
 private:
 };
 
