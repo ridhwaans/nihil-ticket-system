@@ -1,5 +1,6 @@
 #include "../commands.h"
 
+void command_delete(){}
 //basic command pseudocode:
 	//get all inputs
 		//stop only if input line cannot be parsed

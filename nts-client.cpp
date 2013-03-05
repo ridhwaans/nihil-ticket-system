@@ -30,8 +30,7 @@ int main( int argc, char *argv[], char *envp[]) {
 		//exit with quit command
 		else if( !strcmp( command, "quit"))
 			break;
-		//do not attempt to enter login session if command \
-			is not 'login'
+		//do not attempt to enter login session if command is not 'login'
 		else if( strcmp( command, "login")){
 			printf( "%s\n", Error::LoginRequiredError);
 			continue;}
@@ -41,7 +40,7 @@ int main( int argc, char *argv[], char *envp[]) {
 		//prompt
 		printf( "Please enter your username to login\n");
 		//get username
-		char* username = getLine();
+		char* username = format(getLine());
 		//check for null input
 		if( std::cin.eof())
 			break;
@@ -49,9 +48,8 @@ int main( int argc, char *argv[], char *envp[]) {
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
 		//username validation
-		//implement this properly when Account and loadAccounts\
-			are completed
-		printf( "[Success] Logged in as ‘admin’");
+		//implement this properly when Account and loadAccounts are completed
+		printf( "[Success] Logged in as \'%s\'\n",username);
 		
 		//enter login session
 		while( true){
@@ -66,13 +64,27 @@ int main( int argc, char *argv[], char *envp[]) {
 			//check for null input
 			if( strlen( command) == 0);
 			//select command
+			else if( !strcmp( command, "addCredit"))
+				if( true) //if user is admin, call special addCredit
+					command_addCredit_admin();
+				else
+					command_addCredit();
+			else if( !strcmp( command, "buy"))
+				command_buy();
 			else if( !strcmp( command, "create"))
 				command_create();
+			else if( !strcmp( command, "delete"))
+				command_delete();
+			else if( !strcmp( command, "refund"))
+				command_refund();
+			else if( !strcmp( command, "sell"))
+				command_sell();
 			//check for logout
 			else if( !strcmp( command, "logout"))
 				break;
 			else // unrecognized command
 				printf( "%s\n", Error::UnrecognizedCommandError);}
+		printf("Logged out\n");
 		//push dtf to file
 		transactionFile->update();}
 	//clean up and exit

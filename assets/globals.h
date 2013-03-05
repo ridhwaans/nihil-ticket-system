@@ -54,6 +54,7 @@ extern char* buffer;
 //functions
 char* format( char* original);
 char* format_command( char* original);
+char* trim( char* original);
 char* getLine();
 
 //error definitions

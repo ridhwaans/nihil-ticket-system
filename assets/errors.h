@@ -12,6 +12,7 @@ namespace Error {
 	extern const char LoginRequiredError[];
 	extern const char InvalidLoginError[];
 	extern const char UnrecognizedCommandError[];
+	extern const char TicketLineTooLongError[];
 }
 
 #endif

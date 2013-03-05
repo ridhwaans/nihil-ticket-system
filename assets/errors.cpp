@@ -14,3 +14,5 @@ const char Error::InvalidLoginError[] =
 	"[Fail] Login required";
 const char Error::UnrecognizedCommandError[] =
 	"[Fail] Login required";
+const char Error::TicketLineTooLongError[] =
+	"[Fail] Ticket could not be created, line must be 45 chars exactly";

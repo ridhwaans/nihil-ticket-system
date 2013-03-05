@@ -5,11 +5,11 @@
 
 int main ( int argc, char** argv, char** envp) {
 	input = new char[input_size];
-	// test format and get line\
-	/*
+	// test format and get line
+	//*
 	char* asdf = getLine();
 	printf("%s\n",asdf);
-	printf("%d\n",std::cin.eof());
+	printf("{%s}\n",trim(asdf));
 	//*/
 	
 	// test the init and deinit functions

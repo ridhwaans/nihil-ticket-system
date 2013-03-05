@@ -8,10 +8,12 @@ clean: clean-specials
 	tools/cleandir scripts
 	tools/cleandir tests
 	tools/cleandir tools
-clean-specials:
+clean-specials: remove-results
 	rm -f nts-client
 remove-results:
 	rm -rf results/*
+
+#git
 git-prepare: clean
 	git add -u
 	git add *
@@ -66,11 +68,26 @@ nts-client: nts-client.o \
 		nts-client.o \
 		nts-lib.a
 nts-client.o: nts-client.cpp \
-		assets
+		assets/Account.o \
+		assets/commands.o \
+		assets/errors.o \
+		assets/functions.o \
+		assets/variables.o \
+		assets/Ticket.o \
+		assets/Transaction.o \
+		assets/TransactionFile.o
 	g++ -c -o nts-client.o \
 		nts-client.cpp
 
-nts-lib.a: assets
+nts-lib.a: \
+		assets/Account.o \
+		assets/commands.o \
+		assets/errors.o \
+		assets/functions.o \
+		assets/variables.o \
+		assets/Ticket.o \
+		assets/Transaction.o \
+		assets/TransactionFile.o
 	ar rc nts-lib.a \
 		assets/Account.o \
 		assets/commands.o \
@@ -138,6 +155,8 @@ assets/TransactionFile.o: \
 		assets/TransactionFile.cpp
 
 #tests
+test-client: nts-client
+	./nts-client
 test-test:
 	tests/testtest.sh
 
@@ -157,6 +176,15 @@ tests/testError.out: tests/testError.cpp \
 		nts-lib.a
 	g++ -o tests/testError.out \
 			tests/testError.cpp \
+			nts-lib.a
+
+test-ticket: tests/testTicket.out
+	tests/testTicket.out
+tests/testTicket.out: tests/testTicket.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testTicket.out \
+			tests/testTicket.cpp \
 			nts-lib.a
 
 test-login:

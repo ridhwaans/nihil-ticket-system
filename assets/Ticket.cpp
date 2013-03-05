@@ -1,6 +1,5 @@
+#include "errors.h"
 #include "Ticket.h"
-
-using namespace std;
 
 
 /**
@@ -14,24 +13,24 @@ Ticket::Ticket( char* line) {
 
 	//Ensure line is 45 Characters exactly
 	if( strlen( line ) != 45 ) {
-		throwError( (const char*) "Fatal Error: Ticket could not be created, line must be 45 chars exactly" );
+		throwError( Error::TicketLineTooLongError);
 		return;
 	}
 
 	//Extract event name from line.
 	this->eventName = new char[eventName_size + 1];  								//+1 for space for null terminator
 	memcpy( (void*) this->eventName, (const void*) line, eventName_size );  //copies eventName_size chars to indices 0 to (eventName_size-1)
-	this->eventName[eventName_size] = 0;												//null terminator 
+	this->eventName[eventName_size] = '\0';												//null terminator 
 
 	//Extract Seller's Username from line
 	this->username = new char[username_size + 1];
-	memcpy( (void*) this->username, (const void*) &line[eventName_size+1], username_size ); //copy username_size chars starting at first char of username in line string
-	this->username[username_size] = 0;
+	memcpy( (void*) this->username, (const void*) &line[eventName_size+1], username_size );//copy username_size chars starting at first char of username in line string
+	this->username[username_size] = '\0';
 
 	//Extract quantity of tickets to sell from line
 	char* TempQuantityString = (char*) malloc(4);					//3 chars + 1 char for null terminator
 	memcpy( (void*) TempQuantityString, (const void*)	&line[eventName_size+1+username_size+1], 3 );
-	TempQuantityString[3] = 0;
+	TempQuantityString[3] = '\0';
 	this->quantity = atoi( (const char*) TempQuantityString );
 	free( (void*) TempQuantityString );
 
@@ -48,7 +47,7 @@ Ticket::Ticket( char* line) {
  * Constructs a ticket object, representing the specified number of tickets available to
  * be sold from the given seller (username), to be sold at the given ticket price (price)
  *
- * @param
+ * @param 
  */
 Ticket::Ticket( char* eventname, int quantity, int price, char* username) {
 	this->eventName = eventname;
