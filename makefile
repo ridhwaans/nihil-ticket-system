@@ -157,8 +157,8 @@ assets/TransactionFile.o: \
 #tests
 test-client: nts-client
 	./nts-client
-test-test:
-	tests/testtest.sh
+test-allCases: nts-client
+	tools/testAllCases
 
 test-functions: tests/testFunctions.out
 	tests/testFunctions.out

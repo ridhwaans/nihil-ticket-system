@@ -1,0 +1,25 @@
+#!/bin/bash
+outputFolder="results"
+if [ $# -gt 2 ];then
+	outputFolder=$3
+fi
+
+dataFolder="resources"
+if [ $# -gt 3 ];then
+	dataFolder=$4
+fi
+
+if [ $# -gt 1 ]
+then
+	section=$1
+	code=$2
+	casepath=tests/$section/$code
+	mkdir -p $outputFolder
+	echo -en "TC: $section/$code; Data: '$dataFolder'; Output: 'output to '$outputFolder'\n"
+	./nts-client $casepath.cua $casepath.atf \
+		$ouputFolder/$code.dtf \
+		< $casepath.input \
+		>> $outputFolder/$code.output
+else
+	echo -en "not enough arguments\n"
+fi
