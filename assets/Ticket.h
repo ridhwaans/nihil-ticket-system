@@ -7,9 +7,7 @@
 #include <iostream>
 
 //local headers
-//#include "globals.h"
-#define eventName_size 19
-#define username_size 10
+#include "globals.h"
 
 class Ticket{
 public:

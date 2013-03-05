@@ -14,7 +14,7 @@ Ticket::Ticket( char* line) {
 
 	//Ensure line is 45 Characters exactly
 	if( strlen( line ) != 45 ) {
-		cout << "Fatal Error: Ticket could not be created, line must be 45 chars";
+		throwError( (const char*) "Fatal Error: Ticket could not be created, line must be 45 chars exactly" );
 		return;
 	}
 
