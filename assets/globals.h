@@ -12,34 +12,52 @@ class Account;
 class Ticket;
 
 //transaction string sizes
-#define code_size 2
+#define	code_size 		2
 //account string sizes
-#define username_size 15
-#define credit_size 9
-#define type_size 2
+#define	username_size 	15
+#define	credit_size 	9
+#define	type_size 		2
 //ticket string sizes
-#define eventName_size 19
-#define quantity_size 3
-#define price_size 6
+#define	eventName_size 19
+#define	quantity_size 	3
+#define	price_size 		6
 //string format chars
-#define token ' '
-#define filler ' '
+#define	token 			' '
+#define	filler 			' '
 
-#define input_size 255
-extern char* input;
 
-extern bool error;
-extern char* error_string;
+//initialization functions
+bool init(
+	char* accountsFilename,
+	char* ticketsFilename,
+	char* transactionFilename);
+bool deinit();
 
+//data definitions
+//variables and constants
 extern std::vector<Account> accounts;
 extern std::vector<Ticket> tickets;
 extern TransactionFile* transactionFile;
+//functions
+bool loadAccounts( char* accountsFilename);
+bool loadTickets( char* ticketsFilename);
 
+//input definitions
+//variables and constants
+#define input_size 255
+extern char* input;
+#define buffer_size 255
+extern char* buffer;
+//functions
 char* format( char* original);
 char* getLine();
 
-bool init();
-bool loadAccounts();
-bool loadTickets();
+//error definitions
+//variables and constants
+#define error_size 255
+extern bool error;
+extern char* error_string;
+//functions
+void throwError( const char* error_string);
 
 #endif

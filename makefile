@@ -138,17 +138,24 @@ assets/TransactionFile.o: \
 #tests
 test-test:
 	tests/testtest.sh
-	
+
 test-functions: tests/testFunctions.out
 	tests/testFunctions.out
 tests/testFunctions.out: tests/testFunctions.cpp \
 		assets/globals.h \
-		assets/functions.o \
-		assets/variables.o
+		nts-lib.a
 	g++ -o tests/testFunctions.out \
 			tests/testFunctions.cpp \
-			assets/functions.o \
-			assets/variables.o
+			nts-lib.a
+
+test-error: tests/testError.out
+	tests/testError.out
+tests/testError.out: tests/testError.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testError.out \
+			tests/testError.cpp \
+			nts-lib.a
 
 test-login:
 	tests/login001.sh

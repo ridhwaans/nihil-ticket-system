@@ -1,6 +1,7 @@
 #include "globals.h"
 
 char* input;
+char* buffer;
 
 bool error;
 char* error_string;

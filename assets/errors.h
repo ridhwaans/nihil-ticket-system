@@ -5,10 +5,10 @@
 //local headers
 
 namespace Error {
-	extern char badParameterError[];
-	extern char badTicketStringError[];
-	extern char badAccountStringError[];
-	extern char invalidUsernameCharactersError[];
+	extern const char badParameterError[];
+	extern const char badTicketStringError[];
+	extern const char badAccountStringError[];
+	extern const char invalidUsernameCharactersError[];
 }
 
 #endif
