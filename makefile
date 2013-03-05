@@ -187,5 +187,14 @@ tests/testTicket.out: tests/testTicket.cpp \
 			tests/testTicket.cpp \
 			nts-lib.a
 
+test-transaction: tests/testTransaction.out
+	tests/testTransaction.out
+tests/testTransaction.out: tests/testTransaction.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testTransaction.out \
+			tests/testTransaction.cpp \
+			nts-lib.a
+
 test-login:
 	tests/login001.sh

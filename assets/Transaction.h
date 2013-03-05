@@ -27,7 +27,7 @@ public:
 
 	Transaction(); //default null constructor
 	char* write(); //
-	char* transaction_digit(Transaction::Code);
+	char* transaction_digit( Transaction::Code, char*);
 private:
 };
 

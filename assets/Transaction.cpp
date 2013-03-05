@@ -1,41 +1,42 @@
 #include "Transaction.h"
 #include "globals.h"
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 
 /**
-* Determines the transaction code based on the enumeration value received
-*
-* @param transaction_code
-* @return
-*/
-
-char* transaction_digit(Transaction::Code transaction_code) {
-	char digit [2];
+ * Determines the transaction code based on the enumeration value received
+ *
+ * @param transaction_code
+ * @return
+ **/
+char* Transaction::transaction_digit(Code transaction_code, char* dest) {
+	char* digit = new char[3];
 	switch (transaction_code){
-	case Transaction::Code::Create:
-		digit = "01";
-		break;
-	case Transaction::Code::Delete:
-		digit = "02";
-		break;
-	case Transaction::Code::Sell:
-		digit = "03";
-		break;
-	case Transaction::Code::Buy:
-		digit = "04";
-		break;
-	case Transaction::Code::Refund:
-		digit = "05";
-		break;
-	case Transaction::Code::AddCredit:
-		digit = "06";
-		break;
+		case Transaction::Create:
+			digit = "01";
+			break;
+		case Transaction::Delete:
+			digit = "02";
+			break;
+		case Transaction::Sell:
+			digit = "03";
+			break;
+		case Transaction::Buy:
+			digit = "04";
+			break;
+		case Transaction::Refund:
+			digit = "05";
+			break;
+		case Transaction::AddCredit:
+			digit = "06";
+			break;
 	}
-	return digit;
+	strcpy(digit,dest);
+	delete digit;
+	return dest;
 }
-
 
 /**
 * Determines the transaction code based on the enumeration value received
@@ -53,7 +54,7 @@ Transaction::Transaction()
 *
 * @return buffer after transaction text line is composed and concatenated for file write
 */
-
+/*
 char* Transaction::write()
 {
 	char buffer[];
@@ -120,9 +121,4 @@ char* Transaction::write()
 
 	return buffer;
 }
-
-int main () {
-
-  return 0;
-}
-
+*/
