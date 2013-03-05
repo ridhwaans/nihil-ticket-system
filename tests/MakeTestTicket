@@ -1,0 +1,5 @@
+# Makefile for building testTicket
+@filesys: testTicket.cpp ../assets/Ticket.cpp ../assets/Ticket.h ../assets/globals.h ../assets/errors.h
+	@echo Building TESTTICKET
+	@g++ -Wall testTicket.cpp ../assets/Ticket.cpp -o TESTTICKET
+	@echo Done.
