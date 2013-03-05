@@ -8,7 +8,7 @@ using namespace std;
 
 int main ( int argc, char** argv, char** envp) {
 
-	char inputstring[] = "Theeeeeeeeeeeeevent Auuuuuuusername 100 100.00";
+	char inputstring[] = "Theeeeeeeeeeeeevent Auuuuuuusername 100 264.31";
 
 	Ticket* t = new Ticket( (char*) inputstring );
 	
