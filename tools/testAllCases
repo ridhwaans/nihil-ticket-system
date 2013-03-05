@@ -1,0 +1,7 @@
+outputFolder=results/$(date +%Y%m%d-%H%M)
+
+for section in $(ls -d tests/*/)
+do
+	section=$(basename "$section")
+	tools/testSection $section $outputFolder
+done

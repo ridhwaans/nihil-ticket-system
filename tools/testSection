@@ -1,0 +1,18 @@
+#!/bin/bash
+section=$1
+
+outputFolder="results"
+if [ $# -gt 1 ];then
+	outputFolder=$2
+fi
+
+echo -en "Test Section: $section\n"
+for code in $(echo `
+		for member in tests/$section/*;
+		do
+			member=$(basename "$member")
+			echo ${member%%.*}
+		done` | tr ' ' '\n' | sort -u)
+do
+	tools/testCase $section $code $outputFolder/$section
+done
