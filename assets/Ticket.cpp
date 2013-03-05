@@ -1,4 +1,3 @@
-#include "errors.h"
 #include "Ticket.h"
 
 
@@ -12,8 +11,8 @@
 Ticket::Ticket( char* line) {
 
 	//Ensure line is 45 Characters exactly
-	if( strlen( line ) != 45 ) {
-		throwError( Error::TicketLineTooLongError);
+	if( strlen( line ) != eventName_size + 1 + username_size + 1 + quantity_size + 1 + price_size ) {
+		throwError( Error::TicketLineTooLongError);  // temporarily commented out throwError
 		return;
 	}
 
@@ -35,9 +34,11 @@ Ticket::Ticket( char* line) {
 	free( (void*) TempQuantityString );
 
 	//Extract ticket price from line
-	char* TempTicketPriceString = (char*) malloc(7);
-	memcpy( (void*) TempTicketPriceString, (const void*) &line[eventName_size+1+username_size+1+3+1], 6);
-	this->price = (double) atof( (const char*) TempTicketPriceString );
+	char* TempTicketPriceString = (char*) malloc(6);
+	memcpy( (void*) TempTicketPriceString,     (const void*) &line[eventName_size+1+username_size+1+3+1],     3);  //copy
+   memcpy( (void*) &TempTicketPriceString[3], (const void*) &line[eventName_size+1+username_size+1+3+1 + 4], 2);
+	TempTicketPriceString[5] = '\0';
+	this->price = (double) atoi( (const char*) TempTicketPriceString );
 	free( (void*) TempTicketPriceString );
 
 }
