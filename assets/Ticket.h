@@ -8,16 +8,17 @@
 
 //local headers
 #include "globals.h"
+#include "errors.h"
 
 class Ticket{
 public:
 	char* eventName;
-	int quantity;
-	double price;		//changed to double
+	int 	quantity;
+	int 	price;		
 	char* username;
 	
-	Ticket( char* line);
-	Ticket( char* eventname, int quantity, int price, char* username);
+	Ticket( char* line );
+	Ticket( char* eventname, int quantity, int price, char* username );
 	
 	bool isEnd();
 
