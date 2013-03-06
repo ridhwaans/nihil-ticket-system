@@ -55,17 +55,13 @@ char* trim( char* original){
 	int first = ori_string.find_first_not_of(whitespaces);
 	if ( first == std::string::npos)
 		first = 0;
-	printf("first:%d\n",first);
 	int last = ori_string.find_last_not_of(whitespaces);
-	printf("last:%d\n",last);
 	int length = last - first;
 	if( length < 0)
 		length = 0;
-	printf("length:%d\n",length);
 	int i;
 	for( i = 0; (i <= length) && (original[first+i] != '\0'); i++)
 		original[i] = original[first+i];
-	printf("%d, %d\n",(i < length),(original[first+i] != '\0'));
 	original[first+i] = '\0';
 	return original;}
 
