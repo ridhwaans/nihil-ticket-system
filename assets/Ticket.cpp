@@ -81,10 +81,20 @@ bool Ticket::isEnd() {
  * @return True if the ticket object is valid, false elsewise.
  */
 bool Ticket::isValid() {
-	if( this->eventName == NULL || this->username == NULL)
+
+	//Verify that the event name is set and of correct length
+	if( this->eventName == NULL || strlen( this->eventName ) != eventName_size )
 		return false;
 
+	//Verify that seller name is set and of correct length
+	if( this->username == NULL || strlen( this->username) != username_size )
+		return false;
 
+	//Verify that quantity is within the acceptable range
+	if( this->quantity < 0 || this->quantity >= 1000 )
+		return false;
+
+	//Verify that the ticket price is within the acceptable range
 	if( this->price < 0 || this->price >= 1000 )
 		return false;
 
