@@ -12,29 +12,30 @@ using namespace std;
  * @return
  **/
 char* Transaction::transaction_digit(Code transaction_code, char* dest) {
-	char* digit = new char[3];
-	switch (transaction_code){
-		case Transaction::Create:
-			digit = "01";
-			break;
-		case Transaction::Delete:
-			digit = "02";
-			break;
-		case Transaction::Sell:
-			digit = "03";
-			break;
-		case Transaction::Buy:
-			digit = "04";
-			break;
-		case Transaction::Refund:
-			digit = "05";
-			break;
-		case Transaction::AddCredit:
-			digit = "06";
-			break;
+	if(transaction_code == Transaction::Create){
+		char digit[] = "01";
+		strcpy(digit,dest);
 	}
-	strcpy(digit,dest);
-	delete digit;
+	else if(transaction_code == Transaction::Delete){
+		char digit[] = "02";
+		strcpy(digit,dest);
+	}
+	else if(transaction_code == Transaction::Sell){
+		char digit[] = "03";
+		strcpy(digit,dest);
+	}
+	else if(transaction_code == Transaction::Buy){
+		char digit[] = "04";
+		strcpy(digit,dest);
+	}
+	else if(transaction_code == Transaction::Refund){
+		char digit[] = "05";
+		strcpy(digit,dest);
+	}
+	else if(transaction_code == Transaction::AddCredit){
+		char digit[] = "06";
+		strcpy(digit,dest);
+	}
 	return dest;
 }
 
