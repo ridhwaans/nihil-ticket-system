@@ -73,7 +73,14 @@ char* getLine(){
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	return true;}
+	std::ifstream accountsFile(accountsFilename);
+	if( accountsFile.bad())
+		return false;
+	while( ! accountsFile.eof()){
+		accountsFile.getline( buffer, buffer_size);
+		accounts.push_back(Account( buffer));}
+	return true;
+}
 bool loadTickets( char* ticketsFilename){
 	return true;}
 

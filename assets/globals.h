@@ -2,6 +2,8 @@
 #define assets_globals_h
 
 //library headers
+#include <iostream>
+#include <fstream>
 #include <vector>
 //local headers
 #include "Ticket.h"
