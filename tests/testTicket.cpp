@@ -5,22 +5,18 @@
 
 using namespace std;
 
-
 int main ( int argc, char** argv, char** envp) {
-
-	char inputstring[] = "Theeeeeeeeeeeeevent Auuuuuuusername 100 264.31";
+	char inputstring[] = "Theeeeeee ee event  Auuuuuuusername 100 264.31";
 
 	Ticket* t = new Ticket( (char*) inputstring );
 	
-	
-   cout << "Testing Ticket.cpp..." << endl;
-   cout << "Event Name: "          << t->eventName << endl;
+	cout << "Testing Ticket.cpp..." << endl;
+	cout << "Event Name: "          << t->eventName << endl;
 	cout << "Username: "            << t->username  << endl;
 	cout << "Quantity: "            << t->quantity  << endl;
-   cout << "Price: "               << t->price     << endl;
+	cout << "Price: "               << t->price     << endl;
 
 	cout << "Done." << endl;
-
 
 	return 0;
 }

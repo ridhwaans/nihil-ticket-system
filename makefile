@@ -10,6 +10,7 @@ clean: clean-specials
 	tools/cleandir tools
 clean-specials: remove-results
 	rm -f nts-client
+freshen: clean all
 remove-results:
 	rm -rf results/*
 
@@ -56,7 +57,11 @@ commands: \
 	assets/commands/refund.o \
 	assets/commands/sell.o
 tests: \
-		test-login
+		tests/testAccount.out \
+		tests/testError.out \
+		tests/testFunctions.out \
+		tests/testTicket.out \
+		tests/testTransaction.out
 resources: \
 		resources/data.atf \
 		resources/data.cua
@@ -157,8 +162,8 @@ assets/TransactionFile.o: \
 #tests
 test-client: nts-client
 	./nts-client
-test-test:
-	tests/testtest.sh
+test-allCases: nts-client
+	tools/testAllCases
 
 test-functions: tests/testFunctions.out
 	tests/testFunctions.out
@@ -187,5 +192,20 @@ tests/testTicket.out: tests/testTicket.cpp \
 			tests/testTicket.cpp \
 			nts-lib.a
 
-test-login:
-	tests/login001.sh
+test-account: tests/testAccount.out
+	tests/testAccount.out
+tests/testAccount.out: tests/testAccount.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testAccount.out \
+			tests/testAccount.cpp \
+			nts-lib.a
+
+test-transaction: tests/testTransaction.out
+	tests/testTransaction.out
+tests/testTransaction.out: tests/testTransaction.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testTransaction.out \
+			tests/testTransaction.cpp \
+			nts-lib.a

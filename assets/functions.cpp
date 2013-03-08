@@ -12,9 +12,9 @@ bool init(
 		char* ticketsFilename,
 		char* transactionFilename){
 	//initialize global variables
-	input = new char[input_size];
-	buffer = new char[buffer_size];
-	error_string = new char[error_size];
+	input = new char[input_size+1];
+	buffer = new char[buffer_size+1];
+	error_string = new char[error_size+1];
 	//prepare the transactions file for output
 	transactionFile = new TransactionFile( transactionFilename);
 	//load data files
@@ -55,17 +55,13 @@ char* trim( char* original){
 	int first = ori_string.find_first_not_of(whitespaces);
 	if ( first == std::string::npos)
 		first = 0;
-	printf("first:%d\n",first);
 	int last = ori_string.find_last_not_of(whitespaces);
-	printf("last:%d\n",last);
 	int length = last - first;
 	if( length < 0)
 		length = 0;
-	printf("length:%d\n",length);
 	int i;
 	for( i = 0; (i <= length) && (original[first+i] != '\0'); i++)
 		original[i] = original[first+i];
-	printf("%d, %d\n",(i < length),(original[first+i] != '\0'));
 	original[first+i] = '\0';
 	return original;}
 
@@ -77,7 +73,14 @@ char* getLine(){
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	return true;}
+	std::ifstream accountsFile(accountsFilename);
+	if( accountsFile.bad())
+		return false;
+	while( ! accountsFile.eof()){
+		accountsFile.getline( buffer, buffer_size);
+		accounts.push_back(Account( buffer));}
+	return true;
+}
 bool loadTickets( char* ticketsFilename){
 	return true;}
 
