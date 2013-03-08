@@ -9,7 +9,7 @@ int main ( int argc, char** argv, char** envp) {
 	input = new char[input_size];
 	error_string = new char[error_size];
 	// format:            UUUUUUUUUUUUUUU_TT_CCCCCCCCC
-	char inputstring[] = "ENDd            FS 000001.11";
+	char inputstring[] = "END             FS 000001.11";
 	Account* account = new Account( inputstring );
 	
 	printf("Account:{%s,%d,%d}\n",

@@ -12,9 +12,9 @@ bool init(
 		char* ticketsFilename,
 		char* transactionFilename){
 	//initialize global variables
-	input = new char[input_size];
-	buffer = new char[buffer_size];
-	error_string = new char[error_size];
+	input = new char[input_size+1];
+	buffer = new char[buffer_size+1];
+	error_string = new char[error_size+1];
 	//prepare the transactions file for output
 	transactionFile = new TransactionFile( transactionFilename);
 	//load data files

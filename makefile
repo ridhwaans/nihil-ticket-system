@@ -10,6 +10,7 @@ clean: clean-specials
 	tools/cleandir tools
 clean-specials: remove-results
 	rm -f nts-client
+freshen: clean all
 remove-results:
 	rm -rf results/*
 
@@ -56,7 +57,11 @@ commands: \
 	assets/commands/refund.o \
 	assets/commands/sell.o
 tests: \
-		test-login
+		tests/testAccount.out \
+		tests/testError.out \
+		tests/testFunctions.out \
+		tests/testTicket.out \
+		tests/testTransaction.out
 resources: \
 		resources/data.atf \
 		resources/data.cua
@@ -204,6 +209,3 @@ tests/testTransaction.out: tests/testTransaction.cpp \
 	g++ -o tests/testTransaction.out \
 			tests/testTransaction.cpp \
 			nts-lib.a
-
-test-login:
-	tests/login001.sh
