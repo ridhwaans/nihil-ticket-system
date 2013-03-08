@@ -19,7 +19,7 @@ int main ( int argc, char** argv, char** envp) {
 	cout << "Quantity: "            << t->quantity  << endl;
    cout << "Price: "               << t->price     << endl;
 
-	cout << "Done.";
+	cout << "Done." << endl;
 
 
 	return 0;
