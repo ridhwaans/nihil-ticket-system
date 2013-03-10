@@ -9,6 +9,8 @@
  *		1 the event name
  *		2 the number of tickets to buy
  *		3 the seller's username
+ *
+ * PRECONDITION:   User must be logged in, and currentAccount_Index must be accurately set
  */
 void command_buy(){
 
