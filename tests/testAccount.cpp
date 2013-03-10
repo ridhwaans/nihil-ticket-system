@@ -1,5 +1,5 @@
 #include <cstdio>
-#include <string.h>
+#include <string>
 #include "../assets/globals.h"
 #include "../assets/Ticket.h"
 
@@ -9,7 +9,7 @@ int main ( int argc, char** argv, char** envp) {
 	input = new char[input_size];
 	error_string = new char[error_size];
 	// format:            UUUUUUUUUUUUUUU_TT_CCCCCCCCC
-	char inputstring[] = "END             FS 000001.11";
+	char inputstring[] = "END             FS 000000.00";
 	Account* account = new Account( inputstring );
 	
 	printf("Account:{%s,%d,%d}\n",

@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <ctype.h>
 #include <iostream>
-#include <string.h>	
+#include <string.h>
+#include "debug.h"
 #include "globals.h"
 
 using namespace std;
@@ -15,18 +16,31 @@ bool init(
 	input = new char[input_size+1];
 	buffer = new char[buffer_size+1];
 	error_string = new char[error_size+1];
+	//check filenames are valid?
+	if( debug_accounts)
+		printf("Accounts Filename:     %s\n",accountsFilename);
+	if( debug_tickets)
+		printf("Tickets Filename:      %s\n",ticketsFilename);
+	if( debug_transactions)
+		printf("Transactions Filename: %s\n",transactionFilename);
 	//prepare the transactions file for output
 	transactionFile = new TransactionFile( transactionFilename);
 	//load data files
-	return
-		loadAccounts( accountsFilename) ?
-		loadTickets( ticketsFilename) : false;}
+	//uses ternary since it should stop if loadAccounts fails
+	bool loadAccounts_success = loadAccounts( accountsFilename);
+	bool loadTickets_success = loadTickets( ticketsFilename);
+	//doing debug checks
+
+	//finish
+	return loadAccounts_success && loadTickets_success;
+}
 
 bool deinit (){
 	delete input;
 	delete buffer;
 	delete error_string;
-	delete transactionFile;}
+	delete transactionFile;
+}
 
 //input functions
 char* format( char* original){
@@ -43,12 +57,14 @@ char* format( char* original){
 	original[j] = '\0';
 		//add the null terminator character to ensure other functions, for example print statements, know when the string ends.
 	//finish
-	return original;}
+	return original;
+}
 char* format_command( char* original){
 	format(original);
 	for(int i = 0; original[i]; i++)
 		original[i] = (char) tolower(original[i]);
-	return original;}
+	return original;
+}
 char* trim( char* original){
 	string ori_string(original);
 	string whitespaces (" \t\f\v\n\r");
@@ -63,40 +79,57 @@ char* trim( char* original){
 	for( i = 0; (i <= length) && (original[first+i] != '\0'); i++)
 		original[i] = original[first+i];
 	original[first+i] = '\0';
-	return original;}
+	return original;
+}
 
 char* getLine(){
 	//get input
 	cin.getline( input, input_size);
 	//return input
-	return input;}
+	return input;
+}
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	std::ifstream accountsFile(accountsFilename);
-	if( accountsFile.bad())
-		return false;
-	while( ! accountsFile.eof()){
+	if( debug_accounts) printf("Loading Accounts %d\n",accounts.size());
+	std::ifstream accountsFile( accountsFilename);
+	if( accountsFile.bad()){
+		if( debug_accounts) printf("Loading Accounts Failed\n");
+		return false;}
+	while( accountsFile.good() && ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
-		accounts.push_back(Account( buffer));}
+		Account newAccount (buffer);
+		if( newAccount.isEnd())
+			break;
+		else
+			accounts.push_back( newAccount);}
+	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size());
+	if( debug_accounts) printf("Loading Accounts Complete\n");
 	return true;
 }
 bool loadTickets( char* ticketsFilename){
-	return true;}
+	if( debug_tickets) printf("Loading Tickets\n");
+	std::ifstream ticketsFile( ticketsFilename);
+	if( ticketsFile.bad()){
+		if( debug_tickets) printf("Loading Tickets Failed\n");
+		return false;}
+	while( ticketsFile.good() && ! ticketsFile.eof()){
+		ticketsFile.getline( buffer, buffer_size);
+		Ticket newTicket (buffer);
+		if( newTicket.isEnd())
+			break;
+		else
+			tickets.push_back( newTicket);}
+	if( debug_tickets) printf("%d Tickets loaded from file\n", tickets.size());
+	if( debug_tickets) printf("Loading Tickets Complete\n");
+	return true;
+}
 
-//error functions 
-/*
+//error functions
 void throwError( const char* newError_string){
 	error = true;
-	int i;
-	for( i = 0; error_string[i] != '\0'; i++)
-		error_string[i] = newError_string[i];
-	error_string[i] = '\0';}
-	//or:*/ //
-//*
-void throwError( const char* newError_string){
-	error = true;
-	strcpy(error_string, newError_string);}
-	//*/
+	strcpy(error_string, newError_string);
+}
 void clearError(){
-	error = false;}
+	error = false;
+}

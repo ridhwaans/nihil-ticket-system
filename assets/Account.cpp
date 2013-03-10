@@ -34,6 +34,8 @@ Account::Account( char* line){
 		this->type = Account::Full;
 	else throwError(Error::badTicketStringError);
 
+	//ensure initial credit is 0
+	this->credit = 0;
 	//ensure we are now reading from the correct position
 	line_i = username_size + 1 + type_size + 1;
 	current_field = line + line_i;
@@ -46,6 +48,7 @@ Account::Account( char* line){
 	strncpy(temp, current_field, 2);
 	temp[2] = '\0';
 	this->credit += ( atoi( temp));
+	delete temp;
 }
 
 bool Account::isEnd(){
