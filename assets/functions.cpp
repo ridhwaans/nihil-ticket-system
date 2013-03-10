@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <ctype.h>
 #include <iostream>
-#include <string.h>	
+#include <string.h>
+#include "debug.h"
 #include "globals.h"
 
 using namespace std;
@@ -15,12 +16,23 @@ bool init(
 	input = new char[input_size+1];
 	buffer = new char[buffer_size+1];
 	error_string = new char[error_size+1];
+	//check filenames are valid?
+	if( debug_accounts)
+		printf("Accounts Filename:     %s\n",accountsFilename);
+	if( debug_tickets)
+		printf("Tickets Filename:      %s\n",ticketsFilename);
+	if( debug_transactions)
+		printf("Transactions Filename: %s\n",transactionFilename);
 	//prepare the transactions file for output
 	transactionFile = new TransactionFile( transactionFilename);
 	//load data files
-	return
-		loadAccounts( accountsFilename) ?
-		loadTickets( ticketsFilename) : false;
+	//uses ternary since it should stop if loadAccounts fails
+	bool loadAccounts_success = loadAccounts( accountsFilename);
+	bool loadTickets_success = loadTickets( ticketsFilename);
+	//doing debug checks
+
+	//finish
+	return loadAccounts_success && loadTickets_success;
 }
 
 bool deinit (){
@@ -79,26 +91,37 @@ char* getLine(){
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	std::ifstream accountsFile( accountsFilename, ifstream::in);
-	if( accountsFile.bad())
-		return false;
-	printf( "accounts file is bad: %d\n", accountsFile.bad());
-	while( ! accountsFile.eof()){
+	if( debug_accounts) printf("Loading Accounts %d\n",accounts.size());
+	std::ifstream accountsFile( accountsFilename);
+	if( accountsFile.bad()){
+		if( debug_accounts) printf("Loading Accounts Failed\n");
+		return false;}
+	while( accountsFile.good() && ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
 		Account newAccount (buffer);
 		if( newAccount.isEnd())
 			break;
 		else
 			accounts.push_back( newAccount);}
+	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size());
+	if( debug_accounts) printf("Loading Accounts Complete\n");
 	return true;
 }
 bool loadTickets( char* ticketsFilename){
+	if( debug_tickets) printf("Loading Tickets\n");
 	std::ifstream ticketsFile( ticketsFilename);
-	if( ticketsFile.bad())
-		return false;
-	while( ! ticketsFile.eof()){
+	if( ticketsFile.bad()){
+		if( debug_tickets) printf("Loading Tickets Failed\n");
+		return false;}
+	while( ticketsFile.good() && ! ticketsFile.eof()){
 		ticketsFile.getline( buffer, buffer_size);
-		tickets.push_back( Ticket( buffer));}
+		Ticket newTicket (buffer);
+		if( newTicket.isEnd())
+			break;
+		else
+			tickets.push_back( newTicket);}
+	if( debug_tickets) printf("%d Tickets loaded from file\n", tickets.size());
+	if( debug_tickets) printf("Loading Tickets Complete\n");
 	return true;
 }
 

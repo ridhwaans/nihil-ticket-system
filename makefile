@@ -133,6 +133,7 @@ assets/errors.o: \
 	g++ -c -o assets/errors.o \
 		assets/errors.cpp
 assets/functions.o: \
+		assets/debug.h \
 		assets/globals.h \
 		assets/functions.cpp
 	g++ -c -o assets/functions.o \
@@ -162,7 +163,7 @@ assets/TransactionFile.o: \
 
 #tests
 test-client: nts-client
-	./nts-client
+	./nts-client resources/data.cua resources/data.atf output.dtf
 test-allCases: nts-client
 	tools/testAllCases
 
@@ -209,6 +210,15 @@ tests/testTicket.out: tests/testTicket.cpp \
 		nts-lib.a
 	g++ -o tests/testTicket.out \
 			tests/testTicket.cpp \
+			nts-lib.a
+
+test-tickets: tests/testTickets.out
+	tests/testTickets.out
+tests/testTickets.out: tests/testTickets.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testTickets.out \
+			tests/testTickets.cpp \
 			nts-lib.a
 
 test-transaction: tests/testTransaction.out

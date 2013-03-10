@@ -1,6 +1,5 @@
 #include <cstdio>
 
-#include <algorithm>
 #include <string>
 
 #include "../assets/globals.h"
@@ -19,6 +18,6 @@ int main ( int argc, char** argv, char** envp) {
 	//do validations
 	printf( "Number of accounts: %d\n", accounts.size());
 	for( int i = 0; i < accounts.size(); i++)
-		printf("Account %d:{%10s,%2d,%7	d}\n", i,
+		printf("Account %d:{%10s,%2d,%7d}\n", i,
 			accounts[i].username, accounts[i].type, accounts[i].credit);
 }

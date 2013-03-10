@@ -4,16 +4,16 @@
 #include <iostream>
 #include "nts-lib.h"
 
-#define AccountsFilenameArgIndex 0
-#define TicketsFilenameArgIndex 1
-#define TransactionFilenameArgIndex 2
+#define AccountsFilename_ArgIndex 1
+#define TicketsFilename_ArgIndex 2
+#define TransactionFilename_ArgIndex 3
 
-int main( int argc, char *argv[], char *envp[]) {
+int main( int argc, char* argv[], char *envp[]) {
 	//load
 	init(
-		argv[AccountsFilenameArgIndex],
-		argv[TicketsFilenameArgIndex],
-		argv[TransactionFilenameArgIndex]);
+		argv[AccountsFilename_ArgIndex],
+		argv[TicketsFilename_ArgIndex],
+		argv[TransactionFilename_ArgIndex]);
 	//welcome message
 	printf("Welcome to Ticket sales\n");
 	
