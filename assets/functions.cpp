@@ -82,7 +82,9 @@ bool loadAccounts( char* accountsFilename){
 	return true;
 }
 bool loadTickets( char* ticketsFilename){
-	return true;}
+
+	return true;
+}
 
 //error functions 
 /*
