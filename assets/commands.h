@@ -2,7 +2,9 @@
 #define assets_commands_h
 
 //library headers
+
 //local headers
+#include "globals.h"
 
 void command_addCredit();
 void command_addCredit_admin();
