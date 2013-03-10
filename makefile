@@ -59,8 +59,10 @@ commands: \
 tests: \
 		tests/testAccount.out \
 		tests/testAccounts.out \
+		tests/testBuy.out \
 		tests/testError.out \
 		tests/testFunctions.out \
+		tests/testSell.out \
 		tests/testTicket.out \
 		tests/testTransaction.out
 resources: \
@@ -185,6 +187,15 @@ tests/testAccounts.out: tests/testAccounts.cpp \
 			tests/testAccounts.cpp \
 			nts-lib.a
 
+test-buy: tests/testBuy.out
+	tests/testBuy.out
+tests/testBuy.out: tests/testBuy.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testBuy.out \
+			tests/testBuy.cpp \
+			nts-lib.a
+
 test-error: tests/testError.out
 	tests/testError.out
 tests/testError.out: tests/testError.cpp \
@@ -201,6 +212,15 @@ tests/testFunctions.out: tests/testFunctions.cpp \
 		nts-lib.a
 	g++ -o tests/testFunctions.out \
 			tests/testFunctions.cpp \
+			nts-lib.a
+
+test-sell: tests/testSell.out
+	tests/testSell.out
+tests/testSell.out: tests/testSell.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testSell.out \
+			tests/testSell.cpp \
 			nts-lib.a
 
 test-ticket: tests/testTicket.out
