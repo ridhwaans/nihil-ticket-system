@@ -1,6 +1,15 @@
 #include "../commands.h"
 
 
+/**
+ * Performs the necessary operations when the user invokes the sell command.
+ * This command sells a specified number of tickets to a specified event,
+ * with the specified price per ticket.
+ * The user is asked for the following information, in this order:
+ *		1 the event name
+ *		2 pricer per ticket
+ *		3 number of tickets to sell
+ */
 void command_sell(){
 //basic command pseudocode:
 

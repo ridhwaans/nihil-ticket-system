@@ -1,27 +1,31 @@
 #include "../commands.h"
 
 
-//basic command pseudocode:
-	//get all inputs
-		//stop only if input line cannot be parsed
-	//validate all inputs
-		//e.g. username is in the accounts list
-	//if relevant to command, confirm execution of command should proceed
-		//only command this applies to is buy
-	//prepare relevant objects
-		//e.g. new account, new tickets, etc
-	//perform internal actions
-		//e.g. accounts.add(newAccount) or tickets[4].quantity-=4
-	//construct transaction
-		//e.g. Transaction transaction(Transaction.create);
-			//transaction.username = username;
-	//push transaction
-	//transactions.add(transaction);
-	//clean up
-	//terminate
-	//return 0;
-//end basic command pseudocode
+/**
+ * Performs the necessary operations when the user invokes the buy command.
+ * This command buys a specified number of tickets to a specified event,
+ * from a specified user (the seller).
+ * The user is asked for the following information, in this order:
+ *		1 the event name
+ *		2 the number of tickets to buy
+ *		3 the seller's username
+ */
 void command_buy(){
+
+	//Get Event Title
+	std::cout << "\nPlease enter the event of which to buy tickets for:\n";
+	char* InputEventTitle = format( getLine() );
+
+	//Get Number of Tickets to Sell
+   std::cout << "\nPlease enter the number of tickets to buy:\n";
+	char* InputNumOfTicket = format( getLine() );
+
+	//Get Ticket Price
+	std::cout << "\nPlease enter the username of whom to purchase the tickets from\n";
+	char* InputTicketPrice = format( getLine() );
+
+
+
 	//get parameter
 	//check for EOF
 	//format input
@@ -43,4 +47,5 @@ void command_buy(){
 	//transactionFile.add( transaction);
 	
 	//done, clean up?
-	return;}
+	return;
+}
