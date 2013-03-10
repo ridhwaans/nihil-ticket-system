@@ -58,6 +58,7 @@ commands: \
 	assets/commands/sell.o
 tests: \
 		tests/testAccount.out \
+		tests/testAccounts.out \
 		tests/testError.out \
 		tests/testFunctions.out \
 		tests/testTicket.out \
@@ -165,13 +166,22 @@ test-client: nts-client
 test-allCases: nts-client
 	tools/testAllCases
 
-test-functions: tests/testFunctions.out
-	tests/testFunctions.out
-tests/testFunctions.out: tests/testFunctions.cpp \
+test-account: tests/testAccount.out
+	tests/testAccount.out
+tests/testAccount.out: tests/testAccount.cpp \
 		assets/globals.h \
 		nts-lib.a
-	g++ -o tests/testFunctions.out \
-			tests/testFunctions.cpp \
+	g++ -o tests/testAccount.out \
+			tests/testAccount.cpp \
+			nts-lib.a
+
+test-accounts: tests/testAccounts.out
+	tests/testAccounts.out
+tests/testAccounts.out: tests/testAccounts.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testAccounts.out \
+			tests/testAccounts.cpp \
 			nts-lib.a
 
 test-error: tests/testError.out
@@ -183,6 +193,15 @@ tests/testError.out: tests/testError.cpp \
 			tests/testError.cpp \
 			nts-lib.a
 
+test-functions: tests/testFunctions.out
+	tests/testFunctions.out
+tests/testFunctions.out: tests/testFunctions.cpp \
+		assets/globals.h \
+		nts-lib.a
+	g++ -o tests/testFunctions.out \
+			tests/testFunctions.cpp \
+			nts-lib.a
+
 test-ticket: tests/testTicket.out
 	tests/testTicket.out
 tests/testTicket.out: tests/testTicket.cpp \
@@ -190,15 +209,6 @@ tests/testTicket.out: tests/testTicket.cpp \
 		nts-lib.a
 	g++ -o tests/testTicket.out \
 			tests/testTicket.cpp \
-			nts-lib.a
-
-test-account: tests/testAccount.out
-	tests/testAccount.out
-tests/testAccount.out: tests/testAccount.cpp \
-		assets/globals.h \
-		nts-lib.a
-	g++ -o tests/testAccount.out \
-			tests/testAccount.cpp \
 			nts-lib.a
 
 test-transaction: tests/testTransaction.out

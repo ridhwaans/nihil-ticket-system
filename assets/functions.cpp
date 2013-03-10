@@ -20,13 +20,15 @@ bool init(
 	//load data files
 	return
 		loadAccounts( accountsFilename) ?
-		loadTickets( ticketsFilename) : false;}
+		loadTickets( ticketsFilename) : false;
+}
 
 bool deinit (){
 	delete input;
 	delete buffer;
 	delete error_string;
-	delete transactionFile;}
+	delete transactionFile;
+}
 
 //input functions
 char* format( char* original){
@@ -43,12 +45,14 @@ char* format( char* original){
 	original[j] = '\0';
 		//add the null terminator character to ensure other functions, for example print statements, know when the string ends.
 	//finish
-	return original;}
+	return original;
+}
 char* format_command( char* original){
 	format(original);
 	for(int i = 0; original[i]; i++)
 		original[i] = (char) tolower(original[i]);
-	return original;}
+	return original;
+}
 char* trim( char* original){
 	string ori_string(original);
 	string whitespaces (" \t\f\v\n\r");
@@ -63,42 +67,46 @@ char* trim( char* original){
 	for( i = 0; (i <= length) && (original[first+i] != '\0'); i++)
 		original[i] = original[first+i];
 	original[first+i] = '\0';
-	return original;}
+	return original;
+}
 
 char* getLine(){
 	//get input
 	cin.getline( input, input_size);
 	//return input
-	return input;}
+	return input;
+}
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	std::ifstream accountsFile(accountsFilename);
+	std::ifstream accountsFile( accountsFilename, ifstream::in);
 	if( accountsFile.bad())
 		return false;
+	printf( "accounts file is bad: %d\n", accountsFile.bad());
 	while( ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
-		accounts.push_back(Account( buffer));}
+		Account newAccount (buffer);
+		if( newAccount.isEnd())
+			break;
+		else
+			accounts.push_back( newAccount);}
 	return true;
 }
 bool loadTickets( char* ticketsFilename){
-
+	std::ifstream ticketsFile( ticketsFilename);
+	if( ticketsFile.bad())
+		return false;
+	while( ! ticketsFile.eof()){
+		ticketsFile.getline( buffer, buffer_size);
+		tickets.push_back( Ticket( buffer));}
 	return true;
 }
 
-//error functions 
-/*
+//error functions
 void throwError( const char* newError_string){
 	error = true;
-	int i;
-	for( i = 0; error_string[i] != '\0'; i++)
-		error_string[i] = newError_string[i];
-	error_string[i] = '\0';}
-	//or:*/ //
-//*
-void throwError( const char* newError_string){
-	error = true;
-	strcpy(error_string, newError_string);}
-	//*/
+	strcpy(error_string, newError_string);
+}
 void clearError(){
-	error = false;}
+	error = false;
+}

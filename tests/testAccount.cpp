@@ -1,5 +1,5 @@
 #include <cstdio>
-#include <string.h>
+#include <string>
 #include "../assets/globals.h"
 #include "../assets/Ticket.h"
 
