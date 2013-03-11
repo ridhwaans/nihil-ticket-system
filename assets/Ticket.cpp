@@ -57,6 +57,36 @@ Ticket::Ticket( char* eventname, int quantity, int price, char* username) {
 	this->username = username;
 }
 
+Ticket::Ticket( const Ticket& other){
+	//copy over event name
+	this->eventName = new char[eventName_size+1];
+	strcpy( this->eventName, other.eventName);
+	//copy over user name
+	this->username = new char[username_size+1];
+	strcpy( this->username, other.username);
+	//copy other fields
+	this->quantity = other.quantity;
+	this->price = other.price;
+}
+
+Ticket& Ticket::operator=( const Ticket& other){
+	//copy over event name
+	delete[] this->eventName;
+	this->eventName = new char[eventName_size+1];
+	strcpy( this->eventName, other.eventName);
+	//copy over user name
+	delete[] this->username;
+	this->username = new char[username_size+1];
+	strcpy( this->username, other.username);
+	//copy other fields
+	this->quantity = other.quantity;
+	this->price = other.price;
+}
+
+Ticket::~Ticket(){
+	delete[] this->eventName;
+	delete[] this->username;
+}
 
 /**
  * Checks if the ticket object has eventName "END", indicating that the

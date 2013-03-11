@@ -14,27 +14,27 @@ using namespace std;
 char* Transaction::transaction_digit(Code transaction_code, char* dest) {
 	if( transaction_code == Transaction::Create){
 		char digit[] = "01";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	else if( transaction_code == Transaction::Delete){
 		char digit[] = "02";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	else if( transaction_code == Transaction::Sell){
 		char digit[] = "03";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	else if( transaction_code == Transaction::Buy){
 		char digit[] = "04";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	else if( transaction_code == Transaction::Refund){
 		char digit[] = "05";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	else if( transaction_code == Transaction::AddCredit){
 		char digit[] = "06";
-		strcpy( digit, dest);
+		strcpy( dest, digit);
 	}
 	return dest;
 }
@@ -50,6 +50,12 @@ Transaction::Transaction(){
 	eventName = new char[eventName_size+1];
 	buyer = new char[username_size+1];
 	seller = new char[username_size+1];
+}
+Transaction::~Transaction(){
+	delete[] this->username;
+	delete[] this->eventName;
+	delete[] this->buyer;
+	delete[] this->seller;
 }
 
 /**

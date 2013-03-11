@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <cstdlib>
-#include <string.h>
 #include <iostream>
+#include <string>
+
 #include "nts-lib.h"
 
 #define AccountsFilename_ArgIndex 1
@@ -10,6 +11,7 @@
 
 int main( int argc, char* argv[], char *envp[]) {
 	//load
+	//do filename validation!
 	init(
 		argv[AccountsFilename_ArgIndex],
 		argv[TicketsFilename_ArgIndex],
@@ -19,16 +21,19 @@ int main( int argc, char* argv[], char *envp[]) {
 	
 	//enter shell loop
 	while( true){
+		//print prompt
+		if( promptEnabled) printf("> ");
 		//get command and format it ( to lower case)
 		char* command = format_command(getLine());
 		//exit on end of input
-		if( std::cin.eof())
-			break;
+		if( std::cin.eof()){
+			if( promptEnabled) printf("\n");
+			break;}
 		//get input again if no input
 		else if( strlen( command) == 0)
 			continue;
 		//exit with quit command
-		else if( !strcmp( command, "quit"))
+		else if( ! strcmp( command, "quit"))
 			break;
 		//do not attempt to enter login session if command is not 'login'
 		else if( strcmp( command, "login")){
@@ -48,17 +53,30 @@ int main( int argc, char* argv[], char *envp[]) {
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
 		//username validation
-		//implement this properly when Account and loadAccounts are completed
-		printf( "[Success] Logged in as \'%s\'\n",username);
+		currentAccount_index = -1;
+		for( int i = 0; i < accounts.size(); i++)
+			if( ! strcmp( accounts[i].username, username)){
+				currentAccount_index = i;
+				break;}
+		//check username was not found
+		if( currentAccount_index < 0){
+			printf( "%s\n", Error::InvalidLoginError);
+			continue;}
+		//username valid - continue to enter login session
+		currentAccount = &accounts[currentAccount_index];
+		printf( "[Success] Logged in as \'%s\'\n",
+			currentAccount->username);
 		
 		//enter login session
 		while( true){
-			//prompt? (future feature)
+			//prompt
+			if( promptEnabled) printf("> ");
 			//get command
 			command = format_command(getLine());
 			//if EOF, exit cleanly with error flag
 			if( std::cin.eof()){
 				deinit();
+				if( promptEnabled) printf("\n");
 				return 1;}
 			
 			//check for null input

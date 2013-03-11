@@ -5,6 +5,7 @@
 #include "globals.h"
 
 Account::Account( char* username, int credit, Type type){
+	this->username = new char[username_size+1];
 	strcpy( username, this->username);
 	this->credit = credit;
 	this->type = type;
@@ -48,7 +49,26 @@ Account::Account( char* line){
 	strncpy(temp, current_field, 2);
 	temp[2] = '\0';
 	this->credit += ( atoi( temp));
-	delete temp;
+	delete[] temp;
+}
+
+Account::Account( const Account& other){
+	this->username = new char[username_size+1];
+	strcpy( this->username, other.username);
+	this->credit = other.credit;
+	this->type = other.type;
+}
+
+Account::~Account(){
+	delete[] this->username;
+}
+
+Account& Account::operator=( const Account& other){
+	delete[] this->username;
+	this->username = new char[username_size+1];
+	strcpy( this->username, other.username);
+	this->credit = other.credit;
+	this->type = other.type;
 }
 
 bool Account::isEnd(){

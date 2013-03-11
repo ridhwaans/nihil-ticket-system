@@ -18,13 +18,15 @@ public:
 	char* username;
 	
 	Ticket( char* line );
+	Ticket( const Ticket& other);
 	Ticket( char* eventname, int quantity, int price, char* username );
+	~Ticket();
+	
+	Ticket& operator=( const Ticket& other);
 	
 	bool isEnd();
-
-
 	bool isValid();
-public:
+private:
 };
 
 #endif
