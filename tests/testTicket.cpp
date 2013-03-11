@@ -10,15 +10,13 @@ int main ( int argc, char** argv, char** envp) {
 
 	Ticket* t = new Ticket( (char*) inputstring );
 	
-	printf( "Done Testing Ticket\n");
 	cout << "Testing Ticket.cpp..." << endl;
 	cout << "Event Name: "          << t->eventName << endl;
 	cout << "Username: "            << t->username  << endl;
 	cout << "Quantity: "            << t->quantity  << endl;
 	cout << "Price: "               << t->price     << endl;
 
-	cout << "Done."<<endl;
-
+	cout << "Done." << endl;
 
 	return 0;
 }
