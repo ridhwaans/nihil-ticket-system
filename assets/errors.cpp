@@ -11,8 +11,12 @@ const char Error::invalidUsernameCharactersError[] =
 const char Error::LoginRequiredError[] =
 	"[Fail] Login required";
 const char Error::InvalidLoginError[] =
-	"[Fail] Login required";
+	"[Fail] Login invalid";
 const char Error::UnrecognizedCommandError[] =
-	"[Fail] Login required";
+	"[Fail] Unrecognized command";
 const char Error::TicketLineTooLongError[] =
 	"[Fail] Ticket could not be created, line must be 45 chars exactly";
+const char Error::AccountsFileNotFoundError[] =
+	"[Fail] Accounts File Not Found";
+const char Error::TicketsFileNotFoundError[] =
+	"[Fail] Tickets File Not Found";

@@ -12,8 +12,9 @@ public:
 	char* filename;
 	
 	TransactionFile( char* filename);
+	~TransactionFile();
 	
-	void add(Transaction transaction);
+	void add( Transaction transaction);
 	void update();
 private:
 };
