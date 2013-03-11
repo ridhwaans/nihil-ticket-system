@@ -1,6 +1,6 @@
 #include "../commands.h"
 
-
+#include <iostream>
 /**
  * Performs the necessary operations when the user invokes the sell command.
  * This command sells a specified number of tickets to a specified event,
@@ -73,8 +73,8 @@ void command_sell(){
 		else
 			ValidTicketPrice = false;
 	}
-	if( !VallidTicketPrice ) {
-		std:cout << "\n Invalid Ticket price! Sell transaction cancelled. \n";
+	if( !ValidTicketPrice ) {
+		std::cout << "\n Invalid Ticket price! Sell transaction cancelled. \n";
 		return;
 	}
 
