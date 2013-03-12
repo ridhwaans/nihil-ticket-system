@@ -13,6 +13,8 @@ namespace Error {
 	extern const char InvalidLoginError[];
 	extern const char UnrecognizedCommandError[];
 	extern const char TicketLineTooLongError[];
+	extern const char UserNotFound[];
+	extern const char currentAccountDelete[];
 }
 
 #endif
