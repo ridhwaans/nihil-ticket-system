@@ -10,4 +10,6 @@
 #define promptEnabled true
 #define progress_messages true
 
+#define buy_ticketList true
+
 #endif
