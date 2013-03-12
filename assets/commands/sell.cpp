@@ -17,6 +17,12 @@ void command_sell(){
 	int   TicketPrice;
 	int   NumOfTickets;
 
+	//Check for correct account type to be allowed to sell
+	if( accounts[currentAccount_index].type == Account::Buy ) {
+		std::cout << "\n Your user account type does not allow you to sell. \n";
+		return;
+	}
+
 	//Get Event Title
 	std::cout << "\nPlease enter the event of which to sell tickets for:\n";
 	char* InputEventTitle = format( getLine() );
