@@ -1,6 +1,6 @@
 #include "../commands.h"
 
-
+#include <iostream>
 /**
  * Performs the necessary operations when the user invokes the sell command.
  * This command sells a specified number of tickets to a specified event,
