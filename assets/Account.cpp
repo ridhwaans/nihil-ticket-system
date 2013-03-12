@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Account.h"
+#include "debug.h"
 #include "globals.h"
 
 Account::Account( char* username, int credit, Type type){
@@ -12,6 +13,7 @@ Account::Account( char* username, int credit, Type type){
 }
 
 Account::Account( char* line){
+	if( debug_accounts) printf("Constructor Called\n");
 	int line_i = 0;
 	//read username
 	this->username = new char[username_size+1];
@@ -64,11 +66,13 @@ Account::~Account(){
 }
 
 Account& Account::operator=( const Account& other){
+	if( debug_accounts) printf("Destructor Called\n");
 	delete[] this->username;
 	this->username = new char[username_size+1];
 	strcpy( this->username, other.username);
 	this->credit = other.credit;
 	this->type = other.type;
+	if( debug_accounts) printf("Destructor Finished\n");
 }
 
 bool Account::isEnd(){

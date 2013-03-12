@@ -39,6 +39,8 @@ bool deinit (){
 	delete[] buffer;
 	delete[] error_string;
 	delete transactionFile;
+	while( accounts.size() > 0)
+		accounts.pop_back();
 }
 
 //input functions
@@ -101,19 +103,17 @@ bool loadAccounts( char* accountsFilename){
 		throwError( Error::AccountsFileNotFoundError);
 		return false;}
 	//start reading from the file
-	Account* newAccount;
 	while( accountsFile.good() && ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
 		if( debug_accounts) printf("Parsing %s\n", buffer);
-		newAccount = new Account( buffer);
-		if( newAccount->isEnd())
+		Account newAccount( buffer);
+		if( newAccount.isEnd())
 			break;
 		else
-			accounts.push_back( *newAccount);
-		delete newAccount;
+			accounts.push_back( newAccount);
 		if( debug_accounts) printf("Done parsing account\n");}
 	//clean up
-	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size());
+	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size()-1);
 	if( debug_accounts) printf("Loading Accounts Complete\n");
 	accountsFile.close();
 	return true;
