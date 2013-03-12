@@ -17,6 +17,12 @@ void command_sell(){
 	int   TicketPrice;
 	int   NumOfTickets;
 
+	//Check for correct account type to be allowed to sell
+	if( accounts[currentAccount_index].type == Account::Buy ) {
+		std::cout << "\n Your user account type does not allow you to sell. \n";
+		return;
+	}
+
 	//Get Event Title
 	std::cout << "\nPlease enter the event of which to sell tickets for:\n";
 	char* InputEventTitle = format( getLine() );
@@ -78,42 +84,28 @@ void command_sell(){
 		return;
 	}
 
-
 	//Get Number of Tickets to Sell
    std::cout << "\nPlease enter the number of tickets to sell:\n";
 	char* InputNumOfTicket = format( getLine() );
 	NumOfTickets = atoi( InputNumOfTicket );
-	
-	//Echo parameters
-	std::cout << "\nEvent name is:     (" << EventName    << ")";
-	std::cout << "\nValid Ticket Price: (" << ValidTicketPrice << ")";
-	std::cout << "\nTicket Price is:   (" << TicketPrice  << ")  *expressed in # of cents";
-	std::cout << "\nNum of Tickets is: (" << NumOfTickets << ")\n";
-
 
 	//Get the seller's name (the user who is currently logged in)
 	char* SellersUsername = accounts[ currentAccount_index ].username;
 
-	std::cout << "\nSeller's name is: (" << SellersUsername << ")\n";
-
-
-	//get all inputs
-		//stop only if input line cannot be parsed
-	//validate all inputs
-		//e.g. username is in the accounts list
-
-
-	//prepare relevant objects
-		//e.g. new account, new tickets, etc
-
-	//perform internal actions
-		//e.g. accounts.add(newAccount) or tickets[4].quantity-=4
+	//Construct a new ticket representing the tickets being sold
+	Ticket* t = new Ticket( EventName, NumOfTickets, TicketPrice, SellersUsername);
+	tickets.push_back( *t );
 
 	//construct transaction
-	//Transaction transaction();	
-	//transaction.username = SellersUsername;	
-	//transactions.add(transaction);	//push transaction
+	Transaction* SellTransact = new Transaction();
+	SellTransact->username = SellersUsername;
+	SellTransact->type = accounts[ currentAccount_index ].type;
+	SellTransact->eventName = EventName;
+	SellTransact->ticketAmount = TicketPrice;
+	SellTransact->code = Transaction::Sell;
 	
+	//transactionFile.add( *SellTransact );	//why doesn't this work
+
 	return;
 }
 

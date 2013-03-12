@@ -17,14 +17,20 @@ Ticket::Ticket( char* line) {
 	}
 
 	//Extract event name from line.
-	this->eventName = new char[eventName_size + 1];  								//+1 for space for null terminator
-	memcpy( (void*) this->eventName, (const void*) line, eventName_size );  //copies eventName_size chars to indices 0 to (eventName_size-1)
-	this->eventName[eventName_size] = '\0';												//null terminator 
+	char* EventName = new char[eventName_size + 1];  								//+1 for space for null terminator
+	memcpy( (void*) EventName, (const void*) line, eventName_size );  //copies eventName_size chars to indices 0 to (eventName_size-1)
+	format( EventName );
+	this->eventName = new char[ strlen(EventName) + 1 ];
+	strcpy( this->eventName, (const char*) EventName );
+	this->eventName[ strlen(EventName) ] = '\0';												//null terminator 
 
 	//Extract Seller's Username from line
-	this->username = new char[username_size + 1];
-	memcpy( (void*) this->username, (const void*) &line[eventName_size+1], username_size );//copy username_size chars starting at first char of username in line string
-	this->username[username_size] = '\0';
+	char* Username = new char[username_size + 1];
+	memcpy( (void*) Username, (const void*) &line[eventName_size+1], username_size );//copy username_size chars starting at first char of username in line string
+	format( Username );
+	this->username = new char[ strlen(Username) + 1 ];
+	strcpy( this->username, (const char*) Username );
+	this->username[ strlen(Username) ] = '\0';
 
 	//Extract quantity of tickets to sell from line
 	char* TempQuantityString = (char*) malloc(4);					//3 chars + 1 char for null terminator
