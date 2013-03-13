@@ -1,6 +1,7 @@
 #include "../commands.h"
+#include <cstdio>
 
-void command_create(){}
+void command_create(){
 //basic command pseudocode:
 	//get all inputs
 		//stop only if input line cannot be parsed
@@ -21,3 +22,14 @@ void command_create(){}
 	//terminate
 	//return 0;
 //end basic command pseudocode
+
+Transaction transaction;
+printf("Enter user name:");
+transaction.username = format(getLine());
+printf("Enter account type:");
+transaction.username = format(getLine());
+//override addCredit
+printf("Enter credit amount:");
+transaction.username = format(getLine());
+
+}

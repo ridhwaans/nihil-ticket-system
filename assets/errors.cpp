@@ -20,3 +20,9 @@ const char Error::AccountsFileNotFoundError[] =
 	"[Fail] Accounts File Not Found";
 const char Error::TicketsFileNotFoundError[] =
 	"[Fail] Tickets File Not Found";
+const char Error::UserNotFound[] =
+	"[Fail] User not found";
+const char Error::currentAccountDelete[]=
+	"[Fail] Current account deletion denied";
+const char Error::LineTooLongError[]=
+	"[Fail] Input line too long.";

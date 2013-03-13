@@ -104,7 +104,7 @@ int main( int argc, char* argv[], char *envp[]) {
 				printf( "%s\n", Error::UnrecognizedCommandError);}
 		printf("Logged out\n");
 		//push dtf to file
-		transactionFile->update();}
+		transactionFile->commit();}
 	//clean up and exit
 	deinit();
 	return 0;

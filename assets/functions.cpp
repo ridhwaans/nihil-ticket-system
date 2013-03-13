@@ -41,12 +41,16 @@ bool deinit (){
 	delete transactionFile;
 	while( accounts.size() > 0)
 		accounts.pop_back();
+	while( tickets.size() > 0)
+		tickets.pop_back();
 }
 
 //input functions
 char* format( char* original){
 	//this string defines all the chars we want to ignore
 	string whitespaces(" \t\f\v\n\r");
+	//int first = string(original).first_not_of(whitespaces);
+	//int last = string(original).last_not_of(whitespaces);
 	//defines the next place to insert a char
 	int j = 0;
 	for(int i = 0; original[i]!='\0'; i++){
