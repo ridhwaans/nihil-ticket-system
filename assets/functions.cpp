@@ -4,6 +4,9 @@
 #include <string.h>
 #include "debug.h"
 #include "globals.h"
+#include "Account.h"
+#include "Ticket.h"
+#include "TransactionFile.h"
 
 using namespace std;
 
@@ -40,9 +43,9 @@ bool deinit (){
 	delete[] error_string;
 	delete transactionFile;
 	while( accounts.size() > 0)
-		accounts.pop_back();
+		accounts.erase( accounts.begin());
 	while( tickets.size() > 0)
-		tickets.pop_back();
+		tickets.erase( tickets.begin());
 }
 
 //input functions

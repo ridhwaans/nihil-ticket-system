@@ -3,6 +3,7 @@
 
 //library headers
 //local headers
+#include "globals.h"
 #include "Account.h"
 
 class Transaction{
@@ -28,7 +29,7 @@ public:
 	Transaction(); //default null constructor
 	~Transaction();
 
-	char* write();
+	char* write(char* dest = buffer);
 	char* transaction_digit( Transaction::Code, char*);
 private:
 };

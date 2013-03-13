@@ -26,3 +26,5 @@ const char Error::currentAccountDelete[]=
 	"[Fail] Current account deletion denied";
 const char Error::LineTooLongError[]=
 	"[Fail] Input line too long.";
+const char Error::TransactionNullUsername[]=
+	"[Fail] Input line too long.";

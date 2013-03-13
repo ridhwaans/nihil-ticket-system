@@ -18,6 +18,7 @@ namespace Error {
 	extern const char UserNotFound[];
 	extern const char currentAccountDelete[];
 	extern const char LineTooLongError[];
+	extern const char TransactionNullUsername[];
 }
 
 #endif
