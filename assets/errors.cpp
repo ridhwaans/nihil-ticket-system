@@ -27,7 +27,7 @@ const char Error::currentAccountDelete[]=
 const char Error::LineTooLongError[]=
 	"[Fail] Input line too long";
 const char Error::TransactionNullUsername[]=
-	"[Fail] Input line too long";
+	"[Fail] Transaction missing username";
 const char Error::TransactionNullAccountType[]=
 	"[Fail] Transaction missing account type";
 const char Error::TransactionInvalidCredits[]=

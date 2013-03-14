@@ -48,10 +48,10 @@ void command_delete(){
 	strcpy( transaction.username, input);
 	//check for bad characters
 	//change this code block to use regex
-	std::string badChars(" \t\f\v\n\r");
+	std::string badChars(" \t\v\n\r");
 	for( int i = 0; transaction.username[i] != '\0'; i++)
-		if( badChars.find(transaction.username[i]) == std::string::npos){
-			printf("%s\n", Error::invalidUsernameCharactersError);
+		if( ! badChars.find(transaction.username[i]) == std::string::npos){
+			printf("%s %d\n", Error::invalidUsernameCharactersError, i);
 			return;}
 	//check that user != current user
 	if ( ! strcmp( transaction.username, currentAccount->username)){
