@@ -80,68 +80,63 @@ char* Transaction::write(char* dest){
 		case Transaction::Create:
 		case Transaction::Delete:
 		case Transaction::AddCredit:{
-				//check the username field
-				if( this->username == NULL){
-					printf("%s\n", Error::TransactionNullUsername);
-					return NULL;}
-				/*for( i = 0; this->username[i] != '\0'; i++)
-					current[i] = this->username[i];
-				for( i; i < username_size; i++)
-					current[i] = filler;
-				current += username_size;
-				current[0] = token;
-				current += 1;*/
+			//check the username field
+			if( this->username == NULL){
+				printf("%s\n", Error::TransactionNullUsername);
+				return NULL;}
+			/*for( i = 0; this->username[i] != '\0'; i++)
+				current[i] = this->username[i];
+			for( i; i < username_size; i++)
+				current[i] = filler;
+			current += username_size;
+			current[0] = token;
+			current += 1;*/
 
-				//prepare the account type field
-				char* typeString = new char[type_size + 1];
-				switch( type){
-					case Account::Admin:{
-						char typeString_admin[] = "AA";
-						strcpy( typeString, typeString_admin);
-						break;}
-					case Account::Buy:{
-						char typeString_buy[] = "BS";
-						strcpy( typeString, typeString_buy);
-						break;}
-					case Account::Sell:{
-						char typeString_sell[] = "SS";
-						strcpy( typeString, typeString_sell);
-						break;}
-					case Account::Full:{
-						char typeString_full[] = "FS";
-						strcpy( typeString, typeString_full);
-						break;}
-					default:{
-						printf("%s\n", Error::TransactionNullAccountType);
-						delete[] typeString;
-						delete[] codeString;
-						return NULL;}}
-
-				//check the credits field
-				if( totalCredits >= 100000000 ||
-						totalCredits <0){
-					printf("%s\n", Error::TransactionInvalidCredits);
+			//prepare the account type field
+			char* typeString = new char[type_size + 1];
+			switch( type){
+				case Account::Admin:{
+					char typeString_admin[] = "AA";
+					strcpy( typeString, typeString_admin);
+					break;}
+				case Account::Buy:{
+					char typeString_buy[] = "BS";
+					strcpy( typeString, typeString_buy);
+					break;}
+				case Account::Sell:{
+					char typeString_sell[] = "SS";
+					strcpy( typeString, typeString_sell);
+					break;}
+				case Account::Full:{
+					char typeString_full[] = "FS";
+					strcpy( typeString, typeString_full);
+					break;}
+				default:{
+					printf("%s\n", Error::TransactionNullAccountType);
 					delete[] typeString;
 					delete[] codeString;
-					return NULL;}
+					return NULL;}}
 
-				//prepare the format string
-				char* formatString = new char[50];
-				//"%02 %-15s %2s %06d.%02d" sample result
-				sprintf( formatString,
-					"%%0%dd%c%%-%ds%c%%%ds%c%%0%dd.%%02d",
-					code_size, token,
-					username_size, token,
-					type_size, token,
-					credits_size-3);
-				//write the fields
-				sprintf(buffer, formatString,
-					codeString,
-					this->username,
-					typeString,
-					this->totalCredits / 100,
-					this->totalCredits % 100);
-			break;}
+			//check the credits field
+			if( totalCredits >= 100000000 ||
+					totalCredits <0){
+				printf("%s\n", Error::TransactionInvalidCredits);
+				delete[] typeString;
+				delete[] codeString;
+				return NULL;}
+
+			//"%02s %-15s %2s %06d.%02d" sample format
+			//write the fields
+			sprintf( buffer,
+				"%0*s%c%-*s%c%*s%c%0*d.%02d",
+				code_size, codeString, token,
+				username_size, this->username, token,
+				type_size, typeString, token,
+				credit_size - 3, this->totalCredits / 100,
+				this->totalCredits % 100);
+			delete[] typeString;
+			delete[] codeString;
+			return buffer;}
 
 		//05-refund
 		//(X field 2, U field 15, S field 15, C field 9, total 44)
@@ -152,11 +147,14 @@ char* Transaction::write(char* dest){
 		//03-sell, 04-buy
 		//(X field 2, E field 19, S field 15, T field 3, P field 6, total 45+4 = 49)
 		//XX_EEEEEEEEEEEEEEEEEEE_SSSSSSSSSSSSSSS_TTT_PPPPPP
-		case Transaction::Refund:{
+		case Transaction::Buy:
+		case Transaction::Sell:{
 			break;}
 
 		//manage the error case
-		default:break;}
-	//should never get here
+		default:{
+			break;}}
+	//clean up and finish
+	delete[] codeString;
 	return NULL;
 }

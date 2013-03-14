@@ -1,8 +1,16 @@
-#include "../commands.h"
+//library includes
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
 #include <vector>
 #include <string>
+//local includes
+#include "../Account.h"
+#include "../errors.h"
+#include "../Transaction.h"
+#include "../TransactionFile.h"
+//override includes
+#include "../commands.h"
 
 void command_delete(){
 	//basic command pseudocode:

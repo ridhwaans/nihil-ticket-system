@@ -4,6 +4,7 @@
 #include "Account.h"
 #include "debug.h"
 #include "globals.h"
+#include "errors.h"
 
 Account::Account( char* username, int credit, Type type){
 	this->username = new char[username_size+1];

@@ -1,5 +1,10 @@
-#include "../commands.h"
+//local includes
+#include "../Account.h"
+#include "../Ticket.h"
+#include "../Transaction.h"
 
+//override include
+#include "../commands.h"
 
 /**
  * Performs the necessary operations when the user invokes the buy command.

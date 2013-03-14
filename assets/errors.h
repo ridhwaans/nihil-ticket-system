@@ -19,6 +19,8 @@ namespace Error {
 	extern const char currentAccountDelete[];
 	extern const char LineTooLongError[];
 	extern const char TransactionNullUsername[];
+	extern const char TransactionNullAccountType[];
+	extern const char TransactionInvalidCredits[];
 }
 
 #endif
