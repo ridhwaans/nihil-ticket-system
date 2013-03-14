@@ -19,4 +19,10 @@ const char Error::TicketLineTooLongError[] =
 const char Error::UserNotFound[] =
 	"[Fail] User not found";
 const char Error::currentAccountDelete[]=
-	"[Fail] Current account deletion denied"
+	"[Fail] Current account deletion denied";
+const char Error::LineTooLongError[]=
+		"[Fail] Input line too long.";
+const char Error::unprivilegedUserError[]=
+		"[Fail] Not a privileged user. Permission denied";
+const char Error::InvalidAccountType[]=
+		"[Fail] Invalid account type. Two letter uppercase codes indicate Admin, Full Standard, Buy Standard, or Sell Standard account types";

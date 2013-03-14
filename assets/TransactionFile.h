@@ -8,13 +8,14 @@
 
 class TransactionFile{
 public:
-	std::vector<Transaction> transactions;
-	char* filename;
-	
-	TransactionFile( char* filename);
-	
-	void add(Transaction transaction);
-	void update();
+std::vector<Transaction> transactions;
+char* filename;
+
+TransactionFile( char* filename);
+~TransactionFile();
+
+void add( Transaction transaction);
+void commit();
 private:
 };
 

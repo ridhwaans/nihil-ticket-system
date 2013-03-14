@@ -1,5 +1,7 @@
 #include "TransactionFile.h"
 
 TransactionFile::TransactionFile( char* filename){}
+TransactionFile::~TransactionFile(){}
 
-void TransactionFile::update(){}
+void TransactionFile::add( Transaction transaction){}
+void TransactionFile::commit(){}

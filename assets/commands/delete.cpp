@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <regex>
+#include <string>
 
 void command_delete(){
 //basic command pseudocode:
@@ -27,29 +28,48 @@ void command_delete(){
 //end basic command pseudocode
 
 
-Transaction transaction;
-printf("Enter user:");
-
-
-if (!(std::regex_match (format(getLine()), std::regex("\w")))){
+	Transaction transaction;
+	transaction.code = Transaction::Delete;
+	//get username
+	printf("Enter user:\n");
+	char* input = format( getLine());
+	//ensure line is not too long
+	if( strlen(input) > username_size){
+	printf("%s\n", Error::LineTooLongError);
+	return;}
+	strcpy( transaction.username, input);
+	//check for bad characters
+	//change this code block to use regex
+	std::string badChars(" \t\f\v\n\r");
+	for( int i = 0; transaction.username[i] != '\0'; i++)
+	if( badChars.find(transaction.username[i]) == std::string::npos){
 	printf("%s\n", Error::invalidUsernameCharactersError);
-}
-else if (strcmp(format(getLine()), username))){
-	printf( "%s\n", Error::currentAccountDelete);
-}
-else{
-	transaction.username = format(getLine());
-//std::vector<std::string>::iterator it = std::find(accounts.begin(), accounts.end(), transaction.username);
-
-std::vector<int>::iterator position = std::find(accounts.begin(), accounts.end(), transaction.username);
-if (position != accounts.end()){
-    accounts.erase(position);
-    currentAccount_index = ((position < currentAccount_index) ? --currentAccount_index : currentAccount_index);
-   printf("[Success] User deleted\n");
-}
-else{
-	printf( "%s\n", Error::UserNotFound);
-}
-}
+	return;}
+	//check that user != current user
+	if ( ! strcmp( transaction.username, currentAccount->username)){
+	printf("%s\n", Error::currentAccountDelete);
+	return;}
+	//find the account
+	int i;
+	for( i = 0; i < accounts.size(); i++)
+	if( ! strcmp( transaction.username, accounts[i].username))
+	break;
+	//check if we found the username
+	if( i == accounts.size()){
+	printf("%s\n", Error::UserNotFound);
+	return;}
+	//double-check that user != current user
+	if( i == currentAccount_index){
+	printf("%s\n", Error::currentAccountDelete);
+	return;}
+	//write relevant data to the transaction
+	transaction.type = accounts[i].type;
+	transaction.totalCredits = accounts[i].credit;
+	//done, finish up
+	accounts.erase( accounts.begin() + i);
+	if( currentAccount_index > i)
+	currentAccount_index--;
+	transactionFile->add(transaction);
+	printf("[Success] User deleted\n");
 }
 

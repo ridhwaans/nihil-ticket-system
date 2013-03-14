@@ -15,6 +15,9 @@ namespace Error {
 	extern const char TicketLineTooLongError[];
 	extern const char UserNotFound[];
 	extern const char currentAccountDelete[];
+	extern const char LineTooLongError[];
+	extern const char unprivilegedUserError[];
+	extern const char InvalidAccountType[];
 }
 
 #endif
