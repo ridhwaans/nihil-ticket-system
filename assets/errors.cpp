@@ -32,3 +32,7 @@ const char Error::TransactionNullAccountType[]=
 	"[Fail] Transaction missing account type";
 const char Error::TransactionInvalidCredits[]=
 	"[Fail] Transaction has invalid credit amount";
+const char Error::unprivilegedUserError[]=
+		"[Fail] Permission denied";
+const char Error::InvalidAccountType[]=
+		"[Fail] Invalid account type";
