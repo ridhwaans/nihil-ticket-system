@@ -10,6 +10,18 @@
  #include <iostream>
 
 using namespace std;
+
+//enum usertype_to_enum(char* usertype) {
+//	if ((strcmp (usertype,"AA"))
+//		return;
+//	else if ((strcmp (usertype,"FS"))
+//		return;
+//	else if ((strcmp (usertype,"BS"))
+//		return;
+//	else if ((strcmp (usertype,"SS"))
+//		return;
+//}
+
 void command_create(){
 //basic command pseudocode:
 	//get all inputs
@@ -43,24 +55,22 @@ void command_create(){
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
-//	//check for null, empty input
-//	if( std::cin.eof())
-//	break;
-//	else if( strlen(new_username) == 0){
-//	printf( "%s\n", Error::InvalidLoginError);
-//	return;}
+	//check for null, empty input
+	if( std::cin.eof() |  strlen(new_username) == 0){
+		printf( "%s\n", Error::badParameterError);
+		return;}
 
-	if( strlen(input) > username_size){
+	//check if input > required size
+	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
 		return;}
 
-
-	strcpy( transaction.username, input);
+	strcpy( transaction.username, new_username);
 
 	//check for bad characters
 	std::string badChars(" \t\f\v\n\r");
 	for( int i = 0; transaction.username[i] != '\0'; i++)
-	if( badChars.find(transaction.username[i]) == std::string::npos){
+	if( badChars.find(transaction.username[i]) != std::string::npos){
 		printf("%s\n", Error::invalidUsernameCharactersError);
 		return;}
 
@@ -74,6 +84,11 @@ void command_create(){
 
 	printf("Enter account type:");
 	char* new_accountType = format(getLine());
+
+	//check for null, empty input
+		if( std::cin.eof() |  strlen(new_accountType) == 0){
+			printf( "%s\n", Error::badParameterError);
+			return;}
 
 	//check input for correct account type size
 	if (strlen(new_accountType) != code_size){
@@ -93,17 +108,19 @@ void command_create(){
 		return;
 	}
 
-	//does this work? char* to enum
-	//transaction.type = transaction.type[new_accountType];
-
+	//transaction.type = usertype_to_enum(new_accountType);
 	printf("Enter credit amount:");
+
 	int new_accountcredit = atoi(format(getLine()));
 
-	cout << "entered " << new_accountcredit << "\n";
+	//(0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+	//cout << "entered " << new_accountcredit << "\n";
 
 	//validate and then
 	transaction.totalCredits = new_accountcredit;
 
 	transactionFile->add(transaction);
+	printf("[Success] User created\n");
 	return;
+
 }

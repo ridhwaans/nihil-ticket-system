@@ -26,7 +26,8 @@ const char Error::InvalidAccountType[]=
 		"[Fail] Invalid account type.";
 const char Error::LineTooLongError[]=
 		"[Fail] Input line too long.";
-const char Error::UserNotFound[] =
-		"[Fail] User not found";
 const char Error::currentAccountDelete[]=
 		"[Fail] Current account deletion denied";
+const char Error::UserNotFound[] =
+		"[Fail] User not found";
+
