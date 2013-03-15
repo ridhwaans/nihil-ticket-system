@@ -3,6 +3,16 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
+O_SRCS += \
+../assets/Account.o \
+../assets/Ticket.o \
+../assets/Transaction.o \
+../assets/TransactionFile.o \
+../assets/commands.o \
+../assets/errors.o \
+../assets/functions.o \
+../assets/variables.o 
+
 CPP_SRCS += \
 ../assets/Account.cpp \
 ../assets/Ticket.cpp \
@@ -10,7 +20,6 @@ CPP_SRCS += \
 ../assets/TransactionFile.cpp \
 ../assets/errors.cpp \
 ../assets/functions.cpp \
-../assets/testTransaction.cpp \
 ../assets/variables.cpp 
 
 OBJS += \
@@ -20,7 +29,6 @@ OBJS += \
 ./assets/TransactionFile.o \
 ./assets/errors.o \
 ./assets/functions.o \
-./assets/testTransaction.o \
 ./assets/variables.o 
 
 CPP_DEPS += \
@@ -30,7 +38,6 @@ CPP_DEPS += \
 ./assets/TransactionFile.d \
 ./assets/errors.d \
 ./assets/functions.d \
-./assets/testTransaction.d \
 ./assets/variables.d 
 
 
@@ -38,7 +45,7 @@ CPP_DEPS += \
 assets/%.o: ../assets/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -D__GXX_EXPERIMENTAL_CXX0X__ -O0 -g3 -Wall -c -fmessage-length=0 -std=c++0x -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

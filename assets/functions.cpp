@@ -23,22 +23,21 @@ bool init(
 		printf("Tickets Filename:      %s\n",ticketsFilename);
 	if( debug_transactions)
 		printf("Transactions Filename: %s\n",transactionFilename);
+	//load data files
+	bool loadAccounts_success = loadAccounts( accountsFilename);
+	if( ! loadAccounts_success) printf("%s\n", error_string);
+	bool loadTickets_success = loadTickets( ticketsFilename);
+	if( ! loadTickets_success) printf("%s\n", error_string);
 	//prepare the transactions file for output
 	transactionFile = new TransactionFile( transactionFilename);
-	//load data files
-	//uses ternary since it should stop if loadAccounts fails
-	bool loadAccounts_success = loadAccounts( accountsFilename);
-	bool loadTickets_success = loadTickets( ticketsFilename);
-	//doing debug checks
-
 	//finish
 	return loadAccounts_success && loadTickets_success;
 }
 
 bool deinit (){
-	delete input;
-	delete buffer;
-	delete error_string;
+	delete[] input;
+	delete[] buffer;
+	delete[] error_string;
 	delete transactionFile;
 }
 
@@ -91,37 +90,53 @@ char* getLine(){
 
 //data load functions
 bool loadAccounts( char* accountsFilename){
-	if( debug_accounts) printf("Loading Accounts %d\n",accounts.size());
+	if( debug_accounts) printf("Loading Accounts\n");
+	//add default admin
+	char admin_name[] = "admin  ";
+	accounts.push_back( Account( admin_name, 0, Account::Admin));
+	//try to load file
 	std::ifstream accountsFile( accountsFilename);
-	if( accountsFile.bad()){
+	if( !accountsFile.good()){
 		if( debug_accounts) printf("Loading Accounts Failed\n");
+		throwError( Error::AccountsFileNotFoundError);
 		return false;}
+	//start reading from the file
+	Account* newAccount;
 	while( accountsFile.good() && ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
-		Account newAccount (buffer);
-		if( newAccount.isEnd())
+		if( debug_accounts) printf("Parsing %s\n", buffer);
+		newAccount = new Account( buffer);
+		if( newAccount->isEnd())
 			break;
 		else
-			accounts.push_back( newAccount);}
+			accounts.push_back( *newAccount);
+		delete newAccount;
+		if( debug_accounts) printf("Done parsing account\n");}
+	//clean up
 	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size());
 	if( debug_accounts) printf("Loading Accounts Complete\n");
+	accountsFile.close();
 	return true;
 }
 bool loadTickets( char* ticketsFilename){
 	if( debug_tickets) printf("Loading Tickets\n");
 	std::ifstream ticketsFile( ticketsFilename);
-	if( ticketsFile.bad()){
+	if( ! ticketsFile.good()){
 		if( debug_tickets) printf("Loading Tickets Failed\n");
+		throwError( Error::TicketsFileNotFoundError);
 		return false;}
+	Ticket* newTicket;
 	while( ticketsFile.good() && ! ticketsFile.eof()){
 		ticketsFile.getline( buffer, buffer_size);
-		Ticket newTicket (buffer);
-		if( newTicket.isEnd())
+		newTicket = new Ticket(buffer);
+		if( newTicket->isEnd())
 			break;
 		else
-			tickets.push_back( newTicket);}
+			tickets.push_back( *newTicket);
+		delete newTicket;}
 	if( debug_tickets) printf("%d Tickets loaded from file\n", tickets.size());
 	if( debug_tickets) printf("Loading Tickets Complete\n");
+	ticketsFile.close();
 	return true;
 }
 

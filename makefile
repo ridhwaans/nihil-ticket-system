@@ -1,3 +1,4 @@
+CFLAGS=-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall
 #globals
 default: all
 clean: clean-specials

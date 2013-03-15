@@ -1,8 +1,11 @@
+#include "../Account.h"
+#include "../Transaction.h"
 #include "../commands.h"
+#include "../globals.h"
+#include "../errors.h"
 #include <cstdio>
 #include <algorithm>
 #include <vector>
-#include <regex>
 #include <string>
 
 void command_delete(){
@@ -28,6 +31,7 @@ void command_delete(){
 //end basic command pseudocode
 
 
+
 	Transaction transaction;
 	transaction.code = Transaction::Delete;
 	//get username
@@ -46,7 +50,7 @@ void command_delete(){
 	printf("%s\n", Error::invalidUsernameCharactersError);
 	return;}
 	//check that user != current user
-	if ( ! strcmp( transaction.username, currentAccount->username)){
+	if (!strcmp(transaction.username, accounts[currentAccount_index].username)){
 	printf("%s\n", Error::currentAccountDelete);
 	return;}
 	//find the account
@@ -72,4 +76,3 @@ void command_delete(){
 	transactionFile->add(transaction);
 	printf("[Success] User deleted\n");
 }
-

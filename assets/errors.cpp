@@ -11,18 +11,22 @@ const char Error::invalidUsernameCharactersError[] =
 const char Error::LoginRequiredError[] =
 	"[Fail] Login required";
 const char Error::InvalidLoginError[] =
-	"[Fail] Login required";
+	"[Fail] Login invalid";
 const char Error::UnrecognizedCommandError[] =
-	"[Fail] Login required";
+	"[Fail] Unrecognized command";
 const char Error::TicketLineTooLongError[] =
 	"[Fail] Ticket could not be created, line must be 45 chars exactly";
-const char Error::UserNotFound[] =
-	"[Fail] User not found";
-const char Error::currentAccountDelete[]=
-	"[Fail] Current account deletion denied";
-const char Error::LineTooLongError[]=
-		"[Fail] Input line too long.";
+const char Error::AccountsFileNotFoundError[] =
+	"[Fail] Accounts File Not Found";
+const char Error::TicketsFileNotFoundError[] =
+	"[Fail] Tickets File Not Found";
 const char Error::unprivilegedUserError[]=
 		"[Fail] Not a privileged user. Permission denied";
 const char Error::InvalidAccountType[]=
-		"[Fail] Invalid account type. Two letter uppercase codes indicate Admin, Full Standard, Buy Standard, or Sell Standard account types";
+		"[Fail] Invalid account type.";
+const char Error::LineTooLongError[]=
+		"[Fail] Input line too long.";
+const char Error::UserNotFound[] =
+		"[Fail] User not found";
+const char Error::currentAccountDelete[]=
+		"[Fail] Current account deletion denied";

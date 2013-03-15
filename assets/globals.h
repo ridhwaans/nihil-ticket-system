@@ -38,6 +38,7 @@ bool deinit();
 
 //session variables
 extern int currentAccount_index;
+extern Account* currentAccount;
 
 //data definitions
 //variables and constants

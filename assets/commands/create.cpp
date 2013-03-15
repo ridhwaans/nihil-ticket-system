@@ -2,11 +2,14 @@
 #include "../Transaction.h"
 #include "../commands.h"
 #include "../globals.h"
+#include "../errors.h"
 #include <cstdio>
 #include <vector>
 #include <ctype.h>
 #include <string>
+ #include <iostream>
 
+using namespace std;
 void command_create(){
 //basic command pseudocode:
 	//get all inputs
@@ -29,6 +32,7 @@ void command_create(){
 	//return 0;
 	//end basic command pseudocode
 
+
 	Transaction transaction;
 	transaction.code = Transaction::Create;
 
@@ -38,6 +42,13 @@ void command_create(){
 	}
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
+
+//	//check for null, empty input
+//	if( std::cin.eof())
+//	break;
+//	else if( strlen(new_username) == 0){
+//	printf( "%s\n", Error::InvalidLoginError);
+//	return;}
 
 	if( strlen(input) > username_size){
 		printf("%s\n", Error::LineTooLongError);
@@ -83,10 +94,12 @@ void command_create(){
 	}
 
 	//does this work? char* to enum
-	transaction.type = transaction.type[new_accountType];
+	//transaction.type = transaction.type[new_accountType];
 
 	printf("Enter credit amount:");
-	int new_accountcredit = format(getLine());
+	int new_accountcredit = atoi(format(getLine()));
+
+	cout << "entered " << new_accountcredit << "\n";
 
 	//validate and then
 	transaction.totalCredits = new_accountcredit;

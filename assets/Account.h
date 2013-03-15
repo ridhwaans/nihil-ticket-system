@@ -17,8 +17,12 @@ public:
 	Type type;
 	
 	Account( char* line);
+	Account( const Account& other);
 	Account( char* username, int credit, Type type);
+	~Account();
 	
+	Account& operator=( const Account& other);
+
 	bool isEnd();
 private:
 };
