@@ -20,14 +20,19 @@ const char Error::AccountsFileNotFoundError[] =
 	"[Fail] Accounts File Not Found";
 const char Error::TicketsFileNotFoundError[] =
 	"[Fail] Tickets File Not Found";
-const char Error::unprivilegedUserError[]=
-		"[Fail] Not a privileged user. Permission denied";
-const char Error::InvalidAccountType[]=
-		"[Fail] Invalid account type.";
-const char Error::LineTooLongError[]=
-		"[Fail] Input line too long.";
-const char Error::currentAccountDelete[]=
-		"[Fail] Current account deletion denied";
 const char Error::UserNotFound[] =
-		"[Fail] User not found";
-
+	"[Fail] User not found";
+const char Error::currentAccountDelete[]=
+	"[Fail] Current account deletion denied";
+const char Error::LineTooLongError[]=
+	"[Fail] Input line too long";
+const char Error::TransactionNullUsername[]=
+	"[Fail] Transaction missing username";
+const char Error::TransactionNullAccountType[]=
+	"[Fail] Transaction missing account type";
+const char Error::TransactionInvalidCredits[]=
+	"[Fail] Transaction has invalid credit amount";
+const char Error::unprivilegedUserError[]=
+		"[Fail] Permission denied";
+const char Error::InvalidAccountType[]=
+		"[Fail] Invalid account type";

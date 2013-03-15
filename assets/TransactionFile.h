@@ -14,8 +14,8 @@ public:
 	TransactionFile( char* filename);
 	~TransactionFile();
 	
-	void add( Transaction transaction);
-	void update();
+	void add( const Transaction& transaction);
+	void commit();
 private:
 };
 

@@ -1,15 +1,15 @@
-#include "../Account.h"
-#include "../Transaction.h"
-#include "../commands.h"
-#include "../globals.h"
-#include "../errors.h"
+//library includes
 #include <cstdio>
-#include <vector>
-#include <ctype.h>
+#include <cctype>
+#include <cstring>
 #include <string>
- #include <iostream>
-
-using namespace std;
+#include <vector>
+//local includes
+#include "../errors.h"
+#include "../Transaction.h"
+#include "../TransactionFile.h"
+//override includes
+#include "../commands.h"
 
 Account::Type usertype_to_enum(char* usertype) {
 	switch(usertype[0]){
@@ -17,7 +17,6 @@ Account::Type usertype_to_enum(char* usertype) {
 		case "B": return Account::Buy;
 		case "S": return Account::Sell;
 		case "F": return Account::Full;}
-}
 
 void command_create(){
 //basic command pseudocode:
@@ -51,9 +50,14 @@ void command_create(){
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
+<<<<<<< HEAD
 	//check for null, empty input
 	if( std::cin.eof() |  strlen(new_username) == 0){
 		printf( "%s\n", Error::badParameterError);
+=======
+	if( strlen(new_username) > username_size){
+		printf("%s\n", Error::LineTooLongError);
+>>>>>>> kalev/master
 		return;}
 
 	//check if input > required size
@@ -105,6 +109,7 @@ void command_create(){
 		return;
 	}
 
+<<<<<<< HEAD
 	transaction.type = usertype_to_enum(new_accountType);
 
 	printf("Enter credit amount:");
@@ -114,11 +119,25 @@ void command_create(){
 	// (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 	//cout << "entered " << new_accountcredit << "\n";
 
-	//validate and then
-	transaction.totalCredits = new_accountcredit;
+=======
+	//does this work? char* to enum
+	// no -kalev
+	//transaction.type = transaction.type[new_accountType];
 
+	printf("Enter credit amount:");
+	//int new_accountcredit = format(getLine());
+>>>>>>> kalev/master
+	//validate and then
+	// no. split the string around the '.', then add 100 times the parsed int from the left part to the right part.
+	//transaction.totalCredits = new_accountcredit;
+
+<<<<<<< HEAD
 	transactionFile->add(transaction);
 	printf("[Success] User created\n");
+=======
+	transactionFile->add( transaction);
+	//accounts.push_back( newAccount);
+>>>>>>> kalev/master
 	return;
 
 }

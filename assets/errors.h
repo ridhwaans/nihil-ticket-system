@@ -15,11 +15,13 @@ namespace Error {
 	extern const char TicketLineTooLongError[];
 	extern const char AccountsFileNotFoundError[];
 	extern const char TicketsFileNotFoundError[];
-	extern const char unprivilegedUserError[];
-	extern const char InvalidAccountType[];
-	extern const char LineTooLongError[];
 	extern const char UserNotFound[];
 	extern const char currentAccountDelete[];
+	extern const char LineTooLongError[];
+	extern const char TransactionNullUsername[];
+	extern const char TransactionNullAccountType[];
+	extern const char TransactionInvalidCredits[];
+	extern const char unprivilegedUserError[];
+	extern const char InvalidAccountType[];
 }
-
 #endif

@@ -6,13 +6,13 @@
 #include <fstream>
 #include <vector>
 //local headers
-#include "Ticket.h"
-#include "Transaction.h"
-#include "TransactionFile.h"
+//just learnt this is a bad idea :(
 
 //forward declarations
 class Account;
 class Ticket;
+class Transaction;
+class TransactionFile;
 
 //transaction string sizes
 #define	code_size 		2

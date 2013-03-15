@@ -1,12 +1,15 @@
-#include "../Account.h"
-#include "../Transaction.h"
-#include "../commands.h"
-#include "../globals.h"
-#include "../errors.h"
+//library includes
 #include <cstdio>
+#include <cstring>
 #include <algorithm>
 #include <vector>
 #include <string>
+//local includes
+#include "../Account.h"
+#include "../globals.h"
+#include "../Transaction.h"
+//override include
+#include "../commands.h"
 
 void command_delete(){
 //basic command pseudocode:
@@ -30,6 +33,10 @@ void command_delete(){
 	//return 0;
 //end basic command pseudocode
 
+<<<<<<< HEAD
+=======
+	//Setup
+>>>>>>> kalev/master
 	Transaction transaction;
 	transaction.code = Transaction::Delete;
 
@@ -41,17 +48,26 @@ void command_delete(){
 	if( strlen(input) > username_size){
 		printf("%s\n", Error::LineTooLongError);
 		return;}
+<<<<<<< HEAD
 
+=======
+>>>>>>> kalev/master
 	strcpy( transaction.username, input);
 
 	//check for bad characters
 	//change this code block to use regex
-	std::string badChars(" \t\f\v\n\r");
+	std::string badChars(" \t\v\n\r");
 	for( int i = 0; transaction.username[i] != '\0'; i++)
+<<<<<<< HEAD
 	if( badChars.find(transaction.username[i]) != std::string::npos){
 		printf("%s\n", Error::invalidUsernameCharactersError);
 		return;}
 
+=======
+		if( ! badChars.find(transaction.username[i]) == std::string::npos){
+			printf("%s %d\n", Error::invalidUsernameCharactersError, i);
+			return;}
+>>>>>>> kalev/master
 	//check that user != current user
 	if (!strcmp(transaction.username, accounts[currentAccount_index].username)){
 		printf("%s\n", Error::currentAccountDelete);
@@ -72,7 +88,6 @@ void command_delete(){
 	if( i == currentAccount_index){
 		printf("%s\n", Error::currentAccountDelete);
 		return;}
-
 	//write relevant data to the transaction
 	transaction.type = accounts[i].type;
 	transaction.totalCredits = accounts[i].credit;
@@ -80,8 +95,8 @@ void command_delete(){
 	//done, finish up
 	accounts.erase( accounts.begin() + i);
 	if( currentAccount_index > i)
-	currentAccount_index--;
 
+		currentAccount_index--;
 	transactionFile->add(transaction);
 	printf("[Success] User deleted\n");
 }
