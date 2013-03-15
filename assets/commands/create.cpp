@@ -43,12 +43,12 @@ void command_create(){
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
-	if( strlen(input) > username_size){
+	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
 		return;}
 
 
-	strcpy( transaction.username, input);
+	strcpy( transaction.username, new_username);
 
 	//check for bad characters
 	std::string badChars(" \t\f\v\n\r");
@@ -92,11 +92,11 @@ void command_create(){
 
 	printf("Enter credit amount:");
 	//int new_accountcredit = format(getLine());
-
 	//validate and then
 	// no. split the string around the '.', then add 100 times the parsed int from the left part to the right part.
 	//transaction.totalCredits = new_accountcredit;
 
 	transactionFile->add( transaction);
+	//accounts.push_back( newAccount);
 	return;
 }
