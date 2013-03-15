@@ -42,10 +42,9 @@ bool deinit (){
 	delete[] buffer;
 	delete[] error_string;
 	delete transactionFile;
-	while( accounts.size() > 0)
-		accounts.erase( accounts.begin());
-	while( tickets.size() > 0)
-		tickets.erase( tickets.begin());
+	accounts.clear();
+	accounts_queue.clear();
+	tickets.clear();
 }
 
 //input functions
