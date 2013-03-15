@@ -11,16 +11,13 @@
 
 using namespace std;
 
-//enum usertype_to_enum(char* usertype) {
-//	if ((strcmp (usertype,"AA"))
-//		return;
-//	else if ((strcmp (usertype,"FS"))
-//		return;
-//	else if ((strcmp (usertype,"BS"))
-//		return;
-//	else if ((strcmp (usertype,"SS"))
-//		return;
-//}
+Account::Type usertype_to_enum(char* usertype) {
+	switch(usertype[0]){
+		case "A": return Account::Admin;
+		case "B": return Account::Buy;
+		case "S": return Account::Sell;
+		case "F": return Account::Full;}
+}
 
 void command_create(){
 //basic command pseudocode:
@@ -43,7 +40,6 @@ void command_create(){
 	//terminate
 	//return 0;
 	//end basic command pseudocode
-
 
 	Transaction transaction;
 	transaction.code = Transaction::Create;
@@ -98,6 +94,7 @@ void command_create(){
 	if (!isalpha(new_accountType[0]) && !isalpha(new_accountType[1])){
 		printf("%s\n", Error::InvalidAccountType);
 		return;}
+
 	//turn account type code to uppercase
 	for(int i = 0; new_accountType[i] != '\0'; i++){
 		new_accountType[i] = toupper(new_accountType[i]);
@@ -108,12 +105,13 @@ void command_create(){
 		return;
 	}
 
-	//transaction.type = usertype_to_enum(new_accountType);
+	transaction.type = usertype_to_enum(new_accountType);
+
 	printf("Enter credit amount:");
 
 	int new_accountcredit = atoi(format(getLine()));
 
-	//(0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+	// (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 	//cout << "entered " << new_accountcredit << "\n";
 
 	//validate and then
