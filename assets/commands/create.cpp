@@ -1,5 +1,6 @@
 //library includes
 #include <cstdio>
+#include <cstdlib>
 #include <cctype>
 #include <cstring>
 #include <string>
@@ -10,6 +11,13 @@
 #include "../TransactionFile.h"
 //override includes
 #include "../commands.h"
+
+Account::Type usertype_to_enum(char* usertype) {
+	switch(usertype[0]){
+		case 'A': return Account::Admin;
+		case 'B': return Account::Buy;
+		case 'S': return Account::Sell;
+		case 'F': return Account::Full;}}
 
 void command_create(){
 //basic command pseudocode:
@@ -43,17 +51,24 @@ void command_create(){
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
+	//check for null, empty input
+	if( std::cin.eof() || strlen(new_username) == 0)
+		printf( "%s\n", Error::badParameterError);
 	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
 		return;}
 
+	//check if input > required size
+	if( strlen(new_username) > username_size){
+		printf("%s\n", Error::LineTooLongError);
+		return;}
 
 	strcpy( transaction.username, new_username);
 
 	//check for bad characters
 	std::string badChars(" \t\f\v\n\r");
 	for( int i = 0; transaction.username[i] != '\0'; i++)
-	if( badChars.find(transaction.username[i]) == std::string::npos){
+	if( badChars.find(transaction.username[i]) != std::string::npos){
 		printf("%s\n", Error::invalidUsernameCharactersError);
 		return;}
 
@@ -68,6 +83,11 @@ void command_create(){
 	printf("Enter account type:");
 	char* new_accountType = format(getLine());
 
+	//check for null, empty input
+		if( std::cin.eof() || strlen(new_accountType) == 0){
+			printf( "%s\n", Error::badParameterError);
+			return;}
+
 	//check input for correct account type size
 	if (strlen(new_accountType) != code_size){
 		printf("%s\n", Error::LineTooLongError);
@@ -76,6 +96,7 @@ void command_create(){
 	if (!isalpha(new_accountType[0]) && !isalpha(new_accountType[1])){
 		printf("%s\n", Error::InvalidAccountType);
 		return;}
+
 	//turn account type code to uppercase
 	for(int i = 0; new_accountType[i] != '\0'; i++){
 		new_accountType[i] = toupper(new_accountType[i]);
@@ -86,17 +107,22 @@ void command_create(){
 		return;
 	}
 
-	//does this work? char* to enum
-	// no -kalev
-	//transaction.type = transaction.type[new_accountType];
+	transaction.type = usertype_to_enum(new_accountType);
 
 	printf("Enter credit amount:");
-	//int new_accountcredit = format(getLine());
+
+	int new_accountcredit = atoi(format(getLine()));
+
+	// (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+	//cout << "entered " << new_accountcredit << "\n";
+
 	//validate and then
 	// no. split the string around the '.', then add 100 times the parsed int from the left part to the right part.
 	//transaction.totalCredits = new_accountcredit;
 
+	printf("[Success] User created\n");
 	transactionFile->add( transaction);
 	//accounts.push_back( newAccount);
 	return;
+
 }

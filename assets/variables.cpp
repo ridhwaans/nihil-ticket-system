@@ -14,4 +14,5 @@ Account* currentAccount;
 
 std::vector<Account> accounts;
 std::vector<Ticket> tickets;
+std::vector<Ticket> tickets_queue;
 TransactionFile* transactionFile;

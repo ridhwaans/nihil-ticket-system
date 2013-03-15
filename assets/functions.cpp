@@ -1,12 +1,17 @@
+//library includes
 #include <cstdio>
 #include <ctype.h>
 #include <iostream>
-#include <string.h>
+#include <cstring>
+//local includes
 #include "debug.h"
-#include "globals.h"
+#include "errors.h"
 #include "Account.h"
 #include "Ticket.h"
+#include "Transaction.h"
 #include "TransactionFile.h"
+//override include
+#include "globals.h"
 
 using namespace std;
 
@@ -43,16 +48,14 @@ bool deinit (){
 	delete[] error_string;
 	delete transactionFile;
 	accounts.clear();
-	accounts_queue.clear();
 	tickets.clear();
+	tickets_queue.clear();
 }
 
 //input functions
 char* format( char* original){
 	//this string defines all the chars we want to ignore
 	string whitespaces(" \t\f\v\n\r");
-	//int first = string(original).first_not_of(whitespaces);
-	//int last = string(original).last_not_of(whitespaces);
 	//defines the next place to insert a char
 	int j = 0;
 	for(int i = 0; original[i]!='\0'; i++){
@@ -109,17 +112,19 @@ bool loadAccounts( char* accountsFilename){
 		throwError( Error::AccountsFileNotFoundError);
 		return false;}
 	//start reading from the file
+	Account* newAccount;
 	while( accountsFile.good() && ! accountsFile.eof()){
 		accountsFile.getline( buffer, buffer_size);
 		if( debug_accounts) printf("Parsing %s\n", buffer);
-		Account newAccount( buffer);
-		if( newAccount.isEnd())
+		newAccount = new Account( buffer);
+		if( newAccount->isEnd())
 			break;
 		else
-			accounts.push_back( newAccount);
+			accounts.push_back( *newAccount);
+		delete newAccount;
 		if( debug_accounts) printf("Done parsing account\n");}
 	//clean up
-	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size()-1);
+	if( debug_accounts) printf("%d Accounts loaded from file\n", accounts.size());
 	if( debug_accounts) printf("Loading Accounts Complete\n");
 	accountsFile.close();
 	return true;

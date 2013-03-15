@@ -43,8 +43,8 @@ extern Account* currentAccount;
 //data definitions
 //variables and constants
 extern std::vector<Account> accounts;
-extern std::vector<Account> accounts_queue;
 extern std::vector<Ticket> tickets;
+extern std::vector<Ticket> tickets_queue;
 extern TransactionFile* transactionFile;
 //functions
 bool loadAccounts( char* accountsFilename);
