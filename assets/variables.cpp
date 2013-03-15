@@ -1,4 +1,7 @@
 #include "globals.h"
+#include "Account.h"
+#include "Ticket.h"
+#include "TransactionFile.h"
 
 char* input;
 char* buffer;

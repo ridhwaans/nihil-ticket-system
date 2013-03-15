@@ -47,8 +47,9 @@ int main( int argc, char* argv[], char *envp[]) {
 		//get username
 		char* username = format(getLine());
 		//check for null input
-		if( std::cin.eof())
-			break;
+		if( std::cin.eof()){
+				deinit();
+				return 1;}
 		else if( strlen( command) == 0){
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
@@ -72,11 +73,11 @@ int main( int argc, char* argv[], char *envp[]) {
 			//prompt
 			if( promptEnabled) printf("> ");
 			//get command
-			command = format_command(getLine());
+			command = format_command( getLine());
 			//if EOF, exit cleanly with error flag
 			if( std::cin.eof()){
-				deinit();
 				if( promptEnabled) printf("\n");
+				deinit();
 				return 1;}
 			
 			//check for null input
@@ -104,7 +105,7 @@ int main( int argc, char* argv[], char *envp[]) {
 				printf( "%s\n", Error::UnrecognizedCommandError);}
 		printf("Logged out\n");
 		//push dtf to file
-		transactionFile->update();}
+		transactionFile->commit();}
 	//clean up and exit
 	deinit();
 	return 0;

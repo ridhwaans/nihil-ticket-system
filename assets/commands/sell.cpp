@@ -1,6 +1,11 @@
-#include "../commands.h"
-
+//library includes
 #include <iostream>
+//local includes
+#include "../Account.h"
+#include "../Transaction.h"
+#include "../Ticket.h"
+//override includes
+#include "../commands.h"
 /**
  * Performs the necessary operations when the user invokes the sell command.
  * This command sells a specified number of tickets to a specified event,

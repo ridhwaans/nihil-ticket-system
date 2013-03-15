@@ -15,7 +15,7 @@ public:
 	~TransactionFile();
 	
 	void add( Transaction transaction);
-	void update();
+	void commit();
 private:
 };
 
