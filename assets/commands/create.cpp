@@ -5,6 +5,7 @@
 #include <cstring>
 #include <string>
 #include <vector>
+
 //local includes
 #include "../errors.h"
 #include "../Transaction.h"
@@ -12,6 +13,11 @@
 //override includes
 #include "../commands.h"
 
+/**
+ * Returns a corresponding enum value based on the user type code
+ * @param usertype two character code input
+ * @return 		   one of four enum values: Admin, Buy, Sell or Full
+ */
 Account::Type usertype_to_enum(char* usertype) {
 	switch(usertype[0]){
 		case 'A': return Account::Admin;
@@ -19,6 +25,12 @@ Account::Type usertype_to_enum(char* usertype) {
 		case 'S': return Account::Sell;
 		case 'F': return Account::Full;}}
 
+/**
+ * Carries out the necessary operations the system is to
+ * perform when the user initiates the create transaction.
+ * This includes getting and formatting all user input parameters,
+ * performing internal actions, constructing and pushing transaction
+ */
 void command_create(){
 //basic command pseudocode:
 	//get all inputs
@@ -54,9 +66,6 @@ void command_create(){
 	//check for null, empty input
 	if( std::cin.eof() || strlen(new_username) == 0)
 		printf( "%s\n", Error::badParameterError);
-	if( strlen(new_username) > username_size){
-		printf("%s\n", Error::LineTooLongError);
-		return;}
 
 	//check if input > required size
 	if( strlen(new_username) > username_size){
@@ -84,9 +93,9 @@ void command_create(){
 	char* new_accountType = format(getLine());
 
 	//check for null, empty input
-		if( std::cin.eof() || strlen(new_accountType) == 0){
-			printf( "%s\n", Error::badParameterError);
-			return;}
+	if( std::cin.eof() || strlen(new_accountType) == 0){
+		printf( "%s\n", Error::badParameterError);
+		return;}
 
 	//check input for correct account type size
 	if (strlen(new_accountType) != code_size){
@@ -109,19 +118,79 @@ void command_create(){
 
 	transaction.type = usertype_to_enum(new_accountType);
 
+	//get user input for account credit, parse int
 	printf("Enter credit amount:");
+	char* new_accountcredit = format(getLine());
 
-	int new_accountcredit = atoi(format(getLine()));
+	//check for null, empty input
+		if( std::cin.eof() || strlen(new_accountcredit) == 0)
+			printf( "%s\n", Error::badParameterError);
 
-	// (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
-	//cout << "entered " << new_accountcredit << "\n";
+	//check credit format
+	bool flag=true;
+	  //if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
 
-	//validate and then
-	// no. split the string around the '.', then add 100 times the parsed int from the left part to the right part.
-	//transaction.totalCredits = new_accountcredit;
+	  int x;int p=0;
+	  for ( x = 0; x < strlen(new_accountcredit); x++) {
+	      //printf("%c\n", input[x]);
+	      if (!isdigit(new_accountcredit[x])){
+	    	  if (new_accountcredit[x] != '.'){
+				  flag = false;
+				  break;}
+	    	  else{
+	    		  p++;}}}
 
-	printf("[Success] User created\n");
+	  if (p > 1) flag = false;
+
+	  //check if credit user input is valid
+	  if (flag == false){
+		  printf( "%s\n", Error::TransactionInvalidCredits);
+		  return;}
+
+	  //store user account credit in cents
+	  char* leftpart   = new char[ strlen(new_accountcredit) + 1];
+	  char* rightpart = new char[ strlen(new_accountcredit) + 1];
+
+	  //  for ( x = 0; x < strlen(input); x++) {
+	  //	  if (input[x] != '.')
+	  //		  leftpart[x] = input[x];
+	  //	  else{
+	  //		  int i = 0;
+	  //		  for (int y = x+1; x < strlen(input); y++) {
+	  //			  rightpart[i] = input[y];
+	  //			  i++;}}}
+
+	  x = 0; int l = 0; int r = 0;
+	  while( x<strlen(new_accountcredit) ) {
+	  	if( new_accountcredit[x] != '.' ) {
+	  		leftpart[l] = new_accountcredit[x];
+	  		l++;x++;}
+	  	else {
+	  		x++;  //skip over period
+	  		while( x<strlen(new_accountcredit) ) {
+	  			rightpart[r] = new_accountcredit[x];
+	  			r++;x++; }
+	  		break;}}
+	  leftpart[l] = 0; rightpart[r] = 0;
+
+
+	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
+
+	  int rpart=0; //compose decimal value
+	  if (rightpart[0] != NULL) rpart = (rightpart[0]- '0') * 10;
+	  if (rightpart[1] != NULL) rpart = rpart + (rightpart[1]- '0');
+	  if (rightpart[2] != NULL && ((rightpart[2]- '0') > 5)) rpart++; //round up
+
+	  //check that the account credit entered does not exceed the maximum limit
+	  if (((atoi(leftpart) * 100) + rpart) > 99999999)
+		  printf( "%s\n", Error::maxAccountCreditError);
+	  else
+		  transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
+
+	// regex (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+
 	transactionFile->add( transaction);
+	printf("[Success] User created\n");
 	//accounts.push_back( newAccount);
 	return;
 
