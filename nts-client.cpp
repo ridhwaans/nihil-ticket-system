@@ -47,9 +47,8 @@ int main( int argc, char* argv[], char *envp[]) {
 		//get username
 		char* username = format(getLine());
 		//check for null input
-		if( std::cin.eof()){
-				deinit();
-				return 1;}
+		if( std::cin.eof())
+			break;
 		else if( strlen( command) == 0){
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
@@ -73,11 +72,11 @@ int main( int argc, char* argv[], char *envp[]) {
 			//prompt
 			if( promptEnabled) printf("> ");
 			//get command
-			command = format_command( getLine());
+			command = format_command(getLine());
 			//if EOF, exit cleanly with error flag
 			if( std::cin.eof()){
-				if( promptEnabled) printf("\n");
 				deinit();
+				if( promptEnabled) printf("\n");
 				return 1;}
 			
 			//check for null input

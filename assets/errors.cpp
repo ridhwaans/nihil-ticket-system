@@ -1,13 +1,13 @@
 #include "errors.h"
 
 const char Error::badParameterError[] = 
-	"[Fail] Incorrectly formatted parameter";
+	"[Fail] Incorrectly formatted parameter.";
 const char Error::badTicketStringError[] = 
-	"[Fail] Incorrectly formatted ticket";
+	"[Fail] Incorrectly formatted ticket.";
 const char Error::badAccountStringError[] = 
-	"[Fail] Incorrectly formatted account";
+	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
-	"[Fail] Username has invalid characters";
+	"[Fail] Username has invalid characters.";
 const char Error::LoginRequiredError[] =
 	"[Fail] Login required";
 const char Error::InvalidLoginError[] =
@@ -27,8 +27,12 @@ const char Error::currentAccountDelete[]=
 const char Error::LineTooLongError[]=
 	"[Fail] Input line too long";
 const char Error::TransactionNullUsername[]=
-	"[Fail] Input line too long";
+	"[Fail] Transaction missing username";
 const char Error::TransactionNullAccountType[]=
 	"[Fail] Transaction missing account type";
 const char Error::TransactionInvalidCredits[]=
 	"[Fail] Transaction has invalid credit amount";
+const char Error::unprivilegedUserError[]=
+		"[Fail] Permission denied";
+const char Error::InvalidAccountType[]=
+		"[Fail] Invalid account type";
