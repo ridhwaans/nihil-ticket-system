@@ -4,7 +4,8 @@ nihil-ticket-system
 By:
 * Bryce Benn
 * Kalev Kalda Sikes
-* Ridhwaan Shakeeld
+* Ridhwaan Shakeel
 * Wes Unwin
 
 Descriptiony text is descriptiony
+

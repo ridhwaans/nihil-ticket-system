@@ -23,8 +23,9 @@ namespace Error {
 	extern const char TransactionNullUsername[];
 	extern const char TransactionNullAccountType[];
 	extern const char TransactionInvalidCredits[];
-	extern const char BuyInvalidNumberOfTickets[];
+   extern const char BuyInvalidNumberOfTickets[];
 	extern const char BuyUserTicketLimitExceeded[];
+	extern const char unprivilegedUserError[];
+	extern const char InvalidAccountType[];
 }
-
 #endif

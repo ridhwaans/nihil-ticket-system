@@ -1,11 +1,11 @@
 #include "errors.h"
 
 const char Error::badParameterError[] = 
-	"[Fail] Incorrectly formatted parameter";
+	"[Fail] Incorrectly formatted parameter.";
 const char Error::badTicketStringError[] = 
-	"[Fail] Incorrectly formatted ticket";
+	"[Fail] Incorrectly formatted ticket.";
 const char Error::badAccountStringError[] = 
-	"[Fail] Incorrectly formatted account";
+	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
 	"[Fail] Username has invalid characters.";
 const char Error::badUsernameStringError[] =
@@ -31,7 +31,7 @@ const char Error::currentAccountDelete[]=
 const char Error::LineTooLongError[]=
 	"[Fail] Input line too long";
 const char Error::TransactionNullUsername[]=
-	"[Fail] Input line too long";
+	"[Fail] Transaction missing username";
 const char Error::TransactionNullAccountType[]=
 	"[Fail] Transaction missing account type";
 const char Error::TransactionInvalidCredits[]=
@@ -40,3 +40,9 @@ const char Error::BuyInvalidNumberOfTickets[]=
 	"[Fail] Can not buy the specified number of tickets, there is currently not enought tickets available.";
 const char Error::BuyUserTicketLimitExceeded[]=
 	"[Fail} Your current user account prohibits you from buying more than 4 tickets from another user, in the same transaction.";
+const char Error::unprivilegedUserError[]=
+		"[Fail] Permission denied";
+const char Error::InvalidAccountType[]=
+		"[Fail] Invalid account type";
+
+

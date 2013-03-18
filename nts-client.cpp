@@ -8,14 +8,23 @@
 #define AccountsFilename_ArgIndex 1
 #define TicketsFilename_ArgIndex 2
 #define TransactionFilename_ArgIndex 3
+const char AccountsFilename_default[] = "resources/data.cua";
+const char TicketsFilename_default[] = "resources/data.atf";
+const char TransactionFilename_default[] = "output.dtf";
 
 int main( int argc, char* argv[], char *envp[]) {
 	//load
 	//do filename validation!
 	init(
-		argv[AccountsFilename_ArgIndex],
-		argv[TicketsFilename_ArgIndex],
-		argv[TransactionFilename_ArgIndex]);
+		argc > AccountsFilename_ArgIndex ?
+			argv[AccountsFilename_ArgIndex] :
+			AccountsFilename_default,
+		argc > TicketsFilename_ArgIndex ?
+			argv[TicketsFilename_ArgIndex] :
+			TicketsFilename_default,
+		argc > TransactionFilename_ArgIndex ?
+			argv[TransactionFilename_ArgIndex] :
+			TransactionFilename_default);
 	//welcome message
 	printf("Welcome to Ticket sales\n");
 	
@@ -47,9 +56,8 @@ int main( int argc, char* argv[], char *envp[]) {
 		//get username
 		char* username = format(getLine());
 		//check for null input
-		if( std::cin.eof()){
-				deinit();
-				return 1;}
+		if( std::cin.eof())
+			break;
 		else if( strlen( command) == 0){
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
@@ -73,11 +81,11 @@ int main( int argc, char* argv[], char *envp[]) {
 			//prompt
 			if( promptEnabled) printf("> ");
 			//get command
-			command = format_command( getLine());
+			command = format_command(getLine());
 			//if EOF, exit cleanly with error flag
 			if( std::cin.eof()){
-				if( promptEnabled) printf("\n");
 				deinit();
+				if( promptEnabled) printf("\n");
 				return 1;}
 			
 			//check for null input

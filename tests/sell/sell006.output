@@ -13,5 +13,5 @@ Event: newevent
 Number of tickets: 10
 Seller: admin
 Confirm [Yes/No]
-[Fail] Cannot buy tickets that were bought in the same session
+[Fail] Specified tickets currently not available
 Logged out
