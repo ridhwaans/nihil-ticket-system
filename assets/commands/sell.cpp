@@ -3,6 +3,7 @@
 //local includes
 #include "../Account.h"
 #include "../Transaction.h"
+#include "../TransactionFile.h"
 #include "../Ticket.h"
 //override includes
 #include "../commands.h"
@@ -29,17 +30,24 @@ void command_sell(){
 	}
 
 	//Get Event Title
+	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to sell tickets for:\n";
 	char* InputEventTitle = format( getLine() );
-	EventName = new char[ strlen(InputEventTitle) ];
+	EventName = new char[ strlen(InputEventTitle) + 1];
 	strcpy( EventName, (const char*) InputEventTitle );   //copy to separate buffer, before next call to getLine()
+	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
+	for(int i = 0;  i<strlen(EventName);  i++)
+		if( isalnum(EventName[i]) == 0 && EventName[i] != '-' && EventName[i] != '_') //if a character is not alphanumeric, and its not a - or _ its invalid
+			ValidEventName = false;
+	if( !ValidEventName ) {
+		std::cout << "\n" << Error::badEventStringError << "\n";
+		return;
+	}		
 	 
 	//Get Ticket Price
 	std::cout << "\nPlease enter the price per ticket:\n";
 	char* InputTicketPrice = format( getLine() );
-
 	bool ValidTicketPrice = true;									//will be set to false if anything is wrong with input
-	
 	int Periods = 0;
 	for( int i = 0;  i<strlen(InputTicketPrice);  i++) {	//first ensure there are no invalid chars, and at most 1 period
 		char C = InputTicketPrice[i];
@@ -48,8 +56,6 @@ void command_sell(){
 			ValidTicketPrice = false;  
 	}
 	if( Periods != 0 && Periods != 1 ) ValidTicketPrice = false;
-	
-	
 	if( ValidTicketPrice ) {   //Parse input string to get integer and fractional part (if a valid input string)
 		int i = 0;
 		//Extract Integer portion
@@ -102,14 +108,14 @@ void command_sell(){
 	tickets.push_back( *t );
 
 	//construct transaction
-	Transaction* SellTransact = new Transaction();
-	SellTransact->username = SellersUsername;
-	SellTransact->type = accounts[ currentAccount_index ].type;
-	SellTransact->eventName = EventName;
-	SellTransact->ticketAmount = TicketPrice;
-	SellTransact->code = Transaction::Sell;
+	Transaction SellTransact;
+	SellTransact.username = SellersUsername;
+	SellTransact.type = accounts[ currentAccount_index ].type;
+	SellTransact.eventName = EventName;
+	SellTransact.ticketAmount = TicketPrice;
+	SellTransact.code = Transaction::Sell;
 	
-	//transactionFile.add( *SellTransact );	//why doesn't this work
+	transactionFile->add( SellTransact );	
 
 	return;
 }

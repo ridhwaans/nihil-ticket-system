@@ -2,6 +2,8 @@
 #include "../Account.h"
 #include "../Ticket.h"
 #include "../Transaction.h"
+#include "../TransactionFile.h"
+#include "../debug.h"
 
 //override include
 #include "../commands.h"
@@ -22,28 +24,23 @@ void command_buy(){
 	int   NumOfTickets;
 	char* UsernameOfSeller;
 
-	//Check for correct account type to be allowed to buy
-	if( accounts[currentAccount_index].type == Account::Sell ) {
-		std::cout << "\n Your user account type does not allow you to buy. \n";
-		return;
-	}
-
 	//Show user a listing of all tickets available
-	std::cout <<   "\n                   TICKETS AVAILABLE FOR SALE                          \n";
-	std::cout <<     " Seller:         Event:              Quantity:    Ticket Price (CENTS):\n";
-	std::cout <<     " ======================================================================\n";
-	for(int i = 0;  i<tickets.size();  i++) {
-		std::cout << " " << tickets[i].username;
-		for(int j = 0;  j<16-strlen(tickets[i].username); j++)  std::cout << " ";
-		std::cout << tickets[i].eventName;
-		for(int j = 0;  j<20-strlen(tickets[i].eventName); j++) std::cout << " ";
-		std::cout << tickets[i].quantity;
-		for(int j = 0;  j<14;  j++) std::cout << " ";
-		std::cout << tickets[i].price << "\n";
+	if( buy_ticketList ) {
+		std::cout <<   "\n                   TICKETS AVAILABLE FOR SALE                          \n";
+		std::cout <<     " Seller:         Event:              Quantity:    Ticket Price (CENTS):\n";
+		std::cout <<     " ======================================================================\n";
+		for(int i = 0;  i<tickets.size();  i++) {
+			std::cout << " " << tickets[i].username;
+			for(int j = 0;  j<16-strlen(tickets[i].username); j++)  std::cout << " ";
+			std::cout << tickets[i].eventName;
+			for(int j = 0;  j<20-strlen(tickets[i].eventName); j++) std::cout << " ";
+			std::cout << tickets[i].quantity;
+			for(int j = 0;  j<14;  j++) std::cout << " ";
+			std::cout << tickets[i].price << "\n";
+		}
+		std::cout <<     " ----------------------------------------------------------------------\n";
+		std::cout <<     "                    YOUR CREDIT BALANCE: " << accounts[currentAccount_index].credit << " (CENTS)\n\n";
 	}
-   std::cout <<     " ----------------------------------------------------------------------\n";
-	std::cout <<     "                    YOUR CREDIT BALANCE: " << accounts[currentAccount_index].credit << " (CENTS)\n\n";
-
 
 	//Get event title
 	bool ValidEventName = true;
@@ -53,28 +50,40 @@ void command_buy(){
 	strcpy(EventName, (const char*) InputEventTitle);
 	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
 	for(int i = 0;  i<strlen(EventName);  i++)
-		if( isalnum(EventName[i]) == 0 )
+		if( isalnum(EventName[i]) == 0 && EventName[i] != '-' && EventName[i] != '_') //if a character is not alphanumeric, and its not a - or _ its invalid
 			ValidEventName = false;
 	if( !ValidEventName ) {
 		std::cout << "\n" << Error::badEventStringError << "\n";
 		return;
-	}
-			
+	}			
 
 	//Get Number of tickets to buy
+	bool ValidNumOfTickets = true;
    std::cout << "\nPlease enter the number of tickets to buy:\n";
 	char* InputNumOfTicket = format( getLine() );
 	NumOfTickets = atoi( InputNumOfTicket );
+	if( strlen(InputNumOfTicket) == 0 || NumOfTickets <= 0 )	ValidNumOfTickets = false;
+	if( !ValidNumOfTickets ) {
+		std::cout << "\n" << Error::BuyInvalidNumberOfTickets << "\n";
+		return;
+	}
+	//Note: other checking based on account type and/or whether buying from their 
+	//own tickets will be checked later
 
 	//Get username of seller to buy from
 	std::cout << "\nPlease enter the username of whom to purchase the tickets from\n";
 	char* InputUsernameOfSeller = format( getLine() );
 	UsernameOfSeller = new char[ strlen(InputUsernameOfSeller) + 1 ];
 	strcpy(UsernameOfSeller, InputUsernameOfSeller);
-
+	if( strlen(UsernameOfSeller) == 0 || strlen(UsernameOfSeller) > username_size ) 
+	{
+		std::cout << "\n" << Error::badUsernameStringError << "\n";
+		return;
+	}
+	
 	//Check if seller exists
 	bool SellerExists = false; //will be set to true if seller is found
-	if( strcmp( UsernameOfSeller, "admin" ) == 0 ) SellerExists = true;   //there always exists the build in account 'admin'
+	if( strcmp( UsernameOfSeller, "admin" ) == 0 ) SellerExists = true;   //there always exists the built in account 'admin'
 	for(int u = 0;  u<accounts.size();  u++) {
 		if( strcmp(accounts[u].username, UsernameOfSeller)==0 ) {
 			SellerExists = true;
@@ -108,6 +117,14 @@ void command_buy(){
 		return;
 	}
 
+	//Ensure current user is not trying to buy more tickets than they are allowed to buy in one session (based on user type, and if buying their own tickets)
+	if( strcmp(currentAccount->username,  UsernameOfSeller) != 0 ) {   //user is not buying their own tickets
+		if( currentAccount->type == Account::Sell || (currentAccount->type != Account::Admin && NumOfTickets > 4) ) {
+			std::cout << Error::BuyUserTicketLimitExceeded;
+			return;
+		}
+	}
+
 	//Is buyer trying to buy more tickets than are available?
 	if( NumOfTickets > MaxTicketsAvailable ) {
 		std::cout << "\nUnfortunately you can not buy " << NumOfTickets << " as there is a max of " << MaxTicketsAvailable << " from the seller, to the requested event. Transaction cancelled. \n";
@@ -127,13 +144,13 @@ void command_buy(){
 	std::cout << "\n Ticket Purchase Successful. \n";
 
 	//construct transaction
-	Transaction* BuyTransact = new Transaction();
-	BuyTransact->username = accounts[ currentAccount_index ].username;
-	BuyTransact->type = accounts[ currentAccount_index ].type;
-	BuyTransact->eventName = EventName;
-	BuyTransact->code = Transaction::Buy;
+	Transaction BuyTransact;
+	BuyTransact.username = accounts[ currentAccount_index ].username;
+	BuyTransact.type = accounts[ currentAccount_index ].type;
+	BuyTransact.eventName = EventName;
+	BuyTransact.code = Transaction::Buy;
 
-	//transactionFile.add( *BuyTransact );	//why doesn't this work
+	transactionFile->add( BuyTransact );
 
 	return;
 }
