@@ -17,9 +17,9 @@ using namespace std;
 
 //initialization functions
 bool init(
-		char* accountsFilename,
-		char* ticketsFilename,
-		char* transactionFilename){
+		const char* accountsFilename,
+		const char* ticketsFilename,
+		const char* transactionFilename){
 	//initialize global variables
 	input = new char[input_size+1];
 	buffer = new char[buffer_size+1];
@@ -100,7 +100,7 @@ char* getLine(){
 }
 
 //data load functions
-bool loadAccounts( char* accountsFilename){
+bool loadAccounts( const char* accountsFilename){
 	if( debug_accounts) printf("Loading Accounts\n");
 	//add default admin
 	char admin_name[] = "admin  ";
@@ -129,7 +129,7 @@ bool loadAccounts( char* accountsFilename){
 	accountsFile.close();
 	return true;
 }
-bool loadTickets( char* ticketsFilename){
+bool loadTickets( const char* ticketsFilename){
 	if( debug_tickets) printf("Loading Tickets\n");
 	std::ifstream ticketsFile( ticketsFilename);
 	if( ! ticketsFile.good()){

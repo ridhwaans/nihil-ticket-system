@@ -4,11 +4,13 @@
 //override include
 #include "TransactionFile.h"
 
-TransactionFile::TransactionFile( char* filename){
-	strcpy( this->filename, filename);
+TransactionFile::TransactionFile( const char* _filename){
+	filename = new char[filename_size];
+	strcpy( filename, _filename);
 }
 TransactionFile::~TransactionFile(){
 	transactions.clear();
+	delete[] filename;
 }
 
 void TransactionFile::add( const Transaction& transaction){

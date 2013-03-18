@@ -8,14 +8,23 @@
 #define AccountsFilename_ArgIndex 1
 #define TicketsFilename_ArgIndex 2
 #define TransactionFilename_ArgIndex 3
+const char AccountsFilename_default[] = "resources/data.cua";
+const char TicketsFilename_default[] = "resources/data.atf";
+const char TransactionFilename_default[] = "output.dtf";
 
 int main( int argc, char* argv[], char *envp[]) {
 	//load
 	//do filename validation!
 	init(
-		argv[AccountsFilename_ArgIndex],
-		argv[TicketsFilename_ArgIndex],
-		argv[TransactionFilename_ArgIndex]);
+		argc > AccountsFilename_ArgIndex ?
+			argv[AccountsFilename_ArgIndex] :
+			AccountsFilename_default,
+		argc > TicketsFilename_ArgIndex ?
+			argv[TicketsFilename_ArgIndex] :
+			TicketsFilename_default,
+		argc > TransactionFilename_ArgIndex ?
+			argv[TransactionFilename_ArgIndex] :
+			TransactionFilename_default);
 	//welcome message
 	printf("Welcome to Ticket sales\n");
 	
