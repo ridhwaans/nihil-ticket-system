@@ -23,5 +23,6 @@ namespace Error {
 	extern const char TransactionInvalidCredits[];
 	extern const char unprivilegedUserError[];
 	extern const char InvalidAccountType[];
+	extern const char maxAccountCreditError[];
 }
 #endif
