@@ -44,6 +44,8 @@ int main( int argc, char* argv[], char *envp[]) {
 		//exit with quit command
 		else if( ! strcmp( command, "quit"))
 			break;
+		else if( ! strcmp( command, "exit"))
+			break;
 		//do not attempt to enter login session if command is not 'login'
 		else if( strcmp( command, "login")){
 			printf( "%s\n", Error::LoginRequiredError);
@@ -57,8 +59,7 @@ int main( int argc, char* argv[], char *envp[]) {
 		char* username = format(getLine());
 		//check for null input
 		if( std::cin.eof()){
-			deinit();
-			return 1;} //replaced break
+			break;} //replaced break
 		else if( strlen( command) == 0){
 			printf( "%s\n", Error::InvalidLoginError);
 			continue;}
