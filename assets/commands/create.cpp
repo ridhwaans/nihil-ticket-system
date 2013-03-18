@@ -171,11 +171,11 @@ void command_create(){
 	  			rightpart[r] = new_accountcredit[x];
 	  			r++;x++; }
 	  		break;}}
-	  leftpart[l] = 0; rightpart[r] = 0;
+	  leftpart[l] = '\0'; rightpart[r] = '\0';
 
 
 	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
-	  char period[] = ".";
+	  /*char period[] = ".";
 	  char* period_str = (char*)memchr( new_accountcredit, '.', strlen(new_accountcredit));
 	  if( NULL != period_str){
 		  printf( "%s\n", Error::TransactionInvalidCredits);
@@ -185,11 +185,13 @@ void command_create(){
 	  strncpy( left, new_accountcredit, period_i);
 	  char* right = period_str+1;
 
-	  int rpart= strlen(right)>0 ? atoi(right) : 0;
+	  int rpart= strlen(right)>0 ? atoi(right) : 0;*/
+
+	  int rpart= 0;
 	  //compose decimal value
-	  /*if (rightpart[0] != NULL) rpart = (rightpart[0]- '0') * 10;
-	  if (rightpart[1] != NULL) rpart = rpart + (rightpart[1]- '0');
-	  if (rightpart[2] != NULL && ((rightpart[2]- '0') > 5)) rpart++; //round up*/
+	  if (rightpart[0] != '\0') rpart = (rightpart[0]- '0') * 10;
+	  if (rightpart[1] != '\0') rpart = rpart + (rightpart[1]- '0');
+	  if ((rightpart[2] != '\0') && ((rightpart[2]- '0') > 5)) rpart++; //round up
 
 	  //check that the account credit entered does not exceed the maximum limit
 		transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
