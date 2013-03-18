@@ -11,7 +11,7 @@ public:
 	std::vector<Transaction> transactions;
 	char* filename;
 	
-	TransactionFile( char* filename);
+	TransactionFile( const char* filename);
 	~TransactionFile();
 	
 	void add( const Transaction& transaction);

@@ -14,6 +14,8 @@ class Ticket;
 class Transaction;
 class TransactionFile;
 
+//file path string size
+#define filename_size 128
 //transaction string sizes
 #define	code_size 		2
 //account string sizes
@@ -31,9 +33,9 @@ class TransactionFile;
 
 //initialization functions
 bool init(
-	char* accountsFilename,
-	char* ticketsFilename,
-	char* transactionFilename);
+	const char* accountsFilename,
+	const char* ticketsFilename,
+	const char* transactionFilename);
 bool deinit();
 
 //session variables
@@ -47,8 +49,8 @@ extern std::vector<Ticket> tickets;
 extern std::vector<Ticket> tickets_queue;
 extern TransactionFile* transactionFile;
 //functions
-bool loadAccounts( char* accountsFilename);
-bool loadTickets( char* ticketsFilename);
+bool loadAccounts( const char* accountsFilename);
+bool loadTickets( const char* ticketsFilename);
 
 //input definitions
 //variables and constants
