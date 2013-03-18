@@ -1,5 +1,9 @@
+//lib includes
+#include <cstdlib>
+#include <cstring>
 //local includes
 #include "../Account.h"
+#include "../errors.h"
 #include "../Transaction.h"
 
 //override include
@@ -25,26 +29,26 @@ void command_refund(){
     char* confirm;//search for buyer name in the account index
     int maxRefund = 999999;
     int minRefund = 1;
-    int nameIndexB = 0;
-    int nameIndexS = 0;
+    int buyer_index = 0;
+    int seller_index = 0;
     
 Transaction refundTransaction;
 
 //Get the username of the refundee
 std::cout << "\n Please enter the username of the refundee: \n";
-char* InputNameOfBuyer = format(getline());
+char* InputNameOfBuyer = format(getLine());
 nameOfBuyer = new char(strlen(InputNameOfBuyer) + 1);
 strcpy(nameOfBuyer, InputNameOfBuyer);
 
 //Get the username of the refunder
 std::cout << "\n Please enter the username of the refunder: \n";
-char* InputNameOfSeller = format(getline());
+char* InputNameOfSeller = format(getLine());
 nameOfSeller = new char(strlen(InputNameOfSeller) + 1);
 strcpy(nameOfSeller, InputNameOfSeller);
 
 //Get the amount of credit to give to the refundee
 std::cout << "\n Enter the amount of credit to refund: \n";
-char* InputRefundAmount = format(getline());
+char* InputRefundAmount = format(getLine());
 refundAmount = atoi(InputRefundAmount);
 
 //Determine if buyer username exists
@@ -83,22 +87,20 @@ if(refundAmount < minRefund || refundAmount > maxRefund){
 }
 
 //search for buyer name in the account index
-while (strcmp(accounts[nameIndexB], nameOfBuyer)!= 0){
-    nameIndexB = nameIndexB + 1;
-    return nameIndexB;
+while (strcmp(accounts[buyer_index].username, nameOfBuyer)!= 0){
+	buyer_index++;
 }
 
 //search for seller name in the account index
-while (strcmp(accounts[nameIndexS], nameOfSeller)!= 0){
-    nameIndexS = nameIndexS + 1;
-    return nameIndexS;
+while (strcmp(accounts[seller_index].username, nameOfSeller)!= 0){
+    seller_index ++;
 }
+//check that seller has enough credits
+
 //add funds to buyer
-accounts[nameIndexB].username = accounts[nameIndexB];
-accounts[nameIndexB].credit += (refundAmount);
+accounts[buyer_index].credit += (refundAmount);
 //subtract funds from seller
-accounts[nameIndexS].username = accounts[nameIndexS];
-accounts[nameIndexS].credit -= (refundAmount);
+accounts[seller_index].credit -= (refundAmount);
 
 refundTransaction.code = Transaction::Refund;
 return;

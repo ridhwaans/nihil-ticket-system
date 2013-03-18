@@ -1,10 +1,12 @@
+//lib includes
+#include <cstdlib>
+#include <cstring>
 //local includes
 #include "../Account.h"
 #include "../Transaction.h"
-
-//global includes
-#include "../commands.h"
 #include "../errors.h"
+//override include
+#include "../commands.h"
 
 /**
  * Performs the necessary operations when the admin invokes the addCredit command.
@@ -27,13 +29,13 @@ Transaction addCreditTransaction;
 
 //prompt admin for username
 std::cout << "\n Enter the name of the user: \n";
-char*InputUsername = format( getline() );
+char*InputUsername = format( getLine() );
 creditToUsername = new char[strlen(InputUsername) + 1];
 strcpy(creditToUsername, InputUsername);
 
 //prompt user for credit amount
 std::cout << "\n Enter the amount of credit to add: \n";
-char* InputCredit = format(getline());
+char* InputCredit = format(getLine());
 addedCredit = atoi(InputCredit);
 
 //check if user exists
@@ -58,11 +60,9 @@ if(addedCredit < minCredit || addedCredit > maxCredit){
 }
 
 //add credit to the account of the specified user
-while (strcmp(accounts[nameIndex], creditToUsername)!= 0){
-    nameIndex = nameIndex + 1;
-    return nameIndex;
+while (strcmp(accounts[nameIndex].username, creditToUsername)!= 0){
+    nameIndex++;
 }
-accounts[nameIndex].username = accounts[nameIndex];
 accounts[nameIndex].credit += (addedCredit);
 
 addCreditTransaction.code = Transaction::AddCredit;

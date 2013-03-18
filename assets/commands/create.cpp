@@ -175,17 +175,27 @@ void command_create(){
 
 
 	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
+	  char period[] = ".";
+	  char* period_str = (char*)memchr( new_accountcredit, '.', strlen(new_accountcredit));
+	  if( NULL != period_str){
+		  printf( "%s\n", Error::TransactionInvalidCredits);
+		  return;}
+	  int period_i = period_str - new_accountcredit;
+	  char* left = new char[ credit_size];
+	  strncpy( left, new_accountcredit, period_i);
+	  char* right = period_str+1;
 
-	  int rpart=0; //compose decimal value
-	  if (rightpart[0] != NULL) rpart = (rightpart[0]- '0') * 10;
+	  int rpart= strlen(right)>0 ? atoi(right) : 0;
+	  //compose decimal value
+	  /*if (rightpart[0] != NULL) rpart = (rightpart[0]- '0') * 10;
 	  if (rightpart[1] != NULL) rpart = rpart + (rightpart[1]- '0');
-	  if (rightpart[2] != NULL && ((rightpart[2]- '0') > 5)) rpart++; //round up
+	  if (rightpart[2] != NULL && ((rightpart[2]- '0') > 5)) rpart++; //round up*/
 
 	  //check that the account credit entered does not exceed the maximum limit
-	  if (((atoi(leftpart) * 100) + rpart) > 99999999)
+		transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
+	  if (transaction.totalCredits > 99999999){
 		  printf( "%s\n", Error::maxAccountCreditError);
-	  else
-		  transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
+		  return;}
 
 	// regex (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 

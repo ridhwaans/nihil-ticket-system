@@ -8,6 +8,8 @@ const char Error::badAccountStringError[] =
 	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
 	"[Fail] Username has invalid characters.";
+const char Error::badEventStringError[] =
+	"[Fail] Incorrectly formatted event name.";
 const char Error::LoginRequiredError[] =
 	"[Fail] Login required";
 const char Error::InvalidLoginError[] =

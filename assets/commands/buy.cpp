@@ -43,10 +43,20 @@ void command_buy(){
 
 
 	//Get event title
+	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to buy tickets for:\n";
 	char* InputEventTitle = format( getLine() );
 	EventName = new char[strlen(InputEventTitle) + 1];
 	strcpy(EventName, (const char*) InputEventTitle);
+	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
+	for(int i = 0;  i<strlen(EventName);  i++)
+		if( isalnum(EventName[i]) == 0 )
+			ValidEventName = false;
+	if( !ValidEventName ) {
+		std::cout << "\n" << Error::badEventStringError << "\n";
+		return;
+	}
+			
 
 	//Get Number of tickets to buy
    std::cout << "\nPlease enter the number of tickets to buy:\n";
