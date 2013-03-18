@@ -9,6 +9,7 @@ namespace Error {
 	extern const char badTicketStringError[];
 	extern const char badAccountStringError[];
 	extern const char invalidUsernameCharactersError[];
+	extern const char badEventStringError[];
 	extern const char LoginRequiredError[];
 	extern const char InvalidLoginError[];
 	extern const char UnrecognizedCommandError[];
@@ -23,5 +24,6 @@ namespace Error {
 	extern const char TransactionInvalidCredits[];
 	extern const char unprivilegedUserError[];
 	extern const char InvalidAccountType[];
+	extern const char maxAccountCreditError[];
 }
 #endif

@@ -12,8 +12,8 @@
 
 class Ticket{
 public:
-	char* eventName;
-	int 	quantity;
+	char* eventName;		//will trimmed from white space, and converted to lower case by constructor
+	int 	quantity;		
 	int 	price;		
 	char* username;
 	

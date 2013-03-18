@@ -8,6 +8,8 @@ const char Error::badAccountStringError[] =
 	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
 	"[Fail] Username has invalid characters.";
+const char Error::badEventStringError[] =
+	"[Fail] Incorrectly formatted event name.";
 const char Error::LoginRequiredError[] =
 	"[Fail] Login required";
 const char Error::InvalidLoginError[] =
@@ -36,3 +38,5 @@ const char Error::unprivilegedUserError[]=
 		"[Fail] Permission denied";
 const char Error::InvalidAccountType[]=
 		"[Fail] Invalid account type";
+const char Error::maxAccountCreditError[]=
+		"[Fail] User account credit cannot be greater than 999,999";

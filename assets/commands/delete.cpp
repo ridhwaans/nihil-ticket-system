@@ -13,6 +13,12 @@
 //override include
 #include "../commands.h"
 
+/**
+ * Carries out the necessary operations the system is to
+ * perform when the user enters the delete command.
+ * This includes validating the user input, verifying
+ * the specified username and storing the transaction
+ */
 void command_delete(){
 //basic command pseudocode:
 	//get all inputs
@@ -42,6 +48,10 @@ void command_delete(){
 	//get username
 	printf("Enter user:\n");
 	char* input = format( getLine());
+
+	//check for null, empty input
+	if( std::cin.eof() || strlen(input) == 0)
+		printf( "%s\n", Error::badParameterError);
 
 	//ensure line is not too long
 	if( strlen(input) > username_size){
@@ -85,8 +95,10 @@ void command_delete(){
 	//done, finish up
 	accounts.erase( accounts.begin() + i);
 	if( currentAccount_index > i)
-
 		currentAccount_index--;
+
 	transactionFile->add(transaction);
 	printf("[Success] User deleted\n");
+
+	return;
 }
