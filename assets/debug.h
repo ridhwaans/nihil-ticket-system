@@ -7,7 +7,8 @@
 #define debug_buy					 	true
 
 #define promptEnabled 				true
-#define buy_ticketList 				false
+#define buy_ticketList 				true	
+
 
 #endif
 
