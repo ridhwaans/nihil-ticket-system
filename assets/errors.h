@@ -30,5 +30,6 @@ namespace Error {
 	extern const char BuyUserTicketLimitExceeded[];
 	extern const char unprivilegedUserError[];
 	extern const char InvalidAccountType[];
+	extern const char maxAccountCreditError[];
 }
 #endif

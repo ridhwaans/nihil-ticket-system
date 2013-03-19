@@ -50,5 +50,6 @@ const char Error::unprivilegedUserError[]=
 		"[Fail] Permission denied";
 const char Error::InvalidAccountType[]=
 		"[Fail] Invalid account type";
-
+const char Error::maxAccountCreditError[]=
+		"[Fail] User account credit cannot be greater than 999,999";
 
