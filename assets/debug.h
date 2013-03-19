@@ -6,6 +6,6 @@
 #define debug_transactions false
 
 #define promptEnabled true
-#define buy_ticketList false
+#define buy_ticketList true	
 
 #endif

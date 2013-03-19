@@ -69,28 +69,42 @@ char* format( char* original){
 	//finish
 	return original;
 }
-char* format_command( char* original){
-	format(original);
+char* trim( char* original){
+	string ws(" \t\f\v\n\r");
+	int i;
+	//find first non-whitespace char
+	for( i = 0; original[i]!='\0'; i++)
+		if( ws.find(original[i]) == string::npos)
+			break;
+	//left shift by i-j
+	if( i > 0){
+		int j;
+		for( j = 0; original[i]!='\0'; j++){
+				original[j] = original[i];
+				original[i] = '\0';
+				i++;}
+		original[j] = '\0';}
+	//remove any whitespaces at the end
+	for( int i = strlen(original) - 1; i >=0; i--)
+		if( ws.find(original[i]) == string::npos)
+			break;
+		else
+			original[i] = '\0';
+	//finish
+	return original;
+}
+char* lower( char* original){
 	for(int i = 0; original[i]; i++)
 		original[i] = (char) tolower(original[i]);
 	return original;
 }
-char* trim( char* original){
-	string ori_string(original);
-	string whitespaces (" \t\f\v\n\r");
-	int first = ori_string.find_first_not_of(whitespaces);
-	if ( first == std::string::npos)
-		first = 0;
-	int last = ori_string.find_last_not_of(whitespaces);
-	int length = last - first;
-	if( length < 0)
-		length = 0;
-	int i;
-	for( i = 0; (i <= length) && (original[first+i] != '\0'); i++)
-		original[i] = original[first+i];
-	original[first+i] = '\0';
-	return original;
+char* format_command( char* original){
+	return lower( format( original));
 }
+char* format_name( char* original){
+	return lower( trim( original));
+}
+
 
 char* getLine(){
 	//get input
@@ -103,8 +117,10 @@ char* getLine(){
 bool loadAccounts( const char* accountsFilename){
 	if( debug_accounts) printf("Loading Accounts\n");
 	//add default admin
-	char admin_name[] = "admin  ";
+	char admin_name[] = "admin";
 	accounts.push_back( Account( admin_name, 0, Account::Admin));
+	char asdf_name[] = "sdf";
+	accounts.push_back( Account( asdf_name, 0, Account::Admin));
 	//try to load file
 	std::ifstream accountsFile( accountsFilename);
 	if( !accountsFile.good()){
@@ -158,4 +174,22 @@ void throwError( const char* newError_string){
 }
 void clearError(){
 	error = false;
+	error_string[0] = '\0';
+}
+
+//debug functions
+void test_transaction(){
+	Transaction t;
+	t.code = Transaction::Test;
+
+	strcpy( t.username, "asdf");
+	strcpy( t.buyer, "asdf");
+	strcpy( t.seller, "asdf");
+	strcpy( t.eventName, "asdf");
+	t.type = Account::Admin;
+	t.ticketAmount = 123;
+	t.ticketPrice = 123;
+	t.totalCredits = 123;
+
+	transactionFile->add(t);
 }
