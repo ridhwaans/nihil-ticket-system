@@ -50,7 +50,7 @@ const char Error::maxAccountCreditError[]=
 const char Error::insufficientCreditError[]=
 		"[Fail] User account does not have enough credits for this transaction";
 const char Error::sameUserError[]=
-		"[Fail] User name of buyer is the same as user name of seller";
+		"[Fail] Refunder id Refundee";
 =======
 >>>>>>> a170be4e89516573f9ad106344e6174f253821df
 
