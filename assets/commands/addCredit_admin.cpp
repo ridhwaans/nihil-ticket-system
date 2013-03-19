@@ -66,5 +66,6 @@ while (strcmp(accounts[nameIndex].username, creditToUsername)!= 0){
 accounts[nameIndex].credit += (addedCredit);
 
 addCreditTransaction.code = Transaction::AddCredit;
+printf("Credit added");
 return;
 }
