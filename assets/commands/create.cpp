@@ -58,15 +58,15 @@ void command_create(){
 
 	if (accounts[currentAccount_index].type != Account::Admin){
 		printf( "%s\n", Error::unprivilegedUserError);
-		return;
-	}
+		return;}
+
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
 	//check for null, empty input
-	if( std::cin.eof() || strlen(new_username) == 0)
+	if( std::cin.eof() || strlen(new_username) == 0){
 		printf( "%s\n", Error::badParameterError);
-
+		return;}
 	//check if input > required size
 	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
@@ -84,12 +84,10 @@ void command_create(){
 	//check if username exists
 	for( int i = 0; i < accounts.size(); i++){
 		if( strcmp( transaction.username, accounts[i].username)==0){
-			printf("[Fail] User account already exists. Please specify a new username");
-			return;
-		}
-	}
+			printf("[Fail] User account already exists. Please specify a new username\n"); 
+			return;}}
 
-	printf("Enter account type:");
+	printf("Enter account type:\n");
 	char* new_accountType = format(getLine());
 
 	//check for null, empty input
@@ -119,16 +117,17 @@ void command_create(){
 	transaction.type = usertype_to_enum(new_accountType);
 
 	//get user input for account credit, parse int
-	printf("Enter credit amount:");
+	printf("Enter credit amount:\n");
 	char* new_accountcredit = format(getLine());
 
 	//check for null, empty input
-		if( std::cin.eof() || strlen(new_accountcredit) == 0)
+		if( std::cin.eof() || strlen(new_accountcredit) == 0){
 			printf( "%s\n", Error::badParameterError);
+			return;}
 
 	//check credit format
 	bool flag=true;
-	  //if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
+	//if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
 
 	  int x;int p=0;
 	  for ( x = 0; x < strlen(new_accountcredit); x++) {
@@ -171,21 +170,33 @@ void command_create(){
 	  			rightpart[r] = new_accountcredit[x];
 	  			r++;x++; }
 	  		break;}}
-	  leftpart[l] = 0; rightpart[r] = 0;
+	  leftpart[l] = '\0'; rightpart[r] = '\0';
 
 
 	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
+	  /*char period[] = ".";
+	  char* period_str = (char*)memchr( new_accountcredit, '.', strlen(new_accountcredit));
+	  if( NULL != period_str){
+		  printf( "%s\n", Error::TransactionInvalidCredits);
+		  return;}
+	  int period_i = period_str - new_accountcredit;
+	  char* left = new char[ credit_size];
+	  strncpy( left, new_accountcredit, period_i);
+	  char* right = period_str+1;
 
-	  int rpart=0; //compose decimal value
-	  if (rightpart[0] != NULL) rpart = (rightpart[0]- '0') * 10;
-	  if (rightpart[1] != NULL) rpart = rpart + (rightpart[1]- '0');
-	  if (rightpart[2] != NULL && ((rightpart[2]- '0') > 5)) rpart++; //round up
+	  int rpart= strlen(right)>0 ? atoi(right) : 0;*/
+
+	  int rpart= 0;
+	  //compose decimal value
+	  if (rightpart[0] != '\0') rpart = (rightpart[0]- '0') * 10;
+	  if (rightpart[1] != '\0') rpart = rpart + (rightpart[1]- '0');
+	  if ((rightpart[2] != '\0') && ((rightpart[2]- '0') > 5)) rpart++; //round up
 
 	  //check that the account credit entered does not exceed the maximum limit
-	  if (((atoi(leftpart) * 100) + rpart) > 99999999)
+		transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
+	  if (transaction.totalCredits > 99999999){
 		  printf( "%s\n", Error::maxAccountCreditError);
-	  else
-		  transaction.totalCredits =  (atoi(leftpart) * 100) + rpart;
+		  return;}
 
 	// regex (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 
