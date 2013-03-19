@@ -1,8 +1,10 @@
+//lib includes
+#include <cstdlib>
 //local includes
 #include "../Account.h"
+#include "../errors.h"
 #include "../Transaction.h"
-
-//global includes
+//override includes
 #include "../commands.h"
 
 /**
@@ -25,7 +27,7 @@ Transaction addCreditTransaction;
 
 //prompt user for credit amount
 std::cout << "\n Enter the amount of credit to add: \n";
-char* InputCredit = format(getline());
+char* InputCredit = format(getLine());
 addedCredit = atoi(InputCredit);
 
 //check to see if credit amount is between 0 and 1000
@@ -39,3 +41,4 @@ accounts[currentAccount_index].credit += (addedCredit);
 addCreditTransaction.code = Transaction::AddCredit;
 return;
 }
+

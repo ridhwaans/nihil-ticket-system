@@ -29,13 +29,13 @@ Transaction addCreditTransaction;
 
 //prompt admin for username
 std::cout << "\n Enter the name of the user: \n";
-char*InputUsername = format( getLine() );
+char*InputUsername = format_name( getLine() );
 creditToUsername = new char[strlen(InputUsername) + 1];
 strcpy(creditToUsername, InputUsername);
 
 //prompt user for credit amount
 std::cout << "\n Enter the amount of credit to add: \n";
-char* InputCredit = format(getLine());
+char* InputCredit = format_name(getLine());
 addedCredit = atoi(InputCredit);
 
 //check if user exists
