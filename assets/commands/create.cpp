@@ -58,15 +58,15 @@ void command_create(){
 
 	if (accounts[currentAccount_index].type != Account::Admin){
 		printf( "%s\n", Error::unprivilegedUserError);
-		return;
-	}
+		return;}
+
 	printf("Enter user name:\n");
 	char* new_username = format(getLine());
 
 	//check for null, empty input
-	if( std::cin.eof() || strlen(new_username) == 0)
+	if( std::cin.eof() || strlen(new_username) == 0){
 		printf( "%s\n", Error::badParameterError);
-
+		return;}
 	//check if input > required size
 	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
@@ -84,12 +84,10 @@ void command_create(){
 	//check if username exists
 	for( int i = 0; i < accounts.size(); i++){
 		if( strcmp( transaction.username, accounts[i].username)==0){
-			printf("[Fail] User account already exists. Please specify a new username");
-			return;
-		}
-	}
+			printf("[Fail] User account already exists. Please specify a new username\n"); 
+			return;}}
 
-	printf("Enter account type:");
+	printf("Enter account type:\n");
 	char* new_accountType = format(getLine());
 
 	//check for null, empty input
@@ -119,16 +117,17 @@ void command_create(){
 	transaction.type = usertype_to_enum(new_accountType);
 
 	//get user input for account credit, parse int
-	printf("Enter credit amount:");
+	printf("Enter credit amount:\n");
 	char* new_accountcredit = format(getLine());
 
 	//check for null, empty input
-		if( std::cin.eof() || strlen(new_accountcredit) == 0)
+		if( std::cin.eof() || strlen(new_accountcredit) == 0){
 			printf( "%s\n", Error::badParameterError);
+			return;}
 
 	//check credit format
 	bool flag=true;
-	  //if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
+	//if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
 
 	  int x;int p=0;
 	  for ( x = 0; x < strlen(new_accountcredit); x++) {
