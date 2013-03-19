@@ -53,6 +53,10 @@ void command_buy(){
 	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to buy tickets for:\n";
 	char* InputEventTitle = format( getLine() );
+	if( std::cin.eof()  == 0 ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	EventName = new char[strlen(InputEventTitle) + 1];
 	strcpy(EventName, (const char*) InputEventTitle);
 	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
@@ -68,6 +72,10 @@ void command_buy(){
 	bool ValidNumOfTickets = true;
    std::cout << "\nPlease enter the number of tickets to buy:\n";
 	char* InputNumOfTicket = format( getLine() );
+	if( std::cin.eof() == 0 ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	NumOfTickets = atoi( InputNumOfTicket );
 	if( strlen(InputNumOfTicket) == 0 || NumOfTickets <= 0 || NumOfTickets >= 1000 )	ValidNumOfTickets = false;
 	if( !ValidNumOfTickets ) {
@@ -80,6 +88,10 @@ void command_buy(){
 	//Get username of seller to buy from
 	std::cout << "\nPlease enter the username of whom to purchase the tickets from\n";
 	char* InputUsernameOfSeller = format( getLine() );
+	if( std::cin.eof() == 0 ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	UsernameOfSeller = new char[ strlen(InputUsernameOfSeller) + 1 ];
 	strcpy(UsernameOfSeller, InputUsernameOfSeller);
 	if( strlen(UsernameOfSeller) == 0 || strlen(UsernameOfSeller) > username_size ) {
@@ -96,6 +108,10 @@ void command_buy(){
 
 	//Get users response to confirmation message
 	char* ConfirmResponse = format( getLine() );
+	if( std::cin.eof()  == 0 ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	if( strcmp( format_command(ConfirmResponse), "no" ) == 0 ) {
 		std::cout << "\nBuy transaction cancelled.\n";
 		return;
@@ -173,3 +189,5 @@ void command_buy(){
 
 	return;
 }
+
+
