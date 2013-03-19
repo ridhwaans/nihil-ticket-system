@@ -116,6 +116,7 @@ accounts[buyer_index].credit += (refundAmount);
 accounts[seller_index].credit -= (refundAmount);
 
 refundTransaction.code = Transaction::Refund;
+printf("Refund transaction completed");
 return;
 }
 
