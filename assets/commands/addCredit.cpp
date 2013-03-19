@@ -32,13 +32,14 @@ addedCredit = atoi(InputCredit);
 
 //check to see if credit amount is between 0 and 1000
 if(addedCredit < minCredit || addedCredit > maxCredit){
-    printf("%s\n", Error::TransactionInvalidCredits);
+    printf("%s\n", Error::TransactionInvalidC    redits);
     return;
 }
 
 //add credit to the account of the specified user
 accounts[currentAccount_index].credit += (addedCredit);
 addCreditTransaction.code = Transaction::AddCredit;
+printf("Credit added");
 return;
 }
 
