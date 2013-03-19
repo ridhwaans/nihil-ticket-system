@@ -23,7 +23,10 @@ namespace Error {
 	extern const char TransactionNullUsername[];
 	extern const char TransactionNullAccountType[];
 	extern const char TransactionInvalidCredits[];
+   extern const char BuySellerDoesNotExist[];
+   extern const char BuyInsufficientCredit[];
    extern const char BuyInvalidNumberOfTickets[];
+	extern const char BuyInsufficientTickets[];
 	extern const char BuyUserTicketLimitExceeded[];
 	extern const char unprivilegedUserError[];
 	extern const char InvalidAccountType[];

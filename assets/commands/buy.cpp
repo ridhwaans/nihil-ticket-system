@@ -22,7 +22,7 @@ void command_buy(){
 	char* UsernameOfSeller;
 
 	//Show user a listing of all tickets available
-	if( buy_ticketList ) {
+	if( debug_tickets ) {
 		std::cout <<   "\n                   TICKETS AVAILABLE FOR SALE                          \n";
 		std::cout <<     " Seller:         Event:              Quantity:    Ticket Price (CENTS):\n";
 		std::cout <<     " ======================================================================\n";
@@ -34,6 +34,16 @@ void command_buy(){
 			std::cout << tickets[i].quantity;
 			for(int j = 0;  j<14;  j++) std::cout << " ";
 			std::cout << tickets[i].price << "\n";
+		}
+		std::cout <<   "\n ---------Sold within current session (not available for purchase)-----\n";
+		for(int i = 0;  i<tickets_queue.size();  i++) {
+			std::cout << " " << tickets_queue[i].username;
+			for(int j = 0;  j<16-strlen(tickets_queue[i].username); j++)  std::cout << " ";
+			std::cout << tickets_queue[i].eventName;
+			for(int j = 0;  j<20-strlen(tickets_queue[i].eventName); j++) std::cout << " ";
+			std::cout << tickets_queue[i].quantity;
+			for(int j = 0;  j<14;  j++) std::cout << " ";
+			std::cout << tickets_queue[i].price << "\n";
 		}
 		std::cout <<     " ----------------------------------------------------------------------\n";
 		std::cout <<     "                    YOUR CREDIT BALANCE: " << accounts[currentAccount_index].credit << " (CENTS)\n\n";
@@ -59,7 +69,7 @@ void command_buy(){
    std::cout << "\nPlease enter the number of tickets to buy:\n";
 	char* InputNumOfTicket = format( getLine() );
 	NumOfTickets = atoi( InputNumOfTicket );
-	if( strlen(InputNumOfTicket) == 0 || NumOfTickets <= 0 )	ValidNumOfTickets = false;
+	if( strlen(InputNumOfTicket) == 0 || NumOfTickets <= 0 || NumOfTickets >= 1000 )	ValidNumOfTickets = false;
 	if( !ValidNumOfTickets ) {
 		std::cout << "\n" << Error::BuyInvalidNumberOfTickets << "\n";
 		return;
@@ -81,6 +91,7 @@ void command_buy(){
 	//Check if seller exists
 	bool SellerExists = false; //will be set to true if seller is found
 	if( strcmp( UsernameOfSeller, "admin" ) == 0 ) SellerExists = true;   //there always exists the built in account 'admin'
+	if( strcmp( UsernameOfSeller, currentAccount->username ) == 0 ) SellerExists = true; //buying from self
 	for(int u = 0;  u<accounts.size();  u++) {
 		if( strcmp(accounts[u].username, UsernameOfSeller)==0 ) {
 			SellerExists = true;
@@ -88,7 +99,7 @@ void command_buy(){
 		}
 	}
 	if( !SellerExists ) {
-		std::cout << "\nSeller: '" << InputUsernameOfSeller << "' does not exist! Transaction cancelled. \n";
+		std::cout << "\n" << Error::BuySellerDoesNotExist << "\n";
 		return;
 	}
 
@@ -105,12 +116,8 @@ void command_buy(){
 			}
 		}
 	}
-	if( !SellerHasEventTickets ) {
-		std::cout << "\nThe specified seller: '" << UsernameOfSeller << "' does not have tickets to the event: '" << EventName << "'. Transaction cancelled. \n";
-		return;
-	}
-	if( MaxTicketsAvailable == 0 ) {
-		std::cout << "\nUnfortunately the specified seller has no more tickets to the event left. Transaction cancelled. \n";
+	if( !SellerHasEventTickets || MaxTicketsAvailable == 0 ) {
+		std::cout << "\n[Fail] The specified seller: '" << UsernameOfSeller << "' does not have tickets to the event: '" << EventName << "'. Transaction cancelled. \n";
 		return;
 	}
 
@@ -124,21 +131,20 @@ void command_buy(){
 
 	//Is buyer trying to buy more tickets than are available?
 	if( NumOfTickets > MaxTicketsAvailable ) {
-		std::cout << "\nUnfortunately you can not buy " << NumOfTickets << " as there is a max of " << MaxTicketsAvailable << " from the seller, to the requested event. Transaction cancelled. \n";
-		std::cout << "Also please note you can not buy tickets within the same session they are sold\n";
+		std::cout << "\n[Fail] Unfortunately you can not buy " << NumOfTickets << " as there is a max of " << MaxTicketsAvailable << " from the seller, to the requested event. \n";
 		return;
 	}
 	
 	//Does buyer have enough credit to buy the requested number of tickets?
 	if( (NumOfTickets * tickets[MaxTicketsAvailable_TicketIndex].price) > accounts[currentAccount_index].credit ) {
-		std::cout << "\nYou do not have enough credit to purchase the requested tickets. Transaction cancelled.\n";
+		std::cout << "\n" << Error::BuyInsufficientCredit << "\n";
 		return;
 	}
 
 	//PERFORM PURCHASE
 	tickets[MaxTicketsAvailable_TicketIndex].quantity -= NumOfTickets;
 	accounts[currentAccount_index].credit -= (NumOfTickets * tickets[MaxTicketsAvailable_TicketIndex].price);
-	std::cout << "\n Ticket Purchase Successful. \n";
+	std::cout << "\n[Success] Tickets Purchased. \n";
 
 	//construct transaction
 	Transaction BuyTransact;

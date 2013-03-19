@@ -33,7 +33,7 @@ void command_sell(){
 
 	//Check for correct account type to be allowed to sell
 	if( accounts[currentAccount_index].type == Account::Buy ) {
-		std::cout << "\n Your user account type does not allow you to sell. \n";
+		std::cout << "\n[Fail] Your user account type does not allow you to sell. \n";
 		return;
 	}
 
@@ -99,21 +99,27 @@ void command_sell(){
 			ValidTicketPrice = false;
 	}
 	if( !ValidTicketPrice ) {
-		std::cout << "\n Invalid Ticket price! Sell transaction cancelled. \n";
+		std::cout << "\n[Fail] Invalid Ticket price! Sell transaction cancelled. \n";
 		return;
 	}
 
 	//Get Number of Tickets to Sell
    std::cout << "\nPlease enter the number of tickets to sell:\n";
-	char* InputNumOfTicket = format( getLine() );
-	NumOfTickets = atoi( InputNumOfTicket );
+	char* InputNumOfTickets = format( getLine() );
+	NumOfTickets = atoi( InputNumOfTickets );
+	if( strlen(InputNumOfTickets)==0 || NumOfTickets <= 0 || NumOfTickets >= 1000 ) {
+		std::cout << "\n[Fail] Invalid number of tickets.\n";
+		return;
+	}
 
 	//Get the seller's name (the user who is currently logged in)
 	char* SellersUsername = accounts[ currentAccount_index ].username;
 
 	//Construct a new ticket representing the tickets being sold
 	Ticket* t = new Ticket( EventName, NumOfTickets, TicketPrice, SellersUsername);
-	tickets.push_back( *t );
+	tickets_queue.push_back( *t ); //goes into queue of tickets sold during this session
+
+	std::cout << "\n[Success] Tickets Sold. \n";
 
 	//construct transaction
 	Transaction SellTransact;
