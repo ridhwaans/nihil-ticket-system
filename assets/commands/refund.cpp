@@ -35,19 +35,19 @@ void command_refund(){
 Transaction refundTransaction;
 
 //Get the username of the refundee
-std::cout << "\n Please enter the username of the refundee: \n";
+std::cout << "\n Enter the buyer's username: \n";
 char* InputNameOfBuyer = format_name_name(getLine());
 nameOfBuyer = new char(strlen(InputNameOfBuyer) + 1);
 strcpy(nameOfBuyer, InputNameOfBuyer);
 
 //Get the username of the refunder
-std::cout << "\n Please enter the username of the refunder: \n";
+std::cout << "\n Enter the seller's username: \n";
 char* InputNameOfSeller = format_name(getLine());
 nameOfSeller = new char(strlen(InputNameOfSeller) + 1);
 strcpy(nameOfSeller, InputNameOfSeller);
 
 //Get the amount of credit to give to the refundee
-std::cout << "\n Enter the amount of credit to refund: \n";
+std::cout << "\n Enter amount of credit to refund: \n";
 char* InputRefundAmount = format_name_name(getLine());
 refundAmount = atoi(InputRefundAmount);
 
