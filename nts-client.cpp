@@ -108,6 +108,8 @@ int main( int argc, char* argv[], char *envp[]) {
 				command_refund();
 			else if( !strcmp( command, "sell"))
 				command_sell();
+			else if( !strcmp( command, "test"))
+				test_transaction();
 			//check for logout
 			else if( !strcmp( command, "logout"))
 				break;
@@ -115,7 +117,8 @@ int main( int argc, char* argv[], char *envp[]) {
 				printf( "%s\n", Error::UnrecognizedCommandError);}
 		printf("Logged out\n");
 		//push dtf to file
-		transactionFile->commit();}
+		transactionFile->commit();
+		printf("done commiting\n");}
 	//clean up and exit
 	deinit();
 	return 0;

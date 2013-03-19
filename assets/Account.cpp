@@ -7,7 +7,7 @@
 
 Account::Account( char* username, int credit, Type type){
 	this->username = new char[username_size+1];
-	strcpy( username, this->username);
+	strcpy( this->username, username);
 	this->credit = credit;
 	this->type = type;
 }

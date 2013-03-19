@@ -59,18 +59,23 @@ extern char* input;
 #define buffer_size 256
 extern char* buffer;
 //functions
-char* format( char* original);
-char* format_command( char* original);
-char* trim( char* original);
+char* format( char*);
+char* trim( char*);
+char* lower( char*);
+char* format_command( char*);
+char* format_name( char*);
 char* getLine();
 
 //error definitions
-//variables and constants
+// variables and constants
 #define error_size 256
 extern bool error;
 extern char* error_string;
-//functions
+// functions
 void throwError( const char* error_string);
 void clearError();
+
+//debug functions
+void test_transaction();
 
 #endif
