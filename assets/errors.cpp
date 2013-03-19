@@ -8,6 +8,8 @@ const char Error::badAccountStringError[] =
 	"[Fail] Incorrectly formatted account.";
 const char Error::invalidUsernameCharactersError[] = 
 	"[Fail] Username has invalid characters.";
+const char Error::badUsernameStringError[] =
+	"[Fail] Incorrectly formatted username. Usernames are 1 to 15 alpha-numeric characters.";
 const char Error::badEventStringError[] =
 	"[Fail] Incorrectly formatted event name.";
 const char Error::LoginRequiredError[] =
@@ -34,14 +36,21 @@ const char Error::TransactionNullAccountType[]=
 	"[Fail] Transaction missing account type";
 const char Error::TransactionInvalidCredits[]=
 	"[Fail] Transaction has invalid credit amount";
+const char Error::BuyInvalidNumberOfTickets[]=
+	"[Fail] Can not buy the specified number of tickets, there is currently not enought tickets available.";
+const char Error::BuyUserTicketLimitExceeded[]=
+	"[Fail} Your current user account prohibits you from buying more than 4 tickets from another user, in the same transaction.";
 const char Error::unprivilegedUserError[]=
 		"[Fail] Permission denied";
 const char Error::InvalidAccountType[]=
 		"[Fail] Invalid account type";
 const char Error::maxAccountCreditError[]=
 		"[Fail] User account credit cannot be greater than 999,999";
+<<<<<<< HEAD
 const char Error::insufficientCreditError[]=
 		"[Fail] User account does not have enough credits for this transaction";
 const char Error::sameUserError[]=
 		"[Fail] User name of buyer is the same as user name of seller";
+=======
+>>>>>>> a170be4e89516573f9ad106344e6174f253821df
 
