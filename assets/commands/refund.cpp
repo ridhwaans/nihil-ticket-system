@@ -87,6 +87,10 @@ if(refundAmount < minRefund || refundAmount > maxRefund){
 }
 
 //search for buyer name in the account index
+if(refundAmount < minRefund || refundAmount > maxRefund){
+    printf("%s\n", Error::TransactionInvalidCredits);
+    return;
+}
 while (strcmp(accounts[buyer_index].username, nameOfBuyer)!= 0){
 	buyer_index++;
 }
@@ -96,6 +100,10 @@ while (strcmp(accounts[seller_index].username, nameOfSeller)!= 0){
     seller_index ++;
 }
 //check that seller has enough credits
+if (accounts[seller_index] < refundAmount){
+      printf("%s\n" , Error::insufficientCreditError);
+      return;
+}
 
 //add funds to buyer
 accounts[buyer_index].credit += (refundAmount);

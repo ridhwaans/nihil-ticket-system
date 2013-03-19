@@ -40,3 +40,6 @@ const char Error::InvalidAccountType[]=
 		"[Fail] Invalid account type";
 const char Error::maxAccountCreditError[]=
 		"[Fail] User account credit cannot be greater than 999,999";
+const char Error::insufficientCreditError[]=
+		"[Fail] User account does not have enough credits for this transaction";
+
