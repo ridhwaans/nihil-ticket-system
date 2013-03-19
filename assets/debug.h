@@ -4,7 +4,7 @@
 #define debug_accounts				false
 #define debug_tickets 				false
 #define debug_transactions 	  	false
-#define debug_buy					 	false
+#define debug_buy					 	true
 
 #define promptEnabled 				true
 #define buy_ticketList 				false

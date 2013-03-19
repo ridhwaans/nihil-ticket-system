@@ -82,9 +82,25 @@ void command_buy(){
 	char* InputUsernameOfSeller = format( getLine() );
 	UsernameOfSeller = new char[ strlen(InputUsernameOfSeller) + 1 ];
 	strcpy(UsernameOfSeller, InputUsernameOfSeller);
-	if( strlen(UsernameOfSeller) == 0 || strlen(UsernameOfSeller) > username_size ) 
-	{
+	if( strlen(UsernameOfSeller) == 0 || strlen(UsernameOfSeller) > username_size ) {
 		std::cout << "\n" << Error::badUsernameStringError << "\n";
+		return;
+	}
+
+	//Show confirmation to user
+	std::cout << "\nSummary:";
+	std::cout << "\nEvent: " << EventName;
+	std::cout << "\nNumber of tickets: " << NumOfTickets;
+	std::cout << "\nSeller: " <<  UsernameOfSeller;
+	std::cout << "\nConfirm [Yes/No]\n";
+
+	//Get users response to confirmation message
+	char* ConfirmResponse = format( getLine() );
+	if( strcmp( format_command(ConfirmResponse), "no" ) == 0 ) {
+		std::cout << "\nBuy transaction cancelled.\n";
+		return;
+	} else if( strcmp( format_command(ConfirmResponse), "yes" ) != 0 ) {
+		std::cout << "\nInvalid response, buy transaction cancelled\n";
 		return;
 	}
 	
@@ -140,11 +156,11 @@ void command_buy(){
 		std::cout << "\n" << Error::BuyInsufficientCredit << "\n";
 		return;
 	}
-
+		
 	//PERFORM PURCHASE
 	tickets[MaxTicketsAvailable_TicketIndex].quantity -= NumOfTickets;
 	accounts[currentAccount_index].credit -= (NumOfTickets * tickets[MaxTicketsAvailable_TicketIndex].price);
-	std::cout << "\n[Success] Tickets Purchased. \n";
+	std::cout << "\n[Success] Tickets bought\n";
 
 	//construct transaction
 	Transaction BuyTransact;
