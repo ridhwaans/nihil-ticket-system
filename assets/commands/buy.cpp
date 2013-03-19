@@ -22,7 +22,7 @@ void command_buy(){
 	char* UsernameOfSeller;
 
 	//Show user a listing of all tickets available
-	if( debug_tickets ) {
+	if( debug_buy ) {
 		std::cout <<   "\n                   TICKETS AVAILABLE FOR SALE                          \n";
 		std::cout <<     " Seller:         Event:              Quantity:    Ticket Price (CENTS):\n";
 		std::cout <<     " ======================================================================\n";
