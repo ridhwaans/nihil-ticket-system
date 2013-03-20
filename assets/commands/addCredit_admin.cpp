@@ -43,25 +43,25 @@ bool UserExists = false;
 if (strcmp(creditToUsername, "admin")==0) UserExists=true;
 
 for(int u = 0;  u<accounts.size();  u++) {
-		if( strcmp(accounts[u].username, creditToUsername)==0 ) {
-			UserExists=true;
-			break;
+	if( strcmp(accounts[u].username, creditToUsername)==0 ) {
+		UserExists=true;
+		break;
 		}
 	}
 if( !UserExists) {
-    printf("%s\n" , Error::UserNotFound);
-		return;
+	printf("%s\n" , Error::UserNotFound);
+	return;
 	}
 
 //check to see if credit amount is between 0 and 1000
 if(addedCredit < minCredit || addedCredit > maxCredit){
-    printf("%s\n", Error::TransactionInvalidCredits);
-    return;
+	printf("%s\n", Error::TransactionInvalidCredits);
+	return;
 }
 
 //add credit to the account of the specified user
 while (strcmp(accounts[nameIndex].username, creditToUsername)!= 0){
-    nameIndex++;
+	nameIndex++;
 }
 accounts[nameIndex].credit += (addedCredit);
 
