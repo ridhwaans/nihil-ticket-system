@@ -1,7 +1,7 @@
 #ifndef asssets_debug_h
 #define asssets_debug_h
 
-#define debug_transaction true
+#define debug_transaction false
 
 #define debug_accounts false
 #define debug_tickets false

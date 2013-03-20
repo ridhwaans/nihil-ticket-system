@@ -24,6 +24,8 @@ namespace Error {
 	extern const char TransactionEventNameTooLong[];
 	extern const char TransactionInvalidCode[];
 	extern const char TransactionInvalidCredits[];
+	extern const char TransactionInvalidTicketAmount[];
+	extern const char TransactionInvalidTicketPrice[];
 	extern const char TransactionNullAccountType[];
 	extern const char TransactionNullEventName[];
 	extern const char TransactionNullUsername[];

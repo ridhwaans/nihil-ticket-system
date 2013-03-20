@@ -53,59 +53,59 @@ char* Transaction::write(char* dest){
 	switch (this->code){
 		case Transaction::Test:{
 			//write code
-			printf("writing code\n");
+			if( debug_transaction) printf("writing code\n");
 			char* curr = write_code( dest, this->code);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write username
-			printf("writing username\n");
+			if( debug_transaction) printf("writing username\n");
 			curr = write_username( curr, this->username);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write buyer username
-			printf("writing buyer username\n");
+			if( debug_transaction) printf("writing buyer username\n");
 			curr = write_username( curr, this->buyer);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write seller username
-			printf("writing seller username\n");
+			if( debug_transaction) printf("writing seller username\n");
 			curr = write_username( curr, this->seller);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write event name
-			printf("writing event name\n");
+			if( debug_transaction) printf("writing event name\n");
 			curr = write_eventName( curr, this->eventName);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write type
-			printf("writing type\n");
+			if( debug_transaction) printf("writing type\n");
 			curr = write_type( curr, this->type);
 			if( error) break;
-			printf("writing token\n");
-			curr = write_token( curr);
-			//write credit
-			printf("writing credit\n");
-			curr = write_credit( curr, this->totalCredits);
-			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write ticket amount
-			printf("writing ticket amount\n");
+			if( debug_transaction) printf("writing ticket amount\n");
 			curr = write_ticketAmount( curr, this->ticketAmount);
 			if( error) break;
-			printf("writing token\n");
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
 			//write ticket price
-			printf("writing ticket price\n");
+			if( debug_transaction) printf("writing ticket price\n");
 			curr = write_ticketPrice( curr, this->ticketPrice);
 			if( error) break;
+			curr = write_token( curr);
+			//write credit
+			if( debug_transaction) printf("writing credit\n");
+			curr = write_credit( curr, this->totalCredits);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
 			//good
-			printf("done\n");
+			if( debug_transaction) printf("done\n");
 			return dest;}
 
 		//01-create, 02-delete, 06-addcredit, 00-end of session
@@ -316,8 +316,9 @@ char* Transaction::write_type( char* dest, Account::Type type){
 
 char* Transaction::write_credit( char* dest, int amount){
 	clearError();
-	if( 0 <= totalCredits &&
-			totalCredits < pow( 10, credit_size - 1)){
+	if( 0 <= amount && amount < pow( 10, credit_size - 1)){
+		sprintf( dest, "%*d.%2d",
+			credit_size - 3, amount/100, amount%100);
 		return dest + credit_size;}
 	else{
 		throwError( Error::TransactionInvalidCredits);
@@ -326,12 +327,24 @@ char* Transaction::write_credit( char* dest, int amount){
 
 char* Transaction::write_ticketAmount( char* dest, int amount){
 	clearError();
-	return dest;
+	if( 0 <= amount && amount < pow( 10, quantity_size )){
+		sprintf( dest, "%*d",
+			quantity_size, amount);
+		return dest + quantity_size;}
+	else{
+		throwError( Error::TransactionInvalidTicketAmount);
+		return dest;}
 }
 
 char* Transaction::write_ticketPrice( char* dest, int amount){
 	clearError();
-	return dest;
+	if( 0 <= amount && amount < pow( 10, price_size )){
+		sprintf( dest, "%*d",
+			price_size, amount);
+		return dest + price_size;}
+	else{
+		throwError( Error::TransactionInvalidTicketPrice);
+		return dest;}
 }
 
 char* Transaction::write_token( char* dest){
