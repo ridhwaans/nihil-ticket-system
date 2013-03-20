@@ -41,6 +41,10 @@ void command_sell(){
 	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to sell tickets for:\n";
 	char* InputEventTitle = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	EventName = new char[ strlen(InputEventTitle) + 1];
 	strcpy( EventName, (const char*) InputEventTitle );   //copy to separate buffer, before next call to getLine()
 	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
@@ -55,6 +59,10 @@ void command_sell(){
 	//Get Ticket Price
 	std::cout << "\nPlease enter the price per ticket:\n";
 	char* InputTicketPrice = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	bool ValidTicketPrice = true;									//will be set to false if anything is wrong with input
 	int Periods = 0;
 	for( int i = 0;  i<strlen(InputTicketPrice);  i++) {	//first ensure there are no invalid chars, and at most 1 period
@@ -106,6 +114,10 @@ void command_sell(){
 	//Get Number of Tickets to Sell
    std::cout << "\nPlease enter the number of tickets to sell:\n";
 	char* InputNumOfTickets = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	NumOfTickets = atoi( InputNumOfTickets );
 	if( strlen(InputNumOfTickets)==0 || NumOfTickets <= 0 || NumOfTickets >= 1000 ) {
 		std::cout << "\n[Fail] Invalid number of tickets.\n";

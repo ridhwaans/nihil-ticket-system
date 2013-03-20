@@ -53,7 +53,7 @@ void command_buy(){
 	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to buy tickets for:\n";
 	char* InputEventTitle = format( getLine() );
-	if( std::cin.eof()  == 0 ) {
+	if( std::cin.eof() ) {
 		std::cout << "\n" << Error::badParameterError << "\n";
 		return;
 	}
@@ -72,7 +72,7 @@ void command_buy(){
 	bool ValidNumOfTickets = true;
    std::cout << "\nPlease enter the number of tickets to buy:\n";
 	char* InputNumOfTicket = format( getLine() );
-	if( std::cin.eof() == 0 ) {
+	if( std::cin.eof() ) {
 		std::cout << "\n" << Error::badParameterError << "\n";
 		return;
 	}
@@ -88,7 +88,7 @@ void command_buy(){
 	//Get username of seller to buy from
 	std::cout << "\nPlease enter the username of whom to purchase the tickets from\n";
 	char* InputUsernameOfSeller = format( getLine() );
-	if( std::cin.eof() == 0 ) {
+	if( std::cin.eof() ) {
 		std::cout << "\n" << Error::badParameterError << "\n";
 		return;
 	}
@@ -108,7 +108,7 @@ void command_buy(){
 
 	//Get users response to confirmation message
 	char* ConfirmResponse = format( getLine() );
-	if( std::cin.eof()  == 0 ) {
+	if( std::cin.eof() ) {
 		std::cout << "\n" << Error::badParameterError << "\n";
 		return;
 	}
