@@ -32,26 +32,6 @@ Account::Type usertype_to_enum(char* usertype) {
  * performing internal actions, constructing and pushing transaction
  */
 void command_create(){
-//basic command pseudocode:
-	//get all inputs
-		//stop only if input line cannot be parsed
-	//validate all inputs
-		//e.g. username is in the accounts list
-	//if relevant to command, confirm execution of command should proceed
-		//only command this applies to is buy
-	//prepare relevant objects
-		//e.g. new account, new tickets, etc
-	//perform internal actions
-		//e.g. accounts.add(newAccount) or tickets[4].quantity-=4
-	//construct transaction
-		//e.g. Transaction transaction(Transaction.create);
-			//transaction.username = username;
-	//push transaction
-	//transactions.add(transaction);
-	//clean up
-	//terminate
-	//return 0;
-	//end basic command pseudocode
 
 	Transaction transaction;
 	transaction.code = Transaction::Create;
@@ -76,10 +56,10 @@ void command_create(){
 
 	//check for bad characters
 	std::string badChars(" \t\f\v\n\r");
-	for( int i = 0; transaction.username[i] != '\0'; i++)
+	for( int i = 0; transaction.username[i] != '\0'; i++){
 	if( badChars.find(transaction.username[i]) != std::string::npos){
 		printf("%s\n", Error::invalidUsernameCharactersError);
-		return;}
+		return;}}
 
 	//check if username exists
 	for( int i = 0; i < accounts.size(); i++){
@@ -150,15 +130,6 @@ void command_create(){
 	  char* leftpart   = new char[ strlen(new_accountcredit) + 1];
 	  char* rightpart = new char[ strlen(new_accountcredit) + 1];
 
-	  //  for ( x = 0; x < strlen(input); x++) {
-	  //	  if (input[x] != '.')
-	  //		  leftpart[x] = input[x];
-	  //	  else{
-	  //		  int i = 0;
-	  //		  for (int y = x+1; x < strlen(input); y++) {
-	  //			  rightpart[i] = input[y];
-	  //			  i++;}}}
-
 	  x = 0; int l = 0; int r = 0;
 	  while( x<strlen(new_accountcredit) ) {
 	  	if( new_accountcredit[x] != '.' ) {
@@ -172,20 +143,6 @@ void command_create(){
 	  		break;}}
 	  leftpart[l] = '\0'; rightpart[r] = '\0';
 
-
-	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
-	  /*char period[] = ".";
-	  char* period_str = (char*)memchr( new_accountcredit, '.', strlen(new_accountcredit));
-	  if( NULL != period_str){
-		  printf( "%s\n", Error::TransactionInvalidCredits);
-		  return;}
-	  int period_i = period_str - new_accountcredit;
-	  char* left = new char[ credit_size];
-	  strncpy( left, new_accountcredit, period_i);
-	  char* right = period_str+1;
-
-	  int rpart= strlen(right)>0 ? atoi(right) : 0;*/
-
 	  int rpart= 0;
 	  //compose decimal value
 	  if (rightpart[0] != '\0') rpart = (rightpart[0]- '0') * 10;
@@ -198,7 +155,7 @@ void command_create(){
 		  printf( "%s\n", Error::maxAccountCreditError);
 		  return;}
 
-	// regex for credit (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+	// regex (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 
 	transactionFile->add( transaction);
 	printf("[Success] User created\n");
