@@ -10,6 +10,8 @@ const char Error::badTicketStringError[] = "[Fail] Incorrectly formatted ticket.
 const char Error::badUsernameStringError[] = "[Fail] Incorrectly formatted username. Usernames are 1 to 15 alpha-numeric characters.";
 const char Error::BuyInvalidNumberOfTickets[] = "[Fail] Can not buy the specified number of tickets, there is currently not enought tickets available.";
 const char Error::BuyUserTicketLimitExceeded[] = "[Fail] Your current user account prohibits you from buying more than 4 tickets from another user, in the same transaction.";
+const char Error::BuyInsufficientCredit[] = "[Fail] Insufficient credit to buy the requested tickets.";
+const char Error::BuySellerDoesNotExist[] = "[Fail] Specified seller does not exst";
 const char Error::currentAccountDelete[] = "[Fail] Current account deletion denied";
 const char Error::InvalidAccountType[] = 	"[Fail] Invalid account type";
 const char Error::InvalidLoginError[] = "[Fail] Login invalid";
@@ -32,4 +34,6 @@ const char Error::TransactionUsernameTooLong[] = "[Fail] Transaction username to
 const char Error::unprivilegedUserError[] = 	"[Fail] Permission denied";
 const char Error::UnrecognizedCommandError[] = "[Fail] Unrecognized command";
 const char Error::UserNotFound[] = "[Fail] User not found";
+
+
 

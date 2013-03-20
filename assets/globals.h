@@ -46,7 +46,7 @@ extern Account* currentAccount;
 //variables and constants
 extern std::vector<Account> accounts;
 extern std::vector<Ticket> tickets;
-extern std::vector<Ticket> tickets_queue;
+extern std::vector<Ticket> tickets_queue;		//holds tickets that were sold within current session
 extern TransactionFile* transactionFile;
 //functions
 bool loadAccounts( const char* accountsFilename);
@@ -79,3 +79,6 @@ void clearError();
 void test_transaction();
 
 #endif
+
+
+

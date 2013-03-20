@@ -33,7 +33,7 @@ void command_sell(){
 
 	//Check for correct account type to be allowed to sell
 	if( accounts[currentAccount_index].type == Account::Buy ) {
-		std::cout << "\n Your user account type does not allow you to sell. \n";
+		std::cout << "\n[Fail] Your user account type does not allow you to sell. \n";
 		return;
 	}
 
@@ -41,6 +41,10 @@ void command_sell(){
 	bool ValidEventName = true;
 	std::cout << "\nPlease enter the event of which to sell tickets for:\n";
 	char* InputEventTitle = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	EventName = new char[ strlen(InputEventTitle) + 1];
 	strcpy( EventName, (const char*) InputEventTitle );   //copy to separate buffer, before next call to getLine()
 	if( strlen(EventName) == 0 || strlen(EventName) > eventName_size ) ValidEventName = false;
@@ -55,6 +59,10 @@ void command_sell(){
 	//Get Ticket Price
 	std::cout << "\nPlease enter the price per ticket:\n";
 	char* InputTicketPrice = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
 	bool ValidTicketPrice = true;									//will be set to false if anything is wrong with input
 	int Periods = 0;
 	for( int i = 0;  i<strlen(InputTicketPrice);  i++) {	//first ensure there are no invalid chars, and at most 1 period
@@ -99,21 +107,37 @@ void command_sell(){
 			ValidTicketPrice = false;
 	}
 	if( !ValidTicketPrice ) {
-		std::cout << "\n Invalid Ticket price! Sell transaction cancelled. \n";
+		std::cout << "\n[Fail] Invalid Ticket price! Sell transaction cancelled. \n";
 		return;
 	}
 
 	//Get Number of Tickets to Sell
    std::cout << "\nPlease enter the number of tickets to sell:\n";
-	char* InputNumOfTicket = format( getLine() );
-	NumOfTickets = atoi( InputNumOfTicket );
+	char* InputNumOfTickets = format( getLine() );
+	if( std::cin.eof() ) {
+		std::cout << "\n" << Error::badParameterError << "\n";
+		return;
+	}
+	NumOfTickets = atoi( InputNumOfTickets );
+	if( strlen(InputNumOfTickets)==0 || NumOfTickets <= 0 || NumOfTickets >= 1000 ) {
+		std::cout << "\n[Fail] Invalid number of tickets.\n";
+		return;
+	}
+
+	//also, can not sell more than 100 tickets to an event
+	if( NumOfTickets > 100 ) {
+		std::cout << "\n[Fail] Unable to sell tickets, where the number of tickets for the event will exceed 100.\n";
+		return;
+	}
 
 	//Get the seller's name (the user who is currently logged in)
 	char* SellersUsername = accounts[ currentAccount_index ].username;
 
 	//Construct a new ticket representing the tickets being sold
 	Ticket* t = new Ticket( EventName, NumOfTickets, TicketPrice, SellersUsername);
-	tickets.push_back( *t );
+	tickets_queue.push_back( *t ); //goes into queue of tickets sold during this session
+
+	std::cout << "\n[Success] Tickets Sold. \n";
 
 	//construct transaction
 	Transaction SellTransact;

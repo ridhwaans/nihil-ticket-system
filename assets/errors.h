@@ -24,6 +24,11 @@ namespace Error {
 	extern const char TransactionEventNameTooLong[];
 	extern const char TransactionInvalidCode[];
 	extern const char TransactionInvalidCredits[];
+   extern const char BuySellerDoesNotExist[];
+   extern const char BuyInsufficientCredit[];
+   extern const char BuyInvalidNumberOfTickets[];
+	extern const char BuyInsufficientTickets[];
+	extern const char BuyUserTicketLimitExceeded[];
 	extern const char TransactionInvalidTicketAmount[];
 	extern const char TransactionInvalidTicketPrice[];
 	extern const char TransactionNullAccountType[];
@@ -34,6 +39,6 @@ namespace Error {
 	extern const char unprivilegedUserError[];
 	extern const char UnrecognizedCommandError[];
 	extern const char UserNotFound[];
-  extern const char BuyInvalidNumberOfTickets[];
+   extern const char BuyInvalidNumberOfTickets[];
 }
 #endif

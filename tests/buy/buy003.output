@@ -1,13 +1,15 @@
 Welcome to Ticket sales
 Please enter your username to login
-[Success] Logged in as 'buyer'
-Enter event title:
-Enter number of tickets:
-Enter seller's username:
+[Success] Logged in as 'manager'
+Please enter the event of which to buy tickets for:
+Please enter the number of tickets to buy:
+Please enter the username of whom to purchase tickets from
 Summary: 
 Event: Grand-Event
 Number of tickets: 5
 Seller: seller
 Confirm [Yes/No]
-[Fail] You cannot buy that many tickets
+[Success] Tickets bought
 Logged out
+done commiting
+
