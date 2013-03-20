@@ -47,7 +47,7 @@ void command_delete(){
 
 	//get username
 	printf("Enter user:\n");
-	char* input = format( getLine());
+	char* input = format_name( getLine());
 
 	//check for null, empty input
 	if( std::cin.eof() || strlen(input) == 0)

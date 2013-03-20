@@ -1,7 +1,6 @@
 Welcome to Ticket sales
 Please enter your username to login
-[Success] Logged in as 'manager'
+[Success] Logged in as 'admin'
 Enter user name:
-Enter account type:
 [Fail] Username has invalid characters
 Logged out

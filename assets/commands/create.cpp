@@ -61,7 +61,7 @@ void command_create(){
 		return;}
 
 	printf("Enter user name:\n");
-	char* new_username = format(getLine());
+	char* new_username = format_name(getLine());
 
 	//check for null, empty input
 	if( std::cin.eof() || strlen(new_username) == 0){
@@ -198,7 +198,7 @@ void command_create(){
 		  printf( "%s\n", Error::maxAccountCreditError);
 		  return;}
 
-	// regex (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
+	// regex for credit (0 | [1-9][0-9]*) . (0 | [0-9]*[1-9])
 
 	transactionFile->add( transaction);
 	printf("[Success] User created\n");
