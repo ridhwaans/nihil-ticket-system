@@ -46,12 +46,12 @@ for(int u = 0;  u<accounts.size();  u++) {
 	if( strcmp(accounts[u].username, creditToUsername)==0 ) {
 		UserExists=true;
 		break;
-		}
 	}
+}
 if( !UserExists) {
 	printf("%s\n" , Error::UserNotFound);
 	return;
-	}
+}
 
 //check to see if credit amount is between 0 and 1000
 if(addedCredit < minCredit || addedCredit > maxCredit){
