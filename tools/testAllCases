@@ -1,7 +1,30 @@
-outputFolder=results/$(date +%Y%m%d-%H%M)
+#!/bin/bash
+# A script to run every case in the tests folder
+# by Kalev Kalda Sikes
 
+# note: this documentation assumes you know next to nothing about bash scripts
+
+# select the name of the folder in which all output will be stored using the current date/time
+outputFolder=results/$(date +%Y-%m-%d_%H%M)
+# ensure the director exists
+mkdir -p $outputFolder
+
+# select the name of the log file
+logfile=$outputFolder/log.txt
+
+# for every folder in the tests folder
 for section in $(ls -d tests/*/)
 do
+	# extract the section's name
 	section=$(basename "$section")
-	tools/testSection $section $outputFolder
+	#
+	tools/testSection $section $outputFolder &>> $logfile
 done
+
+# merge all output diffs into one file
+cat $outputFolder/*/*.output.diff \
+	> $outputFolder/all.output.diff
+
+# merge all dtf diffs into one file
+cat $outputFolder/*/*.dtf.diff \
+	> $outputFolder/all.dtf.diff

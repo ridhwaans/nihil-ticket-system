@@ -93,7 +93,7 @@ int main( int argc, char* argv[], char *envp[]) {
 			//check for null input
 			if( strlen( command) == 0);
 			//select command
-			else if( !strcmp( command, "addCredit"))
+			else if( !strcmp( command, "addcredit"))
 				if( true) //if user is admin, call special addCredit
 					command_addCredit_admin();
 				else

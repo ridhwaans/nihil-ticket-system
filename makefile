@@ -10,6 +10,7 @@ clean: clean-specials
 	tools/cleandir tools
 clean-specials: remove-results
 	rm -f nts-client
+	rm -f output.dtf
 freshen: clean all
 remove-results:
 	rm -rf results/*

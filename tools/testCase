@@ -1,4 +1,10 @@
 #!/bin/bash
+# A script to run a specific case
+# by Kalev Kalda Sikes
+
+# note: this documentation assumes you know next to nothing about bash scripts
+# note: not intended to be called from anything but the tools/testSection script
+
 outputFolder="results"
 if [ $# -gt 2 ];then
 	outputFolder=$3
@@ -15,11 +21,28 @@ then
 	code=$2
 	casepath=tests/$section/$code
 	mkdir -p $outputFolder
-	echo -en "TC: $section/$code; Data: '$dataFolder'; Output: 'output to '$outputFolder'\n"
-	./nts-client $casepath.cua $casepath.atf \
-		$ouputFolder/$code.dtf \
+	echo -en "TC: $section/$code; Data: '$dataFolder'; Output: '$outputFolder'\n"
+	touch $outputFolder/$code.dtf
+	./nts-client $dataFolder/data.cua $dataFolder/data.atf \
+		$outputFolder/$code.dtf \
 		< $casepath.input \
-		>> $outputFolder/$code.output
+		&> $outputFolder/$code.output
+	echo -en \
+		" ===========================\n"\
+		"$casepath\n"\
+		"===========================\n"\
+		 > $outputFolder/$code.output.diff
+	diff \
+		$casepath.output $outputFolder/$code.output \
+		&>> $outputFolder/$code.output.diff
+	echo -en \
+		"===========================\n"\
+		"$casepath\n"\
+		"===========================\n"\
+		 > $outputFolder/$code.dtf.diff
+	diff \
+		$casepath.dtf $outputFolder/$code.dtf \
+		&>> $outputFolder/$code.dtf.diff
 else
 	echo -en "not enough arguments\n"
 fi

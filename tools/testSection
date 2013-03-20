@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/bash#!/bin/bash
+# A script to run a specific test section
+# by Kalev Kalda Sikes
+
+# note: this documentation assumes you know next to nothing about bash scripts
+# note: not intended to be called from anything but the tools/testAllCases script
+
 section=$1
 
 outputFolder="results"
