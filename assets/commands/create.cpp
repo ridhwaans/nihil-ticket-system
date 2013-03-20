@@ -32,41 +32,21 @@ Account::Type usertype_to_enum(char* usertype) {
  * performing internal actions, constructing and pushing transaction
  */
 void command_create(){
-//basic command pseudocode:
-	//get all inputs
-		//stop only if input line cannot be parsed
-	//validate all inputs
-		//e.g. username is in the accounts list
-	//if relevant to command, confirm execution of command should proceed
-		//only command this applies to is buy
-	//prepare relevant objects
-		//e.g. new account, new tickets, etc
-	//perform internal actions
-		//e.g. accounts.add(newAccount) or tickets[4].quantity-=4
-	//construct transaction
-		//e.g. Transaction transaction(Transaction.create);
-			//transaction.username = username;
-	//push transaction
-	//transactions.add(transaction);
-	//clean up
-	//terminate
-	//return 0;
-	//end basic command pseudocode
 
 	Transaction transaction;
 	transaction.code = Transaction::Create;
 
 	if (accounts[currentAccount_index].type != Account::Admin){
 		printf( "%s\n", Error::unprivilegedUserError);
-		return;
-	}
+		return;}
+
 	printf("Enter user name:\n");
-	char* new_username = format(getLine());
+	char* new_username = format_name(getLine());
 
 	//check for null, empty input
-	if( std::cin.eof() || strlen(new_username) == 0)
+	if( std::cin.eof() || strlen(new_username) == 0){
 		printf( "%s\n", Error::badParameterError);
-
+		return;}
 	//check if input > required size
 	if( strlen(new_username) > username_size){
 		printf("%s\n", Error::LineTooLongError);
@@ -76,20 +56,18 @@ void command_create(){
 
 	//check for bad characters
 	std::string badChars(" \t\f\v\n\r");
-	for( int i = 0; transaction.username[i] != '\0'; i++)
+	for( int i = 0; transaction.username[i] != '\0'; i++){
 	if( badChars.find(transaction.username[i]) != std::string::npos){
 		printf("%s\n", Error::invalidUsernameCharactersError);
-		return;}
+		return;}}
 
 	//check if username exists
 	for( int i = 0; i < accounts.size(); i++){
 		if( strcmp( transaction.username, accounts[i].username)==0){
-			printf("[Fail] User account already exists. Please specify a new username");
-			return;
-		}
-	}
+			printf("[Fail] User account already exists. Please specify a new username\n"); 
+			return;}}
 
-	printf("Enter account type:");
+	printf("Enter account type:\n");
 	char* new_accountType = format(getLine());
 
 	//check for null, empty input
@@ -119,16 +97,17 @@ void command_create(){
 	transaction.type = usertype_to_enum(new_accountType);
 
 	//get user input for account credit, parse int
-	printf("Enter credit amount:");
+	printf("Enter credit amount:\n");
 	char* new_accountcredit = format(getLine());
 
 	//check for null, empty input
-		if( std::cin.eof() || strlen(new_accountcredit) == 0)
+		if( std::cin.eof() || strlen(new_accountcredit) == 0){
 			printf( "%s\n", Error::badParameterError);
+			return;}
 
 	//check credit format
 	bool flag=true;
-	  //if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
+	//if ( input[0] == '.' || input[strlen(input)-1] == '.') flag = false;
 
 	  int x;int p=0;
 	  for ( x = 0; x < strlen(new_accountcredit); x++) {
@@ -151,15 +130,6 @@ void command_create(){
 	  char* leftpart   = new char[ strlen(new_accountcredit) + 1];
 	  char* rightpart = new char[ strlen(new_accountcredit) + 1];
 
-	  //  for ( x = 0; x < strlen(input); x++) {
-	  //	  if (input[x] != '.')
-	  //		  leftpart[x] = input[x];
-	  //	  else{
-	  //		  int i = 0;
-	  //		  for (int y = x+1; x < strlen(input); y++) {
-	  //			  rightpart[i] = input[y];
-	  //			  i++;}}}
-
 	  x = 0; int l = 0; int r = 0;
 	  while( x<strlen(new_accountcredit) ) {
 	  	if( new_accountcredit[x] != '.' ) {
@@ -172,20 +142,6 @@ void command_create(){
 	  			r++;x++; }
 	  		break;}}
 	  leftpart[l] = '\0'; rightpart[r] = '\0';
-
-
-	  //printf("'%s'\n'%s'\n",leftpart,rightpart);
-	  /*char period[] = ".";
-	  char* period_str = (char*)memchr( new_accountcredit, '.', strlen(new_accountcredit));
-	  if( NULL != period_str){
-		  printf( "%s\n", Error::TransactionInvalidCredits);
-		  return;}
-	  int period_i = period_str - new_accountcredit;
-	  char* left = new char[ credit_size];
-	  strncpy( left, new_accountcredit, period_i);
-	  char* right = period_str+1;
-
-	  int rpart= strlen(right)>0 ? atoi(right) : 0;*/
 
 	  int rpart= 0;
 	  //compose decimal value
