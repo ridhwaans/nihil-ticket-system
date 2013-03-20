@@ -180,12 +180,12 @@ void clearError(){
 //debug functions
 void test_transaction(){
 	Transaction t;
-	t.code = Transaction::Test;
 
-	strcpy( t.username, "asdf");
-	strcpy( t.buyer, "asdf");
-	strcpy( t.seller, "asdf");
-	strcpy( t.eventName, "asdf");
+	t.code = Transaction::Test;
+	strncpy( t.username, "asdfasdfasdfasdfasdf", username_size);
+	strncpy( t.buyer, "asdfasdfasdfasdfasdf", username_size);
+	strncpy( t.seller, "asdfasdfasdfasdfasdf", username_size);
+	strncpy( t.eventName, "asdfasdfasdfasdfasdfasdasfasfasfdasdf", eventName_size);
 	t.type = Account::Admin;
 	t.ticketAmount = 123;
 	t.ticketPrice = 123;

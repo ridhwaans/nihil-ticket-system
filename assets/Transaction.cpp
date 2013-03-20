@@ -1,16 +1,16 @@
+//lib includes
+#include <cmath>
 #include <cstdio>
+#include <cstring>
 #include <iostream>
-#include <string.h>
-#include "Transaction.h"
-#include "globals.h"
+//local includes
+#include "debug.h"
 #include "errors.h"
+#include "globals.h"
+//override include
+#include "Transaction.h"
 
-/**
- * Determines the transaction code based on the enumeration value received
- *
- * @ Transaction code field value XX
- **/
-
+//constructors, destructor and operators
 Transaction::Transaction(){
 	username = new char[username_size+1];
 	eventName = new char[eventName_size+1];
@@ -52,12 +52,60 @@ char* Transaction::write(char* dest){
 
 	switch (this->code){
 		case Transaction::Test:{
-			char* curr = write_digit( dest, this->code);
+			//write code
+			if( debug_transaction) printf("writing code\n");
+			char* curr = write_code( dest, this->code);
 			if( error) break;
+			if( debug_transaction) printf("writing token\n");
 			curr = write_token( curr);
+			//write username
+			if( debug_transaction) printf("writing username\n");
 			curr = write_username( curr, this->username);
 			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write buyer username
+			if( debug_transaction) printf("writing buyer username\n");
+			curr = write_username( curr, this->buyer);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write seller username
+			if( debug_transaction) printf("writing seller username\n");
+			curr = write_username( curr, this->seller);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write event name
+			if( debug_transaction) printf("writing event name\n");
+			curr = write_eventName( curr, this->eventName);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write type
+			if( debug_transaction) printf("writing type\n");
+			curr = write_type( curr, this->type);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write ticket amount
+			if( debug_transaction) printf("writing ticket amount\n");
+			curr = write_ticketAmount( curr, this->ticketAmount);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
+			curr = write_token( curr);
+			//write ticket price
+			if( debug_transaction) printf("writing ticket price\n");
+			curr = write_ticketPrice( curr, this->ticketPrice);
+			if( error) break;
+			curr = write_token( curr);
+			//write credit
+			if( debug_transaction) printf("writing credit\n");
+			curr = write_credit( curr, this->totalCredits);
+			if( error) break;
+			if( debug_transaction) printf("writing token\n");
 			//good
+			if( debug_transaction) printf("done\n");
 			return dest;}
 
 		//01-create, 02-delete, 06-addcredit, 00-end of session
@@ -66,35 +114,80 @@ char* Transaction::write(char* dest){
 		case Transaction::Create:
 		case Transaction::Delete:
 		case Transaction::AddCredit:{
-			//printf("Creating a Create, Delete, or AddCredit transaction\n");
-			//check the username field
-			/*for( i = 0; this->username[i] != '\0'; i++)
-				current[i] = this->username[i];
-			for( i; i < username_size; i++)
-				current[i] = filler;
-			current += username_size;
-			current[0] = token;
-			current += 1;*/
+			//write code
+			char* curr = write_code( dest, this->code);
+			if( error) break;
+			curr = write_token( curr);
 
-			//prepare the account type field
+			//write username
+			curr = write_username( curr, this->username);
+			if( error) break;
+			curr = write_token( curr);
 
-			//check the credits field
-			//"%02s %-15s %2s %06d.%02d" sample format
-			//write the fields
-			}
+			//write type
+			curr = write_type( curr, this->type);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write credit
+			curr = write_credit( curr, this->totalCredits);
+			if( error) break;
+
+			//done
+			return dest;}
 
 		//05-refund
 		//(X field 2, U field 15, S field 15, C field 9, total 44)
 		//XX_UUUUUUUUUUUUUUU_SSSSSSSSSSSSSSS_CCCCCCCCC
 		case Transaction::Refund:{
-			}//break;}
+			//write code
+			char* curr = write_code( dest, this->code);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write buyer username
+			curr = write_username( curr, this->buyer);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write seller username
+			curr = write_username( curr, this->seller);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write credit
+			curr = write_credit( curr, this->totalCredits);
+			if( error) break;
+
+			//done
+			return dest;}
 
 		//03-sell, 04-buy
 		//(X field 2, E field 19, S field 15, T field 3, P field 6, total 45+4 = 49)
 		//XX_EEEEEEEEEEEEEEEEEEE_SSSSSSSSSSSSSSS_TTT_PPPPPP
 		case Transaction::Buy:
 		case Transaction::Sell:{
-			}//break;}
+			//write code
+			char* curr = write_code( dest, this->code);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write seller username
+			curr = write_username( curr, this->seller);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write ticket amount
+			curr = write_ticketAmount( curr, this->ticketAmount);
+			if( error) break;
+			curr = write_token( curr);
+
+			//write ticket price
+			curr = write_ticketPrice( curr, this->ticketPrice);
+			if( error) break;
+
+			//done
+			return dest;}
 
 		//manage the error case
 		default:{
@@ -113,7 +206,7 @@ char* Transaction::write(char* dest){
  * @param transaction_code
  * @return
  **/
-char* Transaction::write_digit( char* dest, Transaction::Code code){
+char* Transaction::write_code( char* dest, Transaction::Code code){
 	clearError();
 	switch( code){
 		case Transaction::Create:{
@@ -146,69 +239,112 @@ char* Transaction::write_digit( char* dest, Transaction::Code code){
 			break;}
 		default:{
 			throwError( Error::TransactionNullCode);
-			break;}}
+			return dest;}}
 	return dest + code_size;
 }
 
 char* Transaction::write_username( char* dest, char* name){
 	clearError();
-	if( NULL == name)//ensure name is usable
+	//check for errors errors
+	// ensure name is usable
+	if( NULL == name)
 		throwError( Error::TransactionNullUsername);
-	else if( strlen( name) == 0) //ensure name is not ""
+	 //ensure name is not empty
+	else if( strlen( name) == 0)
 		throwError( Error::TransactionNullUsername);
-	else if( strlen( name) > username_size) //ensure name is not too long
+	//ensure name is not too long
+	else if( strlen( name) > username_size)
 		throwError( Error::TransactionUsernameTooLong);
-	else { //write name
+
+	//write name
+	else {
 		sprintf( dest, "%-*s", username_size, name);
 		return dest + username_size;}
+
+	//handle error case
+	dest[0] = '\0';
+	return dest;
+}
+
+char* Transaction::write_eventName( char* dest, char* name){
+	clearError();
+	//check for errors errors
+	// ensure name is usable
+	if( NULL == name)
+		throwError( Error::TransactionNullEventName);
+	 // ensure name is not empty
+	else if( strlen( name) == 0)
+		throwError( Error::TransactionNullEventName);
+	// ensure name is not too long
+	else if( strlen( name) > eventName_size)
+		throwError( Error::TransactionEventNameTooLong);
+
+	//write name
+	else {
+		sprintf( dest, "%-*s", eventName_size, name);
+		return dest + eventName_size;}
+
+	//handle error case
 	dest[0] = '\0';
 	return dest;
 }
 
 char* Transaction::write_type( char* dest, Account::Type type){
 	clearError();
-	/*switch( type){
+	switch( type){
 		case Account::Admin:{
 			char typeString_admin[] = "AA";
-			strcpy( typeString, typeString_admin);
+			strcpy( dest, typeString_admin);
 			break;}
 		case Account::Buy:{
 			char typeString_buy[] = "BS";
-			strcpy( typeString, typeString_buy);
+			strcpy( dest, typeString_buy);
 			break;}
 		case Account::Sell:{
 			char typeString_sell[] = "SS";
-			strcpy( typeString, typeString_sell);
+			strcpy( dest, typeString_sell);
 			break;}
 		case Account::Full:{
 			char typeString_full[] = "FS";
-			strcpy( typeString, typeString_full);
+			strcpy( dest, typeString_full);
 			break;}
 		default:{
-			printf("%s\n", Error::TransactionNullAccountType);
-			delete[] typeString;
-			return NULL;}}*/
-	return dest;
+			throwError( Error::TransactionNullAccountType);
+			return dest;}}
+	return dest + type_size;
 }
 
 char* Transaction::write_credit( char* dest, int amount){
 	clearError();
-	/*if( totalCredits >= 100000000 ||
-			totalCredits <0){
-		printf("%s\n", Error::TransactionInvalidCredits);
-		delete[] typeString;
-		return NULL;}*/
-	return dest;
+	if( 0 <= amount && amount < pow( 10, credit_size - 1)){
+		sprintf( dest, "%*d.%2d",
+			credit_size - 3, amount/100, amount%100);
+		return dest + credit_size;}
+	else{
+		throwError( Error::TransactionInvalidCredits);
+		return dest;}
 }
 
 char* Transaction::write_ticketAmount( char* dest, int amount){
 	clearError();
-	return dest;
+	if( 0 <= amount && amount < pow( 10, quantity_size )){
+		sprintf( dest, "%*d",
+			quantity_size, amount);
+		return dest + quantity_size;}
+	else{
+		throwError( Error::TransactionInvalidTicketAmount);
+		return dest;}
 }
 
 char* Transaction::write_ticketPrice( char* dest, int amount){
 	clearError();
-	return dest;
+	if( 0 <= amount && amount < pow( 10, price_size )){
+		sprintf( dest, "%*d",
+			price_size, amount);
+		return dest + price_size;}
+	else{
+		throwError( Error::TransactionInvalidTicketPrice);
+		return dest;}
 }
 
 char* Transaction::write_token( char* dest){

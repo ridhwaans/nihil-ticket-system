@@ -1,9 +1,7 @@
+//lib includes
 #include <cstdio>
-
-#include <string>
-
-#include "../assets/globals.h"
-#include "../assets/Ticket.h"
+//local includes
+#include "../nts-lib.h"
 
 using namespace std;
 

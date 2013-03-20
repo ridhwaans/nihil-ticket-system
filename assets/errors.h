@@ -21,6 +21,7 @@ namespace Error {
 	extern const char maxAccountCreditError[];
 	extern const char TicketLineTooLongError[];
 	extern const char TicketsFileNotFoundError[];
+	extern const char TransactionEventNameTooLong[];
 	extern const char TransactionInvalidCode[];
 	extern const char TransactionInvalidCredits[];
    extern const char BuySellerDoesNotExist[];
@@ -28,7 +29,10 @@ namespace Error {
    extern const char BuyInvalidNumberOfTickets[];
 	extern const char BuyInsufficientTickets[];
 	extern const char BuyUserTicketLimitExceeded[];
+	extern const char TransactionInvalidTicketAmount[];
+	extern const char TransactionInvalidTicketPrice[];
 	extern const char TransactionNullAccountType[];
+	extern const char TransactionNullEventName[];
 	extern const char TransactionNullUsername[];
 	extern const char TransactionNullCode[];
 	extern const char TransactionUsernameTooLong[];

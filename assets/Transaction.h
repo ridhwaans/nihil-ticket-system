@@ -21,20 +21,21 @@ public:
 	char* username;
 	char* buyer;
 	char* seller;
-	Account::Type type;
 	char* eventName;
+	Account::Type type;
 	int ticketAmount;
 	int ticketPrice;
 	int totalCredits;
 
-	Transaction(); //default null constructor
-	Transaction( const Transaction&); //copy constructor
+	Transaction();
+	Transaction( const Transaction&);
 	~Transaction();
 	Transaction& operator=( const Transaction&);
 
 	char* write(char* dest = buffer);
-	char* write_digit( char*, Transaction::Code);
+	char* write_code( char*, Transaction::Code);
 	char* write_username( char*, char*);
+	char* write_eventName( char*, char*);
 	char* write_type( char*, Account::Type);
 	char* write_credit( char*, int);
 	char* write_ticketAmount( char*, int);
