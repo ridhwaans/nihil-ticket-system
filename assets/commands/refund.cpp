@@ -35,20 +35,20 @@ void command_refund(){
 Transaction refundTransaction;
 
 //Get the username of the refundee
-std::cout << "\n Please enter the username of the refundee: \n";
-char* InputNameOfBuyer = format(getLine());
+std::cout << "\n Enter the buyer's username: \n";
+char* InputNameOfBuyer = format_name(getLine());
 nameOfBuyer = new char(strlen(InputNameOfBuyer) + 1);
 strcpy(nameOfBuyer, InputNameOfBuyer);
 
 //Get the username of the refunder
-std::cout << "\n Please enter the username of the refunder: \n";
-char* InputNameOfSeller = format(getLine());
+std::cout << "\n Enter the seller's username: \n";
+char* InputNameOfSeller = format_name(getLine());
 nameOfSeller = new char(strlen(InputNameOfSeller) + 1);
 strcpy(nameOfSeller, InputNameOfSeller);
 
 //Get the amount of credit to give to the refundee
-std::cout << "\n Enter the amount of credit to refund: \n";
-char* InputRefundAmount = format(getLine());
+std::cout << "\n Enter amount of credit to refund: \n";
+char* InputRefundAmount = format_name(getLine());
 refundAmount = atoi(InputRefundAmount);
 
 //Determine if buyer username exists
@@ -79,6 +79,11 @@ if( !SellerExists) {
 		printf("%s\n" , Error::UserNotFound);
 		return;
 	}
+//check to see if buyer and seller are the same person
+if(nameOfBuyer == nameOfSeller){
+     printf("%s\n" , Error::sameUserError);
+     return;
+}
 
 //check to see if credit amount is between 0 and max user credit
 if(refundAmount < minRefund || refundAmount > maxRefund){
@@ -87,6 +92,10 @@ if(refundAmount < minRefund || refundAmount > maxRefund){
 }
 
 //search for buyer name in the account index
+if(refundAmount < minRefund || refundAmount > maxRefund){
+    printf("%s\n", Error::TransactionInvalidCredits);
+    return;
+}
 while (strcmp(accounts[buyer_index].username, nameOfBuyer)!= 0){
 	buyer_index++;
 }
@@ -96,6 +105,10 @@ while (strcmp(accounts[seller_index].username, nameOfSeller)!= 0){
     seller_index ++;
 }
 //check that seller has enough credits
+if (accounts[seller_index].credit < refundAmount){
+      printf("%s\n" , Error::insufficientCreditError);
+      return;
+}
 
 //add funds to buyer
 accounts[buyer_index].credit += (refundAmount);
@@ -103,6 +116,7 @@ accounts[buyer_index].credit += (refundAmount);
 accounts[seller_index].credit -= (refundAmount);
 
 refundTransaction.code = Transaction::Refund;
+printf("Refund transaction completed");
 return;
 }
 

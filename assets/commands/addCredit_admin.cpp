@@ -29,13 +29,13 @@ Transaction addCreditTransaction;
 
 //prompt admin for username
 std::cout << "\n Enter the name of the user: \n";
-char*InputUsername = format( getLine() );
+char*InputUsername = format_name( getLine() );
 creditToUsername = new char[strlen(InputUsername) + 1];
 strcpy(creditToUsername, InputUsername);
 
 //prompt user for credit amount
 std::cout << "\n Enter the amount of credit to add: \n";
-char* InputCredit = format(getLine());
+char* InputCredit = format_name(getLine());
 addedCredit = atoi(InputCredit);
 
 //check if user exists
@@ -43,28 +43,29 @@ bool UserExists = false;
 if (strcmp(creditToUsername, "admin")==0) UserExists=true;
 
 for(int u = 0;  u<accounts.size();  u++) {
-		if( strcmp(accounts[u].username, creditToUsername)==0 ) {
-			UserExists=true;
-			break;
-		}
+	if( strcmp(accounts[u].username, creditToUsername)==0 ) {
+		UserExists=true;
+		break;
 	}
+}
 if( !UserExists) {
-    printf("%s\n" , Error::UserNotFound);
-		return;
-	}
+	printf("%s\n" , Error::UserNotFound);
+	return;
+}
 
 //check to see if credit amount is between 0 and 1000
 if(addedCredit < minCredit || addedCredit > maxCredit){
-    printf("%s\n", Error::TransactionInvalidCredits);
-    return;
+	printf("%s\n", Error::TransactionInvalidCredits);
+	return;
 }
 
 //add credit to the account of the specified user
 while (strcmp(accounts[nameIndex].username, creditToUsername)!= 0){
-    nameIndex++;
+	nameIndex++;
 }
 accounts[nameIndex].credit += (addedCredit);
 
 addCreditTransaction.code = Transaction::AddCredit;
+printf("Credit added");
 return;
 }

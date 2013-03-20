@@ -27,7 +27,7 @@ Transaction addCreditTransaction;
 
 //prompt user for credit amount
 std::cout << "\n Enter the amount of credit to add: \n";
-char* InputCredit = format(getLine());
+char* InputCredit = format_name(getLine());
 addedCredit = atoi(InputCredit);
 
 //check to see if credit amount is between 0 and 1000
@@ -39,6 +39,7 @@ if(addedCredit < minCredit || addedCredit > maxCredit){
 //add credit to the account of the specified user
 accounts[currentAccount_index].credit += (addedCredit);
 addCreditTransaction.code = Transaction::AddCredit;
+printf("Credit added");
 return;
 }
 

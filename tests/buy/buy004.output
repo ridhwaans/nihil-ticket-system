@@ -9,6 +9,6 @@ Event: VIPShow
 Number of tickets: 1
 Seller: manager
 Confirm [Yes/No]
-[Fail] Insufficient credit to purchase the requested tickets.
+[Fail] Transaction has invalid credit amount
 Logged out
 done commiting

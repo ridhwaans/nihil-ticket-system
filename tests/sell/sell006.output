@@ -13,6 +13,6 @@ Event: newevent
 Number of tickets: 2
 Seller: admin
 Confirm [Yes/No]
-[Fail] The specified seller: 'admin' does not have tickets to the event: 'newevent'. Transaction cancelled.
+[Fail] Tickets File Not Found
 Logged out
 done commiting
