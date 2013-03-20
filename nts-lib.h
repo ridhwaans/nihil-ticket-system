@@ -1,9 +1,6 @@
 #ifndef nts_lib_h
 #define nts_lib_h
 
-//library headers
-#include <string.h>
-
 //local headers
 #include "assets/Account.h"
 #include "assets/commands.h"

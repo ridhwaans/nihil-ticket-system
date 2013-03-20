@@ -21,9 +21,11 @@ namespace Error {
 	extern const char maxAccountCreditError[];
 	extern const char TicketLineTooLongError[];
 	extern const char TicketsFileNotFoundError[];
+	extern const char TransactionEventNameTooLong[];
 	extern const char TransactionInvalidCode[];
 	extern const char TransactionInvalidCredits[];
 	extern const char TransactionNullAccountType[];
+	extern const char TransactionNullEventName[];
 	extern const char TransactionNullUsername[];
 	extern const char TransactionNullCode[];
 	extern const char TransactionUsernameTooLong[];
