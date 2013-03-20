@@ -1,0 +1,30 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as 'seller'
+[Fail] Permission denied
+[Fail] Permission denied
+[Fail] Permission denied
+Enter event title:
+Enter number of tickets:
+Enter seller's username:
+Summary:
+Event: VIP Show
+Number of tickets: 1
+Seller: manager
+Confirm [Yes/No]
+[Fail] Permission denied
+Enter event title:
+Enter number of tickets:
+Enter seller's username:
+Summary:
+Event: Grand-Event
+Number of tickets: 1
+Seller: seller
+Confirm [Yes/No]
+[Success] Tickets bought
+Enter event name:
+Enter event price:
+Enter number of tickets
+[Success] Tickets put up for sale
+[Fail] Permission denied
+Logged out

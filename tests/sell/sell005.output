@@ -5,6 +5,6 @@ Enter event name:
 Enter event price:
 Enter number of tickets
 [Success] Tickets put up for sale
-[Fail] Event name contains bad characters
+[Fail] Incorrectly formatted event name.
 Logged out
 

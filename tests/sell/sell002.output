@@ -4,6 +4,6 @@ Please enter your username to login
 Enter event name:
 Enter event price:
 Enter number of tickets
-[Fail] Price too high
+[Fail] Transaction has invalid credit amount
 Logged out
 

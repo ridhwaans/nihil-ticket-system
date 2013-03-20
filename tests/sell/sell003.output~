@@ -5,13 +5,6 @@ Enter event name:
 Enter event price:
 Enter number of tickets
 [Success] Tickets put up for sale
-Enter event title:
-Enter number of tickets:
-Enter seller's username:
-Summary:
-Event: newevent
-Number of tickets: 10
-Seller: admin
-Confirm [Yes/No]
-[Fail] Tickets File Not Found
+[Fail] Too many tickets
 Logged out
+

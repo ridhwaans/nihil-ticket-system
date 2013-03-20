@@ -1,0 +1,19 @@
+Welcome to Ticket sales
+Please enter your username to login
+[Success] Logged in as 'buyer'
+[Fail] Permission denied
+[Fail] Permission denied
+Enter Credit Amount:
+[Success] Credit added
+Enter event title:
+Enter number of tickets:
+Enter seller's username:
+Summary:
+Event: Grand-Event
+Number of tickets: 1
+Seller: seller
+Confirm [Yes/No]
+[Success] Tickets bought
+[Fail] Permission denied
+[Fail] Permission denied
+Logged out

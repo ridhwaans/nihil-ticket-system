@@ -4,7 +4,6 @@ Please enter your username to login
 Enter event name:
 Enter event price:
 Enter number of tickets
-[Success] Tickets put up for sale
-[Fail] Incorrectly formatted event name.
+[Fail] Price too high
 Logged out
 
