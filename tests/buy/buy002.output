@@ -9,5 +9,5 @@ Event:VIP Show
 Number of tickets: 3
 Seller: manager
 Confirm [Yes/No]
-[Fail] Too many tickets
+[Fail] Can not buy the specified number of tickets, there is currently not enought tickets available.
 Logged out

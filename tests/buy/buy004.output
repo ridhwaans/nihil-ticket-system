@@ -9,5 +9,5 @@ Event: VIP show
 Number of tickets: 1
 Seller: manager
 Confirm [Yes/No]
-[Fail] You do not have enough credit
+[Fail] Transaction has invalid credit amount
 Logged out
