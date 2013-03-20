@@ -124,6 +124,12 @@ void command_sell(){
 		return;
 	}
 
+	//also, can not sell more than 100 tickets to an event
+	if( NumOfTickets > 100 ) {
+		std::cout << "\n[Fail] Unable to sell tickets, where the number of tickets for the event will exceed 100.\n";
+		return;
+	}
+
 	//Get the seller's name (the user who is currently logged in)
 	char* SellersUsername = accounts[ currentAccount_index ].username;
 

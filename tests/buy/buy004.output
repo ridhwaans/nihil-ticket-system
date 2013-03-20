@@ -1,13 +1,14 @@
 Welcome to Ticket sales
 Please enter your username to login
 [Success] Logged in as 'buyer'
-Enter event title:
-Enter number of tickets:
-Enter seller's username:
+Please enter the event of which to buy tickets for:
+Please enter the number of tickets to buy:
+Please enter the username of whom to purchase tickets from
 Summary: 
-Event: VIP show
+Event: VIPShow
 Number of tickets: 1
 Seller: manager
 Confirm [Yes/No]
-[Fail] You do not have enough credit
+[Fail] Insufficient credit to purchase the requested tickets.
 Logged out
+done commiting

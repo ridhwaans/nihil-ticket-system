@@ -1,17 +1,18 @@
 Welcome to Ticket sales
 Please enter your username to login
 [Success] Logged in as 'admin'
-Enter event name:
-Enter event price:
-Enter number of tickets
-[Success] Tickets put up for sale
-Enter event title:
-Enter number of tickets:
-Enter seller's username:
+Please enter the event of which to sell tickets for:
+Please enter the price per ticket:
+Please enter the number of tickets to sell:
+[Success] Tickets Sold.
+Please enter the event of which to buy tickets for:
+Please enter the number of tickets to buy:
+Please enter the username of whom to purchase the tickets from
 Summary:
 Event: newevent
-Number of tickets: 10
+Number of tickets: 2
 Seller: admin
 Confirm [Yes/No]
-[Fail] Specified tickets currently not available
+[Fail] The specified seller: 'admin' does not have tickets to the event: 'newevent'. Transaction cancelled.
 Logged out
+done commiting
