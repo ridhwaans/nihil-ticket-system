@@ -10,4 +10,4 @@ By:
 Descriptiony text is descriptiony
 
 This project uses some libraries. These libraries should be in the libs/ folder.
- * JUnit
+ * JUnit : github.com/junit-team/junit/wiki/Download-and-Install
