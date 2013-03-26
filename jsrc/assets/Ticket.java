@@ -22,9 +22,9 @@ public class Ticket {
      */
 	public Ticket(String ATFLine) {
 		this.eventName = ATFLine.substring(0, eventName_size-1);
-		this.username  = ATFLine.substring(eventName+1, eventName+1+username_size-1);
-		this.quantity  = Integer.parseInt( ATFLine.substring(eventName_size + 1 + username_size + 1, eventName_size + 1 + username_size + 1 + quantity_size -1 ));
-		this.price     = Integer.parseInt( ATFLine.substring(eventName_size + 1 + username_size + 1 + quantity_size + 1, eventName_size + 1 + username_size + 1 + quantity_size + 1 + price_size -1 ));
+		this.username  = ATFLine.substring( eventName_size + 1, eventName_size + 1 + username_size - 1);
+		this.quantity  = Integer.parseInt( ATFLine.substring(eventName_size + 1 + username_size + 1, eventName_size + 1 + username_size + 1 + quantity_size - 1 ));
+		this.price     = Integer.parseInt( ATFLine.substring(eventName_size + 1 + username_size + 1 + quantity_size + 1, eventName_size + 1 + username_size + 1 + quantity_size + 1 + price_size - 1 ));
 	}
 
 	/**
