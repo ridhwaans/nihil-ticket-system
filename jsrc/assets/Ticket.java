@@ -1,4 +1,8 @@
 
+
+/**
+ * Represents a tick
+ */
 public class Ticket
 {
 
@@ -17,7 +21,7 @@ public class Ticket
     *  suitable to be written to an available tickets file.
     */
 	public String toString() {
-
+		
 
 
 		return "";
