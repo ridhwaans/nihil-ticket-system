@@ -1,4 +1,5 @@
 //library imports
+import java.io.IOException;
 import java.util.Vector;
 //local imports
 import assets.*;
@@ -18,38 +19,49 @@ public class NTSServer {
 			args[2] : "output.dtf";
 
 		//try to load the accounts file
-		try { loadAccounts( accountsFile, accounts);
+		try { loadAccounts( accountsFile, accounts);}
 		catch ( IOException e){
 			System.out.println(e);}
 		//try to load the tickets file
-		try { loadTickets( ticketsFile, tickets);
+		try { loadTickets( ticketsFile, tickets);}
 		catch ( IOException e){
 			System.out.println(e);}
 		//try to load the transactions file
-		try { loadTransactions( transactionsFile, transactions);
+		try { loadTransactions( transactionsFile, transactions);}
 		catch ( IOException e){
 			System.out.println(e);}
 
 		//aply every transaction
 		for( Transaction t : transactions)
-			t.applyTo( accounts, tickets);
+			try{ t.applyTo( accounts, tickets);}
+			catch( TransactionException e){}
 
 		//try to write the accounts file
-		try { writeAccounts( accountsFile, accounts);
+		try { writeAccounts( accountsFile, accounts);}
 		catch ( IOException e){
 			System.out.println(e);}
 		//try to write the tickets file
-		try { writeTickets( ticketsFile, tickets);
+		try { writeTickets( ticketsFile, tickets);}
 		catch ( IOException e){
 			System.out.println(e);}
 	}
 
 	//data load functions
-	private static loadAccounts( String file, Vector<Account> accounts){}
-	private static loadTickets( String file, Vector<Ticket> tickets){}
-	private static loadTransactions( String file, Vector<Transaction> transactions){}
+	private static void loadAccounts(
+		String file, Vector<Account> accounts)
+			throws IOException {}
+	private static void loadTickets(
+		String file, Vector<Ticket> tickets)
+			throws IOException {}
+	private static void loadTransactions(
+		String file, Vector<Transaction> transactions)
+			throws IOException {}
 
 	//data write functions
-	private static writeAccounts( String file, Vector<Account> accounts){}
-	private static writeTickets( String file, Vector<Account> accounts){}
+	private static void writeAccounts(
+		String file, Vector<Account> accounts)
+			throws IOException {}
+	private static void writeTickets(
+		String file, Vector<Ticket> tickets)
+			throws IOException {}
 }

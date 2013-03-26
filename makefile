@@ -36,19 +36,88 @@ git-updateall:
 	git merge master
 	git merge merging
 
+#variables
+cp = -cp jsrc:bin:libs/*
+dest = -d bin
+dir_guard = @mkdir -p $(@D)
+
 #groups
-all: cAll jall
+all: c_all j_all
 resources: \
 	resources/data.atf \
 	resources/data.cua
 
+#Java Groups
+j_all: j_assets j_locals j_transactions
+j_assets: \
+	bin/assets/Account.class \
+	bin/assets/Ticket.class
+j_locals: \
+	bin/NTSServer.class
+j_transactions: \
+	bin/transaction/AddCredit.class \
+	bin/transaction/Buy.class \
+	bin/transaction/Create.class \
+	bin/transaction/Delete.class \
+	bin/transaction/Refund.class \
+	bin/transaction/Sell.class \
+	bin/transaction/TransactionException.class \
+	bin/transaction/Transaction.class
+
+#Java locals
+bin/NTSServer.class: \
+		jsrc/NTSServer.java
+	javac $(cp) $(dest) jsrc/NTSServer.java
+
+#Java assets
+bin/assets/Account.class: \
+		jsrc/assets/Account.java
+	javac $(cp) $(dest) jsrc/assets/Account.java
+
+bin/assets/Ticket.class: \
+		jsrc/assets/Ticket.java
+	javac $(cp) $(dest) jsrc/assets/Ticket.java
+
+#Java transactions
+bin/transaction/AddCredit.class: \
+		jsrc/transaction/AddCredit.java
+	javac $(cp) $(dest) jsrc/transaction/AddCredit.java
+
+bin/transaction/Buy.class: \
+		jsrc/transaction/Buy.java
+	javac $(cp) $(dest) jsrc/transaction/Buy.java
+
+bin/transaction/Create.class: \
+		jsrc/transaction/Create.java
+	javac $(cp) $(dest) jsrc/transaction/Create.java
+
+bin/transaction/Delete.class: \
+		jsrc/transaction/Delete.java
+	javac $(cp) $(dest) jsrc/transaction/Delete.java
+
+bin/transaction/Refund.class: \
+		jsrc/transaction/Refund.java
+	javac $(cp) $(dest) jsrc/transaction/Refund.java
+
+bin/transaction/Sell.class: \
+		jsrc/transaction/Sell.java
+	javac $(cp) $(dest) jsrc/transaction/Sell.java
+
+bin/transaction/TransactionException.class: \
+		jsrc/transaction/TransactionException.java
+	javac $(cp) $(dest) jsrc/transaction/TransactionException.java
+
+bin/transaction/Transaction.class: \
+		jsrc/transaction/Transaction.java
+	javac $(cp) $(dest) jsrc/transaction/Transaction.java
+
 #C++ groups
-cAll: cLocals cAssets cCommands
-cLocals: \
+c_all: c_locals c_assets c_commands
+c_locals: \
 	bin/nts-client \
 	bin/nts-client.o \
 	bin/nts-lib.a
-cAssets: \
+c_assets: \
 	bin/assets/Account.o \
 	bin/assets/commands.o \
 	bin/assets/errors.o \
@@ -57,7 +126,7 @@ cAssets: \
 	bin/assets/Ticket.o \
 	bin/assets/Transaction.o \
 	bin/assets/TransactionFile.o
-cCommands: \
+c_commands: \
 	bin/assets/commands/addCredit.o \
 	bin/assets/commands/addCredit_admin.o \
 	bin/assets/commands/buy.o \
@@ -65,7 +134,7 @@ cCommands: \
 	bin/assets/commands/delete.o \
 	bin/assets/commands/refund.o \
 	bin/assets/commands/sell.o
-cTests: \
+c_tests: \
 	bin/tests/testAccount.out \
 	bin/tests/testAccounts.out \
 	bin/tests/testBuy.out \
@@ -74,10 +143,6 @@ cTests: \
 	bin/tests/testSell.out \
 	bin/tests/testTicket.out \
 	bin/tests/testTransaction.out
-
-#Java Groups
-jAll: \
-
 
 #C locals
 nts-client: bin/nts-client
@@ -120,16 +185,13 @@ bin/nts-lib.a: \
 	ranlib bin/nts-lib.a
 
 #C assets
-bin/assets/:
-	mkdir -p bin/assets/
 bin/assets/Account.o: \
-		bin/assets/ \
 		csrc/assets/Account.h \
 		csrc/assets/Account.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/Account.o \
 		csrc/assets/Account.cpp
 bin/assets/commands.o: \
-		bin/assets/ \
 		bin/assets/commands/addCredit.o \
 		bin/assets/commands/addCredit_admin.o \
 		bin/assets/commands/buy.o \
@@ -146,94 +208,92 @@ bin/assets/commands.o: \
 		bin/assets/commands/refund.o \
 		bin/assets/commands/sell.o
 bin/assets/errors.o: \
-		bin/assets/ \
 		csrc/assets/errors.h \
 		csrc/assets/errors.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/errors.o \
 		csrc/assets/errors.cpp
 bin/assets/functions.o: \
-		bin/assets/ \
 		csrc/assets/debug.h \
 		csrc/assets/globals.h \
 		csrc/assets/functions.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/functions.o \
 		csrc/assets/functions.cpp
 bin/assets/variables.o: \
-		bin/assets/ \
 		csrc/assets/globals.h \
 		csrc/assets/variables.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/variables.o \
 		csrc/assets/variables.cpp
 bin/assets/Ticket.o: \
-		bin/assets/ \
 		csrc/assets/Ticket.h \
 		csrc/assets/Ticket.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/Ticket.o \
 		csrc/assets/Ticket.cpp
 bin/assets/Transaction.o: \
-		bin/assets/ \
 		csrc/assets/Transaction.h \
 		csrc/assets/Transaction.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/Transaction.o \
 		csrc/assets/Transaction.cpp
 bin/assets/TransactionFile.o: \
-		bin/assets/ \
 		csrc/assets/TransactionFile.h \
 		csrc/assets/TransactionFile.cpp \
 		csrc/assets/Transaction.h \
 		bin/assets/Transaction.o
+	$(dir_guard)
 	g++ -c -o bin/assets/TransactionFile.o \
 		csrc/assets/TransactionFile.cpp
 
 #commands
-bin/assets/commands/:
-	mkdir -p bin/assets/commands/
 bin/assets/commands/addCredit.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/addCredit.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/addCredit.o \
 		csrc/assets/commands/addCredit.cpp
 
 bin/assets/commands/addCredit_admin.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/addCredit_admin.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/addCredit_admin.o \
 		csrc/assets/commands/addCredit_admin.cpp
 
 bin/assets/commands/buy.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/buy.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/buy.o \
 		csrc/assets/commands/buy.cpp
 
 bin/assets/commands/create.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/create.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/create.o \
 		csrc/assets/commands/create.cpp
 
 bin/assets/commands/delete.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/delete.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/delete.o \
 		csrc/assets/commands/delete.cpp
 
 bin/assets/commands/refund.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/refund.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/refund.o \
 		csrc/assets/commands/refund.cpp
 
 bin/assets/commands/sell.o: \
-		bin/assets/commands/ \
 		csrc/assets/commands.h \
 		csrc/assets/commands/sell.cpp
+	$(dir_guard)
 	g++ -c -o bin/assets/commands/sell.o \
 		csrc/assets/commands/sell.cpp
 
