@@ -9,3 +9,5 @@ By:
 
 Descriptiony text is descriptiony
 
+This project uses some libraries. These libraries should be in the libs/ folder.
+ * JUnit

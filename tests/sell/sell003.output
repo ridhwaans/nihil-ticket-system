@@ -1,9 +1,0 @@
-Welcome to Ticket sales
-Please enter your username to login
-[Success] Logged in as 'admin'
-Please enter the event of which to sell tickets for:
-Please enter the price per ticket:
-Please enter the number of tickets to sell:
-[Success] Tickets put up for sale
-[Fail] Incorrectly formatted ticket.
-Logged out

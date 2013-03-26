@@ -9,7 +9,8 @@ clean: clean-specials
 	tools/cleandir tests
 	tools/cleandir tools
 	rm -rf bin/*
-clean-specials: remove-results
+clean-specials: remove-results \
+		tests/cases.zip
 	rm -f nts-client
 	rm -f output.dtf
 freshen: clean all
@@ -236,12 +237,20 @@ bin/assets/commands/sell.o: \
 	g++ -c -o bin/assets/commands/sell.o \
 		csrc/assets/commands/sell.cpp
 
+#C top-level functionality tests
+tests/cases.zip:
+	zip -rq tests/cases.zip tests/*/
+	rm -rf tests/*/
+test-case-files:
+	unzip -q tests/cases.zip
+	rm -f tests/cases.zip
 
-#C tests
+#C component tests
 test-client: nts-client
 	./nts-client resources/data.cua resources/data.atf output.dtf
-test-allCases: nts-client
-	csrc/tools/testAllCases
+test-allCases: nts-client \
+		tests/*/*
+	tools/testAllCases
 
 test-account: bin/tests/testAccount.out
 	bin/tests/testAccount.out

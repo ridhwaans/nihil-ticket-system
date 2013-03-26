@@ -1,8 +1,0 @@
-Welcome to Ticket sales
-Please enter your username to login
-[Success] Logged in as 'admin'
-Please enter the event of which to sell tickets for:
-Please enter the price per ticket:
-Please enter the number of tickets to sell:
-[Fail] Transaction has invalid credit amount
-Logged out
