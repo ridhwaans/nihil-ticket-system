@@ -11,10 +11,10 @@ public class Ticket {
 	private int 	price;
 	private String 	username;
 	
-	public static final int eventName_size 19;
-	public static final int quantity_size   3;
-	public static final int price_size      6;
-	public static final int username_size  15;
+	public static final int eventName_size = 19;
+	public static final int quantity_size  =  3;
+	public static final int price_size     =  6;
+	public static final int username_size  = 15;
 	
 	/**
 	 * Constructs a new Ticket object, from the given line of text
