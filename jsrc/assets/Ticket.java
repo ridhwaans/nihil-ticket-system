@@ -1,17 +1,16 @@
 
+package assets;
 
 /**
  * Represents a tick
  */
-public class Ticket
-{
+public class Ticket {
 
 	/**
 	 * Constructs a new Ticket object, from the given line of text
     * from the available tickets file.
     */
 	public Ticket(String TicketsFileLine) {
-
 
 	}
 
@@ -21,12 +20,11 @@ public class Ticket
     *  suitable to be written to an available tickets file.
     */
 	public String toString() {
-		
-
 
 		return "";
 	}
 
-
-
 }
+
+
+
