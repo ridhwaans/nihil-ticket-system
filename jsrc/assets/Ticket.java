@@ -1,3 +1,8 @@
 package assets;
 
-public class Ticket {}
+//library imports
+import java.util.zip.DataFormatException;
+
+public class Ticket {
+	public Ticket( String s) throws DataFormatException {}
+}

@@ -1,3 +1,8 @@
 package assets;
 
-public class Account {}
+//library imports
+import java.util.zip.DataFormatException;
+
+public class Account {
+	public Account( String s) throws DataFormatException {}
+}
