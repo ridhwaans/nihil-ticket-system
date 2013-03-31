@@ -39,7 +39,20 @@ public class Ticket {
 		this.price     += 	Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + 1));
 	}
 
-
+	
+	/**
+	 * Constructs a ticket object representing a group of 'quantity' number of tickets
+	 * to some event, being sold from the specified seller (username) 
+	 */
+	public Ticket(String eventName, int quantity, int price, String username)
+	{
+		this.eventName = eventName;
+		this.quantity = quantity;
+		this.price = price;
+		this.username = username;
+	}
+	
+	
 	/**
      *  Returns the string representation of this ticket, in a format
      *  suitable to be written to an available tickets file.
@@ -87,6 +100,12 @@ public class Ticket {
 	}
 
 	
+	public void setQuantity(int q)
+	{
+		this.quantity = q;
+	}
+	
+	
 	public int getPrice()
 	{
 		return this.price;
@@ -97,8 +116,6 @@ public class Ticket {
 	{
 		return this.username;
 	}
-	
-	
 
 
 }
