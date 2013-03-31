@@ -1,6 +1,10 @@
 
 package assets;
 
+//library imports
+import java.util.zip.DataFormatException;
+
+
 /**
  * Represents a ticket line from an available tickets file, containing
  * a quantity of tickets from being sold from some seller, to some event.
@@ -20,7 +24,7 @@ public class Ticket {
 	 * Constructs a new Ticket object, from the given line of text
      * from the available tickets file.
      */
-	public Ticket(String ATFLine) {
+	public Ticket(String ATFLine) throws DataFormatException {
 		this.eventName = ATFLine.substring(0, eventName_size-1);
 		this.username  = ATFLine.substring( eventName_size + 1, eventName_size + 1 + username_size - 1);
 		this.quantity  = Integer.parseInt( ATFLine.substring(eventName_size + 1 + username_size + 1, eventName_size + 1 + username_size + 1 + quantity_size - 1 ));
@@ -37,6 +41,7 @@ public class Ticket {
 	}	
 
 }
+
 
 
 
