@@ -5,7 +5,7 @@ package assets;
 import java.util.zip.DataFormatException;
 
 
-/**
+/**		NOTE: not fully complete/tested, but all constructors and methods are specified
  * Represents a ticket line from an available tickets file, containing
  * a quantity of tickets from being sold from some seller, to some event.
  */

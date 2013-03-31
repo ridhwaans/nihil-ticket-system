@@ -4,9 +4,10 @@ package assets;
 import java.util.zip.DataFormatException;
 
 
-/**
+/**			NOTE: not fully complete/tested, but all constructors and methods are specified
  * Represents a user account, with a specified account type,
  * amount of credit, and username.
+ * 
  */
 public class Account {
 	private String username;
@@ -20,6 +21,7 @@ public class Account {
 	
 	
 	public static final int username_size  = 15;
+	
 	
 	/**
 	 * Constructs and sets up an account object using a line of text 
@@ -45,6 +47,17 @@ public class Account {
 	}
 	
 	
+	/**
+	 * Constructs a new account object with the specified parameters.
+	 * This is used by the Create transaction.
+	 */
+	public Account(String username, int type, int credit)
+	{
+		this.username = username;
+		this.type = type;
+		this.credit = credit;		
+	}
+	
 	public String getUsername()
 	{
 		return this.username;
@@ -63,9 +76,7 @@ public class Account {
 	public void setCredit(int NewAmountOfCredit)
 	{
 		this.credit = NewAmountOfCredit;
-	}
-	
-	
+	}	
 	
 	
 	
