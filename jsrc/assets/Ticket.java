@@ -53,9 +53,9 @@ public class Ticket {
 		LineString += " ";
 		LineString += padString( Integer.toString(quantity), this.quantity_size );
 		LineString += " ";
-		LineString += padString( Integer.toString(price / 100) );
+		LineString += padString( Integer.toString(price / 100), 3 );
 		LineString += ".";
-		LineString += padString( Integer.toString(price % 100) );		
+		LineString += padString( Integer.toString(price % 100), 2 );		
 		
 		return LineString;
 	}	
