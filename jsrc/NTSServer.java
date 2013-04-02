@@ -14,6 +14,8 @@ public class NTSServer {
 		Vector<Account> accounts = new Vector<Account>();
 		Vector<Ticket> tickets = new Vector<Ticket>();
 		Vector<Transaction> transactions = new Vector<Transaction>();
+
+		//Select the name of the accounts file
 		String accountsFile;
 		if( args.length > 0)
 			accountsFile = args[0];
@@ -21,6 +23,8 @@ public class NTSServer {
 			accountsFile = "resources/data.cua";
 			System.out.println(
 				"Accounts file argument not found, using " + accountsFile);}
+		
+		//Select the name of the tickets file
 		String ticketsFile;
 		if( args.length > 1)
 			ticketsFile = args[1];
@@ -28,6 +32,8 @@ public class NTSServer {
 			ticketsFile = "resources/data.atf";
 			System.out.println(
 				"Tickets file argument not found, using " + ticketsFile);}
+		
+		//Select the name of the transactions file
 		String transactionsFile;
 		if( args.length > 2)
 			transactionsFile = args[2];
@@ -36,6 +42,7 @@ public class NTSServer {
 			System.out.println(
 				"Transactions file argument not found, using " + transactionsFile);}
 
+		// Load Data
 		//try to load the accounts file
 		try { loadAccounts( accountsFile, accounts);}
 		catch ( FileNotFoundException e){
@@ -49,11 +56,12 @@ public class NTSServer {
 		catch ( FileNotFoundException e){
 			System.out.println(e);}
 
-		//aply every transaction
+		// Apply Transactions
 		for( Transaction t : transactions)
 			try{ t.applyTo( accounts, tickets);}
 			catch( TransactionException e){}
 
+		// Write Data
 		//try to write the accounts file
 		try { writeAccounts( accountsFile, accounts);}
 		catch ( FileNotFoundException e){
@@ -64,7 +72,9 @@ public class NTSServer {
 			System.out.println(e);}
 	}
 
-	//data load functions
+	// Auxiliary Functions
+
+	//Data load functions
 	private static void loadAccounts(
 		String file, Vector<Account> accounts)
 			throws FileNotFoundException {
@@ -74,20 +84,53 @@ public class NTSServer {
 				try { accounts.add( new Account( in.nextLine()));}
 				catch ( DataFormatException e){
 					System.out.println(e);}}}
-		catch ( FileNotFoundException e){
+		catch( FileNotFoundException e){
 			throw( e);}}
 
 	private static void loadTickets(
 		String file, Vector<Ticket> tickets)
-			throws FileNotFoundException {}
+			throws FileNotFoundException {
+		try { 
+			Scanner in = new Scanner( new File( file));
+			while( in.hasNextLine()){
+				try { tickets.add( new Ticket( in.nextLine()));}
+				catch ( DataFormatException e){
+					System.out.println(e);}}}
+		catch( FileNotFoundException e){
+			throw( e);}}
+
 	private static void loadTransactions(
 		String file, Vector<Transaction> transactions)
-			throws FileNotFoundException {}
+			throws FileNotFoundException {
+		try { 
+			Scanner in = new Scanner( new File( file));
+			int lineNumber = 0;
+			while( in.hasNextLine()){
+				lineNumber++;
+				String line = in.nextLine();
+				Scanner lineParser = new Scanner( line);
+				try{
+					int code = lineParser.nextInt();
+					switch( code){
+						case transaction.Buy.code:
+							transactions.add( new transaction.Buy(
+								lineParser.nextLine().substring(1)));
+							break;}}
+				catch( DataFormatException e){
+					System.out.println(e);}
+				catch( NumberFormatException e){
+					System.out.printf(
+						"[%s: %d] Invalid transaction code.\n",
+						file, lineNumber);}
+				catch( java.util.NoSuchElementException e){}}}
+		catch( FileNotFoundException e){
+			throw( e);}}
 
-	//data write functions
+	//Data write functions
 	private static void writeAccounts(
 		String file, Vector<Account> accounts)
 			throws FileNotFoundException {}
+
 	private static void writeTickets(
 		String file, Vector<Ticket> tickets)
 			throws FileNotFoundException {}

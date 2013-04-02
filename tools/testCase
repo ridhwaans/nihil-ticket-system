@@ -34,7 +34,7 @@ then
 		 > $outputFolder/$code.output.diff
 	diff \
 		$casepath.output $outputFolder/$code.output \
-		&>> $outputFolder/$code.output.diff
+		&> $outputFolder/$code.output.diff
 	echo -en \
 		"===========================\n"\
 		"$casepath\n"\
@@ -42,7 +42,7 @@ then
 		 > $outputFolder/$code.dtf.diff
 	diff \
 		$casepath.dtf $outputFolder/$code.dtf \
-		&>> $outputFolder/$code.dtf.diff
+		&> $outputFolder/$code.dtf.diff
 else
 	echo -en "not enough arguments\n"
 fi

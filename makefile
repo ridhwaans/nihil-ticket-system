@@ -312,7 +312,7 @@ test-allCases: nts-client \
 		tests/*/*
 	tools/testAllCases
 
-test-account: bin/tests/testAccount.out
+test-client-account: bin/tests/testAccount.out
 	bin/tests/testAccount.out
 bin/tests/testAccount.out: csrc/tests/testAccount.cpp \
 		csrc/assets/globals.h \
@@ -321,7 +321,7 @@ bin/tests/testAccount.out: csrc/tests/testAccount.cpp \
 			csrc/tests/testAccount.cpp \
 			bin/nts-lib.a
 
-test-accounts: bin/tests/testAccounts.out
+test-client-accounts: bin/tests/testAccounts.out
 	bin/tests/testAccounts.out
 csrc/tests/testAccounts.out: csrc/tests/testAccounts.cpp \
 		csrc/assets/globals.h \
@@ -330,7 +330,7 @@ csrc/tests/testAccounts.out: csrc/tests/testAccounts.cpp \
 			csrc/tests/testAccounts.cpp \
 			bin/nts-lib.a
 
-test-buy: bin/tests/testBuy.out
+test-client-buy: bin/tests/testBuy.out
 	bin/tests/testBuy.out
 bin/tests/testBuy.out: csrc/tests/testBuy.cpp \
 		csrc/assets/globals.h \
@@ -339,7 +339,7 @@ bin/tests/testBuy.out: csrc/tests/testBuy.cpp \
 			csrc/tests/testBuy.cpp \
 			bin/nts-lib.a
 
-test-error: bin/tests/testError.out
+test-client-error: bin/tests/testError.out
 	bin/tests/testError.out
 bin/tests/testError.out: csrc/tests/testError.cpp \
 		csrc/assets/globals.h \
@@ -348,7 +348,7 @@ bin/tests/testError.out: csrc/tests/testError.cpp \
 			csrc/tests/testError.cpp \
 			bin/nts-lib.a
 
-test-functions: bin/tests/testFunctions.out
+test-client-functions: bin/tests/testFunctions.out
 	bin/tests/testFunctions.out
 bin/tests/testFunctions.out: csrc/tests/testFunctions.cpp \
 		csrc/assets/globals.h \
@@ -357,7 +357,7 @@ bin/tests/testFunctions.out: csrc/tests/testFunctions.cpp \
 			bin/tests/testFunctions.cpp \
 			bin/nts-lib.a
 
-test-sell: bin/tests/testSell.out
+test-client-sell: bin/tests/testSell.out
 	bin/tests/testSell.out
 bin/tests/testSell.out: csrc/tests/testSell.cpp \
 		csrc/assets/globals.h \
@@ -366,7 +366,7 @@ bin/tests/testSell.out: csrc/tests/testSell.cpp \
 			csrc/tests/testSell.cpp \
 			bin/nts-lib.a
 
-test-ticket: bin/tests/testTicket.out
+test-client-ticket: bin/tests/testTicket.out
 	bin/tests/testTicket.out
 bin/tests/testTicket.out: csrc/tests/testTicket.cpp \
 		csrc/assets/globals.h \
@@ -375,7 +375,7 @@ bin/tests/testTicket.out: csrc/tests/testTicket.cpp \
 			bin/tests/testTicket.cpp \
 			bin/nts-lib.a
 
-test-tickets: bin/tests/testTickets.out
+test-client-tickets: bin/tests/testTickets.out
 	bin/tests/testTickets.out
 bin/tests/testTickets.out: csrc/tests/testTickets.cpp \
 		csrc/assets/globals.h \
@@ -384,7 +384,7 @@ bin/tests/testTickets.out: csrc/tests/testTickets.cpp \
 			bin/tests/testTickets.cpp \
 			bin/nts-lib.a
 
-test-transaction: bin/tests/testTransaction.out
+test-client-transaction: bin/tests/testTransaction.out
 	bin/tests/testTransaction.out
 bin/tests/testTransaction.out: bin/tests/testTransaction.cpp \
 		csrc/assets/globals.h \
