@@ -4,6 +4,9 @@
 //library headers
 //local headers
 
+/** @class Account
+ * @brief The C representation of an account.
+ **/
 class Account {
 public:
 	enum Type {

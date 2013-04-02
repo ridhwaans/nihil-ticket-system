@@ -6,6 +6,9 @@ import java.util.zip.DataFormatException;
 //local imports
 import assets.*;
 
+/** @class Create
+ * @brief Represents a 'create' transaction.
+ **/
 public class Create extends Transaction {
 	public static final int code = 1;
 	public Create( String s) throws DataFormatException {

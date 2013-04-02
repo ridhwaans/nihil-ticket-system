@@ -6,6 +6,9 @@
 //local includes
 #include "Transaction.h"
 
+/** @class TransactionFile
+ * @brief The C representation of the dtf.
+ **/
 class TransactionFile{
 public:
 	std::vector<Transaction> transactions;

@@ -3,12 +3,11 @@ package assets;
 //library imports
 import java.util.zip.DataFormatException;
 
-
-/**			NOTE: not fully complete/tested, but all constructors and methods are specified
- * Represents a user account, with a specified account type,
- * amount of credit, and username.
+/** @class Account
+ * @brief The Java representation of an account.
  * 
- */
+ * Represents a user account, with a specified account type, amount of credit, and username.
+ **/
 public class Account {
 	private String username;
 	private    int type;

@@ -1,5 +1,6 @@
 #globals
 default: all
+freshen: clean all
 clean: clean-specials
 	tools/cleandir .
 	tools/cleandir assets
@@ -9,13 +10,16 @@ clean: clean-specials
 	tools/cleandir tests
 	tools/cleandir tools
 	rm -rf bin/*
-clean-specials: remove-results \
+clean-specials: \
 		tests/cases.zip
+	rm -rf results/*
+	rm -rf documentation
 	rm -f nts-client
 	rm -f output.dtf
-freshen: clean all
-remove-results:
-	rm -rf results/*
+docs: doxyfile
+	doxygen
+docs-view: docs
+	chromium-browser documentation/html/index.html
 
 #git
 git-prepare: clean

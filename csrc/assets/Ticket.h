@@ -10,6 +10,9 @@
 #include "globals.h"
 #include "errors.h"
 
+/** @class Ticket
+ * @brief The C representation of an ticket.
+ **/
 class Ticket{
 public:
 	char* eventName;		//will trimmed from white space, and converted to lower case by constructor

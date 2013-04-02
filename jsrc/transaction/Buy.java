@@ -6,6 +6,9 @@ import java.util.zip.DataFormatException;
 //local imports
 import assets.*;
 
+/** @class Buy
+ * @brief Represents a 'buy' transaction.
+ **/
 public class Buy extends Transaction {
 	//static field that identifies the transaction to the server
 	public static final int code = 3;

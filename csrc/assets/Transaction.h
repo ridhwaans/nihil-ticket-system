@@ -6,6 +6,9 @@
 #include "globals.h"
 #include "Account.h"
 
+/** @class Transaction
+ * @brief The C representation of an transaction.
+ **/
 class Transaction{
 public:
 	enum Code {
