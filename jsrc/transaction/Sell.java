@@ -7,10 +7,17 @@ import java.util.zip.DataFormatException;
 import assets.*;
 
 public class Sell extends Transaction {
-	public static int code = 4;
+	//static field that identifies the transaction to the server
+	public static final int code = 4;
+
 	public Sell( String s) throws DataFormatException {
-		System.out.println(s);}
-	public void applyTo (
+		System.out.println(s);
+	}
+	
+	public void applyTo(
 		Vector<Account> accounts, Vector<Ticket> tickets)
-			throws TransactionException{}
+			throws TransactionException {
+		
+	}
+
 }

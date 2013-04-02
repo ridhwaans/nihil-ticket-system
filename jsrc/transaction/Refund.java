@@ -7,7 +7,7 @@ import java.util.zip.DataFormatException;
 import assets.*;
 
 public class Refund extends Transaction {
-	public static int code = 5;
+	public static final int code = 5;
 	public Refund( String s) throws DataFormatException {
 		System.out.println(s);}
 	public void applyTo (

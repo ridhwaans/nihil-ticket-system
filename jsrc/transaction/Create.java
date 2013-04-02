@@ -7,7 +7,7 @@ import java.util.zip.DataFormatException;
 import assets.*;
 
 public class Create extends Transaction {
-	public static int code = 1;
+	public static final int code = 1;
 	public Create( String s) throws DataFormatException {
 		System.out.println(s);}
 	public void applyTo (

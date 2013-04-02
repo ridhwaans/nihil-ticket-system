@@ -7,7 +7,7 @@ import java.util.zip.DataFormatException;
 import assets.*;
 
 public class Delete extends Transaction {
-	public static int code = 2;
+	public static final int code = 2;
 	public Delete( String s) throws DataFormatException {
 		System.out.println(s);}
 	public void applyTo (
