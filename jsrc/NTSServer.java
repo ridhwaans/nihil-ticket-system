@@ -83,7 +83,8 @@ public class NTSServer {
 			while( in.hasNextLine()){
 				try { accounts.add( new Account( in.nextLine()));}
 				catch ( DataFormatException e){
-					System.out.println(e);}}}
+					System.out.println(e);}}
+			in.close();}
 		catch( FileNotFoundException e){
 			throw( e);}}
 
@@ -95,7 +96,8 @@ public class NTSServer {
 			while( in.hasNextLine()){
 				try { tickets.add( new Ticket( in.nextLine()));}
 				catch ( DataFormatException e){
-					System.out.println(e);}}}
+					System.out.println(e);}}
+			in.close();}
 		catch( FileNotFoundException e){
 			throw( e);}}
 
@@ -112,17 +114,25 @@ public class NTSServer {
 				try{
 					int code = lineParser.nextInt();
 					switch( code){
+						case 0:
+							System.out.println("Done loading transactions: Terminator transaction reached.");
 						case transaction.Buy.code:
 							transactions.add( new transaction.Buy(
 								lineParser.nextLine().substring(1)));
+							break;
+						default:
+							System.out.println("asdfj");
 							break;}}
 				catch( DataFormatException e){
 					System.out.println(e);}
 				catch( NumberFormatException e){
 					System.out.printf(
 						"[%s: %d] Invalid transaction code.\n",
-						file, lineNumber);}
-				catch( java.util.NoSuchElementException e){}}}
+						file, lineNumber);
+					break;}
+				catch( java.util.NoSuchElementException e){}}
+			System.out.println("Done loading transactions: End of file reached.");
+			in.close();}
 		catch( FileNotFoundException e){
 			throw( e);}}
 

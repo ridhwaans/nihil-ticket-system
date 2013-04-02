@@ -111,6 +111,13 @@ bin/transaction/Transaction.class: \
 		jsrc/transaction/Transaction.java
 	javac $(cp) $(dest) jsrc/transaction/Transaction.java
 
+#Java tests
+test-server: bin/NTSServer.class
+	java $(cp) NTSServer \
+		resources/data.cua \
+		resources/data.atf \
+		resources/data.dtf
+
 #C++ groups
 c_all: c_locals c_assets c_commands
 c_locals: \
