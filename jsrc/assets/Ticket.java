@@ -4,10 +4,9 @@ package assets;
 //library imports
 import java.util.zip.DataFormatException;
 
-/** @class Ticket
- * @brief The Java representation of a ticket.
- * 
- * Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
+/** 
+ * @class Ticket
+ * @brief Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
  */
 public class Ticket {
 	public String 	eventName;			//Eventname that the tickets are being sold to
@@ -23,15 +22,21 @@ public class Ticket {
 	
 	/**
 	 * Constructs a new Ticket object, from the given line of text
-   * from the available tickets file.
-   */
+     * from the available tickets file.
+     */
 	public Ticket(String ATFLine) throws DataFormatException {
+		if( ATFLine.length() != 45 )
+			throw new DataFormatException("Can not contruct ticket: Line from ATF is not of correct length!");
+		
 		int CurIndex = 0;
 		this.eventName = 	ATFLine.substring( CurIndex, CurIndex + eventName_size-1);
+		
 		CurIndex 	   += 	eventName_size + 1;
 		this.username  = 	ATFLine.substring( CurIndex, CurIndex + username_size - 1);
+		
 		CurIndex 	   += 	username_size + 1;
 		this.quantity  = 	Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + quantity_size - 1 ));
+		
 		CurIndex	   +=   quantity_size + 1;
 		this.price 	   = 	0;
 		this.price     += 	100 * Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + 2) );

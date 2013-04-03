@@ -27,6 +27,9 @@ public class Account {
 	 * from the current user accounts file.
 	 */
 	public Account(String Line) throws DataFormatException {
+		if( Line.length() != username_size + 1 + 2 + 1 + 6 )
+			throw new DataFormatException("Can not construct Account: given incorrect ATF Line size");
+
 		int CurIndex = 0;
 		
 		this.username = Line.substring(CurIndex, CurIndex + username_size -1);
@@ -38,8 +41,11 @@ public class Account {
 			this.type = Buy;
 		else if( Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("SS") )
 			this.type = Sell;
-		else
+		else if( Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("FS") )
 			this.type = Full;
+		else
+			throw new DataFormatException("can not construct Account: invalid account type");
+		
 		CurIndex += 2 + 1;
 		
 		this.credit = Integer.parseInt(Line.substring(CurIndex, CurIndex + 2))*100  +  Integer.parseInt(Line.substring(CurIndex+4, CurIndex+4+1)); 
