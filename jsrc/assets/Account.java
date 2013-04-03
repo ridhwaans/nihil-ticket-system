@@ -9,9 +9,9 @@ import java.util.zip.DataFormatException;
  * Represents a user account, with a specified account type, amount of credit, and username.
  **/
 public class Account {
-	private String username;
-	private    int type;
-	private    int credit;
+	public String username;
+	public    int type;
+	public    int credit;
 	
 	public static final int Admin =	0;
 	public static final int Buy   =	1;
@@ -50,33 +50,11 @@ public class Account {
 	 * Constructs a new account object with the specified parameters.
 	 * This is used by the Create transaction.
 	 */
-	public Account(String username, int type, int credit)
-	{
+	public Account(String username, int type, int credit) {
 		this.username = username;
 		this.type = type;
 		this.credit = credit;		
 	}
-	
-	public String getUsername()
-	{
-		return this.username;
-	}
-	
-	public int getType()
-	{
-		return this.type;
-	}
-	
-	public int getCredit()
-	{
-		return this.credit;
-	}
-	
-	public void setCredit(int NewAmountOfCredit)
-	{
-		this.credit = NewAmountOfCredit;
-	}	
-	
-	
+
 	
 }

@@ -10,10 +10,10 @@ import java.util.zip.DataFormatException;
  * Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
  */
 public class Ticket {
-	private String 	eventName;		//Eventname that the tickets are being sold to
-	private int 	quantity;		//Number of tickets being sold
-	private int 	price;			//Ticket Price In Cents
-	private String 	username;		//Useranme of Seller
+	public String 	eventName;			//Eventname that the tickets are being sold to
+	public int 		quantity;			//Number of tickets being sold
+	public int 		price;				//Ticket Price In Cents
+	public String 	username;			//Useranme of Seller
 	
 	public static final int eventName_size = 19;
 	public static final int quantity_size  =  3;
@@ -88,36 +88,6 @@ public class Ticket {
 	}
 	
 	
-	public String getEventName()
-	{
-		return this.eventName;
-	}
-	
-	
-	public int getQuantity()
-	{
-		return this.quantity;
-	}
-
-	
-	public void setQuantity(int q)
-	{
-		this.quantity = q;
-	}
-	
-	
-	public int getPrice()
-	{
-		return this.price;
-	}
-	
-	
-	public String  getUsername()
-	{
-		return this.username;
-	}
-
-
 }
 
 
