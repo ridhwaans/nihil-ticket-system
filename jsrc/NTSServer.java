@@ -1,6 +1,7 @@
 //library imports
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.zip.DataFormatException;
@@ -195,7 +196,7 @@ public class NTSServer {
 				catch( DataFormatException e){
 					System.out.printf(
 						"[%s: %d] %s\n",
-						file, lineNumber, e);}}
+						file, lineNumber, e);}
 				//catch invalid transaction codes
 				catch( NumberFormatException e){
 					System.out.printf(
@@ -218,9 +219,23 @@ public class NTSServer {
 	//Data write functions
 	private static void writeAccounts(
 		String file, Vector<Account> accounts)
-			throws FileNotFoundException {}
+			throws FileNotFoundException {
+		//open the file
+		PrintStream out = new PrintStream( file);
+		//write every account
+		for( Account account : accounts)
+			out.println( account);
+		//close the file
+		out.close();}
 
 	private static void writeTickets(
 		String file, Vector<Ticket> tickets)
-			throws FileNotFoundException {}
+			throws FileNotFoundException {
+		//open the file
+		PrintStream out = new PrintStream( file);
+		//write every ticket
+		for( Ticket ticket : tickets)
+			out.println( ticket);
+		//close the file
+		out.close();}
 }
