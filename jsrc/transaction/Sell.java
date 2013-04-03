@@ -3,6 +3,7 @@ package transaction;
 //library imports
 import java.util.Vector;
 import java.util.zip.DataFormatException;
+
 //local imports
 import assets.*;
 
@@ -57,6 +58,9 @@ public class Sell extends Transaction {
 	 */
 	public void applyTo(Vector<Account> accounts, Vector<Ticket> tickets) throws TransactionException {
 		
+		//Create a new ticket object representing the tickets to be sold, with the parameters set up
+		//during the constructor, then add this ticket object to the vector of tickets.
+		tickets.add( new Ticket( this.eventName, this.quantity_size, this.ticketPrice, this.seller ) );
 		
 	}
 
