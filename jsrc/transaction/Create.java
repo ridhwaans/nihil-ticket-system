@@ -6,51 +6,52 @@ import java.util.zip.DataFormatException;
 //local imports
 import assets.*;
 
-/** @class Create
- * @brief Represents a 'create' transaction.
+/** @class Create class represents a 'create' transaction.
  **/
 public class Create extends Transaction {
 	public static final int code = 1;
-	public String createTransactionLine;
 	
+	
+	public static final int username_size  = 15;
+	public static final int credit_size = 6;
+	public static final int usertype_size = 2;
+	
+	//Create Transaction Parameters
+	public String username; //username of new account to be created
+	public int type; //usertype for the specified user to be created
+	public int credit; //initial account balance for the user account to be created
+	
+	
+	/**
+	* Constructs a create transaction object with the necessary field attributes upon receiving and input 
+	* string line parameter from the merged transaction file
+	*/
 	public Create( String s) throws DataFormatException {
+		//read and extract fields from the transaction string
+		this.username = s.substring(0,username_size-1).trim();
+		
+		if(	s.substring(username_size+1,username_size+1+usertype_size-1).toUpperCase().equals("AA") )
+			this.type = 0;
+		else if( s.substring(username_size+1,username_size+1+usertype_size-1).toUpperCase().equals("BS") )
+			this.type = 1;
+		else if( s.substring(username_size+1,username_size+1+usertype_size-1).toUpperCase().equals("SS") )
+			this.type = 2;
+		else if( s.substring(username_size+1,username_size+1+usertype_size-1).toUpperCase().equals("FS") )
+			this.type = 3;
+		
+		//extract integer portion of ticket price (in hundreds of cents)
+		this.credit = 100* Integer.parseInt( s.substring( username_size + 1 + usertype_size + 1, username_size + 1 + usertype_size + 1 + 2 ) );
+
+		//now extract decimal portion adding it to ticket price (# of cents)
+		this.credit += Integer.parseInt( s.substring( username_size + 1 + usertype_size + 1, username_size + 1 + usertype_size + 1 + 2 ) );
 		System.out.println(s);
-		createTransactionLine = s;}
+	
+	}
 	
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets) throws TransactionException{
-		boolean validLine= true; //Use boolean flag to determine if all fields in input string parameter line are valid
-		
-		String username;
-		int type=0;
-		int credit=0;
-		
-		int CurIndex = 0;
-		username =  createTransactionLine.substring(CurIndex, CurIndex + username_size -1);
-		CurIndex += username_size + 1;
-		
-		if(	createTransactionLine.substring(CurIndex, CurIndex + 2).toLowerCase().equals("AA") )
-			type = 0;
-		else if( createTransactionLine.substring(CurIndex, CurIndex + 2).toLowerCase().equals("BS") )
-			type = 1;
-		else if( createTransactionLine.substring(CurIndex, CurIndex + 2).toLowerCase().equals("SS") )
-			type = 2;
-		else if( createTransactionLine.substring(CurIndex, CurIndex + 2).toLowerCase().equals("FS") )
-			type = 3;
-		else
-			validLine = false;
-		
-		CurIndex += 2 + 1;
-		
-		if ((isInteger(createTransactionLine.substring(CurIndex, CurIndex + 2))==true) && (isInteger(createTransactionLine.substring(CurIndex+4, CurIndex+4+1))==true))
-			credit = Integer.parseInt(createTransactionLine.substring(CurIndex, CurIndex + 2))*100  +  Integer.parseInt(createTransactionLine.substring(CurIndex+4, CurIndex+4+1)); 
-		else
-			validLine = false;
-	    
-		if (validLine == true){ //if true, apply the transaction
-			Account a = new Account(username, type, credit);
-			accounts.add(a);}}
+			accounts.add(new Account(this.username, this.type, this.credit));}
 	
-
+	
 	private boolean isInteger(String s) {
 	    try { 
 	        Integer.parseInt(s); 
