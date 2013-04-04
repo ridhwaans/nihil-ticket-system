@@ -24,11 +24,10 @@ public class Refund extends Transaction {
 		this.refund = Integer.parseInt(s.substring(3 + username_size + 1+username_size + 1, 9));
 
 	}
-	System.out.println(s);
 
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)throws TransactionException{
-	account[buyerUsername].credit += refund;
-	account[sellerUsername].credit -= refund;
+	//account[buyerUsername].credit += refund;
+	//account[sellerUsername].credit -= refund;
 	}
 }
 

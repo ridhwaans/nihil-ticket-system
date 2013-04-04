@@ -8,48 +8,56 @@ import java.util.zip.DataFormatException;
  * @brief The Java representation of a ticket.
  * 
  * Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
- */
+ **/
 public class Ticket {
-	public String 	eventName;			//Eventname that the tickets are being sold to
-	public int 		quantity;			//Number of tickets being sold
-	public int 		price;				//Ticket Price In Cents
-	public String 	username;			//Useranme of Seller
+	//Eventname that the tickets are being sold to
+	public String 	eventName;
+	//Number of tickets being sold
+	public int quantity;
+	//Ticket Price In Cents
+	public int price;	
+	//Useranme of Seller
+	public String username;
 	
 	public static final int eventName_size = 19;
 	public static final int quantity_size  =  3;
 	public static final int price_size     =  6;
 	public static final int username_size  = 15;
-	
+	public static final int token_size  = 1;
 	
 	/**
 	 * Constructs a new Ticket object, from the given line of text
-     * from the available tickets file.
-     */
-	public Ticket(String ATFLine) throws DataFormatException {
-		if( ATFLine.length() != 45 )
+	 * from the available tickets file.
+	 **/
+	public Ticket(String line) throws DataFormatException {
+		if( line.length() != 
+				eventName_size + token_size +
+				quantity_size + token_size +
+				price_size + token_size +
+				username_size)
 			throw new DataFormatException("Can not contruct ticket: Line from ATF is not of correct length!");
 		
-		int CurIndex = 0;
-		this.eventName = 	ATFLine.substring( CurIndex, CurIndex + eventName_size-1);
+		int currIndex = 0;
+		this.eventName = 	line.substring( currIndex, currIndex + eventName_size);
 		
-		CurIndex 	   += 	eventName_size + 1;
-		this.username  = 	ATFLine.substring( CurIndex, CurIndex + username_size - 1);
+		currIndex 	   += 	eventName_size + 1;
+		this.username  = 	line.substring( currIndex, currIndex + username_size - 1);
 		
-		CurIndex 	   += 	username_size + 1;
-		this.quantity  = 	Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + quantity_size - 1 ));
+		currIndex 	   += 	username_size + 1;
+		this.quantity  = 	Integer.parseInt( line.substring(currIndex, currIndex + quantity_size - 1 ));
 		
-		CurIndex	   +=   quantity_size + 1;
+		currIndex	   +=   quantity_size + 1;
 		this.price 	   = 	0;
-		this.price     += 	100 * Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + 2) );
-		CurIndex 	   +=   4;	//skip first 3 digits of price and the period
-		this.price     += 	Integer.parseInt( ATFLine.substring(CurIndex, CurIndex + 1));
+		this.price     += 	100 * Integer.parseInt( line.substring(currIndex, currIndex + 2) );
+		currIndex 	   +=   4;	//skip first 3 digits of price and the period
+		this.price     += 	Integer.parseInt( line.substring(currIndex, currIndex + 1));
 	}
 
 	
 	/**
 	 * Constructs a ticket object representing a group of 'quantity' number of tickets
 	 * to some event, being sold from the specified seller (username) 
-	 */
+	 **/
 	public Ticket(String eventName, int quantity, int price, String username)
 	{
 		this.eventName = eventName;
@@ -60,9 +68,8 @@ public class Ticket {
 	
 	
 	/**
-     *  Returns the string representation of this ticket, in a format
-     *  suitable to be written to an available tickets file.
-     */
+	 *  Returns the string representation of this ticket, in a format suitable to be written to an available tickets file.
+	 **/
 	public String toString() {
 		String LineString = "";
 		
@@ -95,7 +102,3 @@ public class Ticket {
 	
 	
 }
-
-
-
-

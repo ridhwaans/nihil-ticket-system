@@ -22,7 +22,7 @@ public class AddCredit extends Transaction{
 		System.out.println(s);
 	}
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)throws TransactionException{
-		account.credit += credit;
+		//account.credit += credit;
 	}
 }
 

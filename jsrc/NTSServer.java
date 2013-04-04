@@ -49,6 +49,24 @@ public class NTSServer {
 			System.out.println(
 				"Transactions file argument not found, using " + transactionsFile);}
 
+		//Select the name of the output accounts file
+		String outputAccountsFile;
+		if( args.length > 3)
+			outputAccountsFile = args[3];
+		else{
+			outputAccountsFile = "results/data.cua";
+			System.out.println(
+				"Accounts file argument not found, using " + outputAccountsFile);}
+		
+		//Select the name of the output tickets file
+		String outputTicketsFile;
+		if( args.length > 4)
+			outputTicketsFile = args[4];
+		else{
+			outputTicketsFile = "results/data.atf";
+			System.out.println(
+				"Tickets file argument not found, using " + outputTicketsFile);}
+
 		// Load Data
 		//try to load the accounts file
 		try { loadAccounts( accountsFile, accounts);}
@@ -73,11 +91,11 @@ public class NTSServer {
 
 		// Write Data
 		//try to write the accounts file
-		try { writeAccounts( accountsFile, accounts);}
+		try { writeAccounts( outputAccountsFile, accounts);}
 		catch ( FileNotFoundException e){
 			System.out.println(e);}
 		//try to write the tickets file
-		try { writeTickets( ticketsFile, tickets);}
+		try { writeTickets( outputTicketsFile, tickets);}
 		catch ( FileNotFoundException e){
 			System.out.println(e);}
 	}

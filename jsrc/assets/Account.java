@@ -10,14 +10,13 @@ import java.util.zip.DataFormatException;
  **/
 public class Account {
 	public String username;
-	public    int type;
-	public    int credit;
+	public int type;
+	public int credit;
 	
 	public static final int Admin =	0;
 	public static final int Buy   =	1;
 	public static final int Sell  =	2;
 	public static final int Full  =	3;
-	
 	
 	public static final int username_size  = 15;
 	public static final int type_size = 2;
@@ -70,7 +69,6 @@ public class Account {
 			throw new DataFormatException("Invalid credit fields");}
 	}
 	
-	
 	/**
 	 * Constructs a new account object with the specified parameters.
 	 * This is used by the Create transaction.
@@ -79,5 +77,34 @@ public class Account {
 		this.username = username;
 		this.type = type;
 		this.credit = credit;		
+	}
+
+	/**
+	 *  Returns the string representation of this account, in a format suitable to be written to the current accounts file.
+	 **/
+	public String toString(){
+		String typeString;
+		switch( type){
+			case Admin:
+				typeString = "AA";
+				break;
+			case Buy:
+				typeString = "BS";
+				break;
+			case Sell:
+				typeString = "SS";
+				break;
+			case Full:
+				typeString = "FS";
+				break;
+			default:
+				typeString = "00";
+				System.out.println("bad account type");
+				break;
+		}
+		String result = String.format(
+			"%"+username_size+"s %"+type_size+"s %0"+dollars_size+"d.%0"+cents_size+"d",
+			username, typeString, credit/100, credit%100);
+		return result;
 	}
 }
