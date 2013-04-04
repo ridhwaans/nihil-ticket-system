@@ -20,47 +20,64 @@ public class Account {
 	
 	
 	public static final int username_size  = 15;
-	
-	
+	public static final int type_size = 2;
+	public static final int dollars_size = 6;
+	public static final int cents_size = 2;
+	public static final int token_size = 1;
+
 	/**
 	 * Constructs and sets up an account object using a line of text 
 	 * from the current user accounts file.
-	 */
-	public Account(String Line) throws DataFormatException {
-		if( Line.length() != username_size + 1 + 2 + 1 + 6 )
-			throw new DataFormatException("Can not construct Account: given incorrect ATF Line size");
+	 **/
+	public Account(String line) throws DataFormatException {
+		if( line.length() != 
+				username_size + token_size + 
+				type_size + token_size + 
+				dollars_size + token_size + 
+				cents_size)
+			throw new DataFormatException("Cannot construct Account: given incorrect ATF line size");
 
-		int CurIndex = 0;
+		int currIndex = 0;
 		
-		this.username = Line.substring(CurIndex, CurIndex + username_size -1);
-		
-		CurIndex += username_size + 1;
-		if( 	 Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("AA") )
+		this.username = line.substring(currIndex, currIndex + username_size);
+		currIndex += username_size + 1;
+
+		String typeString = line.substring(
+			currIndex, currIndex + type_size);
+		if( typeString.equals("AA"))
 			this.type = Admin;
-		else if( Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("BS") )
+		else if( typeString.equals("BS"))
 			this.type = Buy;
-		else if( Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("SS") )
+		else if( typeString.equals("SS"))
 			this.type = Sell;
-		else if( Line.substring(CurIndex, CurIndex + 2).toLowerCase().equals("FS") )
+		else if( typeString.equals("FS"))
 			this.type = Full;
 		else
-			throw new DataFormatException("can not construct Account: invalid account type");
+			throw new DataFormatException("Invalid account type");
+		currIndex += type_size + 1;
 		
-		CurIndex += 2 + 1;
-		
-		this.credit = Integer.parseInt(Line.substring(CurIndex, CurIndex + 2))*100  +  Integer.parseInt(Line.substring(CurIndex+4, CurIndex+4+1)); 
+		//get the dollars portion of the line
+		String dollars = line.substring(currIndex, currIndex + dollars_size);
+		currIndex += dollars_size + 1;
+		//get the cents portion of the line
+		String cents = line.substring(currIndex, currIndex + cents_size);
+		try{
+			this.credit =
+				Integer.parseInt( dollars)*100 +
+				Integer.parseInt( cents);
+		}
+		catch( NumberFormatException e){
+			throw new DataFormatException("Invalid credit fields");}
 	}
 	
 	
 	/**
 	 * Constructs a new account object with the specified parameters.
 	 * This is used by the Create transaction.
-	 */
+	 **/
 	public Account(String username, int type, int credit) {
 		this.username = username;
 		this.type = type;
 		this.credit = credit;		
 	}
-
-	
 }

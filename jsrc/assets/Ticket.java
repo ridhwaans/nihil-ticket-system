@@ -4,9 +4,10 @@ package assets;
 //library imports
 import java.util.zip.DataFormatException;
 
-/** 
- * @class Ticket
- * @brief Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
+/** @class Ticket
+ * @brief The Java representation of a ticket.
+ * 
+ * Represents a ticket line from an available tickets file, containing a quantity of tickets from being sold from some seller, to some event.
  */
 public class Ticket {
 	public String 	eventName;			//Eventname that the tickets are being sold to

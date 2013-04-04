@@ -39,6 +39,10 @@ git-updateall:
 	git checkout working
 	git merge master
 	git merge merging
+git-fetchall:
+	git fetch wes
+	git fetch ridhwaan
+	git fetch bryce
 
 #variables
 cp = -cp jsrc:bin:libs/*
