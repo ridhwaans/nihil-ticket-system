@@ -7,19 +7,17 @@ import java.io.*;
 import assets.*;
 
 public class AddCredit extends Transaction{
+	public static final int username_size  = 15;
 	public static final int code = 6;
 	String username;
 	int type;
 	int credit;
 	public AddCredit( String s){
-		FileInputStream fstream = new FileInputStream("*.dtf");
-		DataInputStream in = new DataInputStream(fstream);
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-		while ((s = br.readLine()) != null){
+	
 
-			username = s.substring(3, username_size-1);
-			credit = Integer.parseInt(s.substring(3 + username+1, 9));
-		}
+		this.username = s.substring(3, username_size-1);
+		this.credit = Integer.parseInt(s.substring(3 + username_size+1, 9));
+		
 
 		System.out.println(s);
 	}
