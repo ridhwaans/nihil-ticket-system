@@ -9,6 +9,7 @@ import assets.*;
 public class AddCredit extends Transaction{
 	public static final int code = 6;
 	String username;
+	int type;
 	int credit;
 	public AddCredit( String s){
 		FileInputStream fstream = new FileInputStream("*.dtf");
@@ -16,19 +17,16 @@ public class AddCredit extends Transaction{
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		while ((s = br.readLine()) != null){
 
-			username = s.substring(3, 15);
-			username.replaceAll(" ","");
-			credit = Integer.parseInt(s.substring(21, 9));
+			username = s.substring(3, username_size-1);
+			credit = Integer.parseInt(s.substring(3 + username+1, 9));
 		}
-	
+
 		System.out.println(s);
 	}
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)throws TransactionException{
-		FileWriter fstream = new FileWriter("data.cua");
-		BufferedWriter out = new BufferedWriter(fstream);
-		out.write(username);
-		out.write(credit);
-		out.close();
+		account.credit += credit;
 	}
 }
+
+
 

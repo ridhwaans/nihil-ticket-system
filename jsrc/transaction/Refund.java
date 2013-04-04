@@ -26,22 +26,15 @@ public class Refund extends Transaction {
 		BufferedReader buf = new BufferedReader(new InputStreamReader(in));
 		while ((s = buf.readLine()) != null){
 
-			buyerUsername = s.substring(3, 15);
-			buyerUsername.replaceAll(" ","");
-			sellerUsername = s.substring(18, 15);
-			sellerUsername.replaceAll(" ","");
-			refund = Integer.parseInt(s.substring(35, 9));
+			buyerUsername = s.substring(3, username-1);
+			sellerUsername = s.substring(3+username+1 , username-1);
+			refund = Integer.parseInt(s.substring(3+username+1+username+1, 9));
 
 		}
 		System.out.println(s);}
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)throws TransactionException{
-		FileWriter fstream = new FileWriter("data.cua");
-		BufferedWriter out = new BufferedWriter(fstream);
-		out.write(buyerUsername);
-		out.write(refund);
-		out.write(sellerUsername);
-		out.write(refund);
-		out.close();
+	
+		}
 	}
 
 }
