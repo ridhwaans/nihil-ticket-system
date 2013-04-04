@@ -10,6 +10,8 @@ import assets.*;
  * @brief The Java representation of a transaction.
  **/
 public abstract class Transaction {
+	public static final int username_size  = 15;
+	
 	public abstract void applyTo (
 		Vector<Account> accounts, Vector<Ticket> tickets)
 			throws TransactionException;
