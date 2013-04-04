@@ -74,7 +74,17 @@ j_transactions: \
 
 #Java locals
 bin/NTSServer.class: \
-		jsrc/NTSServer.java
+		jsrc/NTSServer.java \
+		bin/assets/Account.class \
+		bin/assets/Ticket.class \
+		bin/transaction/AddCredit.class \
+		bin/transaction/Buy.class \
+		bin/transaction/Create.class \
+		bin/transaction/Delete.class \
+		bin/transaction/Refund.class \
+		bin/transaction/Sell.class \
+		bin/transaction/TransactionException.class \
+		bin/transaction/Transaction.class
 	javac $(cp) $(dest) jsrc/NTSServer.java
 
 #Java assets
@@ -88,27 +98,41 @@ bin/assets/Ticket.class: \
 
 #Java transactions
 bin/transaction/AddCredit.class: \
-		jsrc/transaction/AddCredit.java
+		jsrc/transaction/AddCredit.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class
 	javac $(cp) $(dest) jsrc/transaction/AddCredit.java
 
 bin/transaction/Buy.class: \
-		jsrc/transaction/Buy.java
+		jsrc/transaction/Buy.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class \
+		bin/assets/Ticket.class
 	javac $(cp) $(dest) jsrc/transaction/Buy.java
 
 bin/transaction/Create.class: \
-		jsrc/transaction/Create.java
+		jsrc/transaction/Create.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class
 	javac $(cp) $(dest) jsrc/transaction/Create.java
 
 bin/transaction/Delete.class: \
-		jsrc/transaction/Delete.java
+		jsrc/transaction/Delete.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class
 	javac $(cp) $(dest) jsrc/transaction/Delete.java
 
 bin/transaction/Refund.class: \
-		jsrc/transaction/Refund.java
+		jsrc/transaction/Refund.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class
 	javac $(cp) $(dest) jsrc/transaction/Refund.java
 
 bin/transaction/Sell.class: \
-		jsrc/transaction/Sell.java
+		jsrc/transaction/Sell.java \
+		bin/transaction/Transaction.class \
+		bin/assets/Account.class \
+		bin/assets/Ticket.class
 	javac $(cp) $(dest) jsrc/transaction/Sell.java
 
 bin/transaction/TransactionException.class: \

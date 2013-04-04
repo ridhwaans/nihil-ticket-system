@@ -56,10 +56,12 @@ public class Account {
 		currIndex += type_size + 1;
 		
 		//get the dollars portion of the line
-		String dollars = line.substring(currIndex, currIndex + dollars_size);
+		String dollars = line.substring(
+			currIndex, currIndex + dollars_size);
 		currIndex += dollars_size + 1;
 		//get the cents portion of the line
-		String cents = line.substring(currIndex, currIndex + cents_size);
+		String cents = line.substring(
+			currIndex, currIndex + cents_size);
 		try{
 			this.credit =
 				Integer.parseInt( dollars)*100 +
@@ -102,9 +104,8 @@ public class Account {
 				System.out.println("bad account type");
 				break;
 		}
-		String result = String.format(
+		return String.format(
 			"%"+username_size+"s %"+type_size+"s %0"+dollars_size+"d.%0"+cents_size+"d",
 			username, typeString, credit/100, credit%100);
-		return result;
 	}
 }

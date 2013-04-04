@@ -56,7 +56,7 @@ public class NTSServer {
 		else{
 			outputAccountsFile = "results/data.cua";
 			System.out.println(
-				"Accounts file argument not found, using " + outputAccountsFile);}
+				"Accounts file output argument not found, using " + outputAccountsFile);}
 		
 		//Select the name of the output tickets file
 		String outputTicketsFile;
@@ -65,7 +65,7 @@ public class NTSServer {
 		else{
 			outputTicketsFile = "results/data.atf";
 			System.out.println(
-				"Tickets file argument not found, using " + outputTicketsFile);}
+				"Tickets file output argument not found, using " + outputTicketsFile);}
 
 		// Load Data
 		//try to load the accounts file

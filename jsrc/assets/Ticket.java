@@ -11,7 +11,7 @@ import java.util.zip.DataFormatException;
  **/
 public class Ticket {
 	//Eventname that the tickets are being sold to
-	public String 	eventName;
+	public String eventName;
 	//Number of tickets being sold
 	public int quantity;
 	//Ticket Price In Cents
@@ -20,10 +20,12 @@ public class Ticket {
 	public String username;
 	
 	public static final int eventName_size = 19;
-	public static final int quantity_size  =  3;
-	public static final int price_size     =  6;
-	public static final int username_size  = 15;
-	public static final int token_size  = 1;
+	public static final int quantity_size = 3;
+	public static final int price_size = 6;
+	public static final int dollars_size = 3;
+	public static final int cents_size = price_size - dollars_size - 1;
+	public static final int username_size = 15;
+	public static final int token_size = 1;
 	
 	/**
 	 * Constructs a new Ticket object, from the given line of text
@@ -35,22 +37,34 @@ public class Ticket {
 				quantity_size + token_size +
 				price_size + token_size +
 				username_size)
-			throw new DataFormatException("Can not contruct ticket: Line from ATF is not of correct length!");
+			throw new DataFormatException("Line too long");
 		
 		int currIndex = 0;
-		this.eventName = 	line.substring( currIndex, currIndex + eventName_size);
+		this.eventName = line.substring(
+			currIndex, currIndex + eventName_size);
+		currIndex += eventName_size + token_size;
 		
-		currIndex 	   += 	eventName_size + 1;
-		this.username  = 	line.substring( currIndex, currIndex + username_size - 1);
+		this.username = line.substring(
+			currIndex, currIndex + username_size);
+		currIndex += username_size + token_size;
 		
-		currIndex 	   += 	username_size + 1;
-		this.quantity  = 	Integer.parseInt( line.substring(currIndex, currIndex + quantity_size - 1 ));
+		this.quantity = Integer.parseInt( line.substring(
+			currIndex, currIndex + quantity_size));
+		currIndex += quantity_size + 1;
 		
-		currIndex	   +=   quantity_size + 1;
-		this.price 	   = 	0;
-		this.price     += 	100 * Integer.parseInt( line.substring(currIndex, currIndex + 2) );
-		currIndex 	   +=   4;	//skip first 3 digits of price and the period
-		this.price     += 	Integer.parseInt( line.substring(currIndex, currIndex + 1));
+		//get the dollars portion of the line
+		String dollars = line.substring(currIndex, currIndex + dollars_size);
+		currIndex += dollars_size + 1;
+		//get the cents portion of the line
+		String cents = line.substring(currIndex, currIndex + cents_size);
+
+		try{
+			this.price =
+				Integer.parseInt( dollars)*100 +
+				Integer.parseInt( cents);
+		}
+		catch( NumberFormatException e){
+			throw new DataFormatException("Invalid credit fields");}
 	}
 
 	
@@ -68,14 +82,20 @@ public class Ticket {
 	
 	
 	/**
-	 *  Returns the string representation of this ticket, in a format suitable to be written to an available tickets file.
+	 * Returns the string representation of this ticket, in a format suitable to be written to an available tickets file.
 	 **/
-	public String toString() {
+	public String toString(){
+		return String.format(
+			"%"+eventName_size+"s %"+username_size+"s %0"+
+				quantity_size+"d %0"+dollars_size+"d.%0"+cents_size+"d",
+			eventName, username, quantity, price/100, price%100);}
+
+	public String toString2(){
 		String LineString = "";
 		
 		LineString += padString( this.eventName, this.eventName_size );
 		LineString += " ";
-		LineString += padString( this.username,  this.username_size  );
+		LineString += padString( this.username, this.username_size );
 		LineString += " ";
 		LineString += padString( Integer.toString(quantity), this.quantity_size );
 		LineString += " ";
@@ -95,7 +115,7 @@ public class Ticket {
 	{
 		if( S.length() >= NumOfChars ) return S;
 		int SpacesToAdd = NumOfChars - S.length();
-		for(int i = 0;  i<SpacesToAdd;  i++)
+		for(int i = 0; i<SpacesToAdd; i++)
 			S += " ";
 		return S;
 	}
