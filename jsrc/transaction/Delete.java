@@ -9,6 +9,7 @@ import assets.*;
 /** @class Delete class represents a 'delete' transaction.
  **/
 public class Delete extends Transaction {
+	//static field that identifies the transaction to the server
 	public static final int code = 2;
 	
 	public static final int username_size  = 15;

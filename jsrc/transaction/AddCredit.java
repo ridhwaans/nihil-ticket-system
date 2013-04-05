@@ -7,16 +7,17 @@ import java.io.*;
 import assets.*;
 
 public class AddCredit extends Transaction{
-	public static final int username_size  = 15;
+	//static field that identifies the transaction to the server
 	public static final int code = 6;
+	
 	String username;
 	int type;
 	int credit;
 	public AddCredit( String s){
 	
 
-		this.username = s.substring(3, username_size-1);
-		this.credit = Integer.parseInt(s.substring(3 + username_size+1, 9));
+		this.username = s.substring(3, Account.username_size-1);
+		this.credit = Integer.parseInt(s.substring(3 + Account.username_size+1, 9));
 		
 
 		System.out.println(s);

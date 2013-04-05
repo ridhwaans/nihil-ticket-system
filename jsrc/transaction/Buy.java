@@ -12,15 +12,9 @@ import assets.*;
  * @brief 	Represents a 'buy' transaction.
  **/
 public class Buy extends Transaction {
-	
 	//static field that identifies the transaction to the server
 	public static final int code = 3;
 
-	public static final int eventName_size = 19;
-	public static final int quantity_size  =  3;
-	public static final int price_size     =  6;
-	public static final int username_size  = 15;
-	
 	//Parameters for the Buy Transaction
 	public String eventName;	//eventname of which the tickets to
 	public String seller;		//username of seller
@@ -34,11 +28,11 @@ public class Buy extends Transaction {
 		//read remaining portion of line from merged dtf, extracting the necesary parameters
 		//of this buy transact
 		
-		this.eventName  = s.substring(0, eventName_size-1).trim();
+		this.eventName  = s.substring(0, Ticket.eventName_size-1).trim();
 		
-		this.seller     = s.substring(eventName_size+1, eventName_size+1 + username_size-1);
+		this.seller     = s.substring(Ticket.eventName_size+1, Ticket.eventName_size+1 + Ticket.username_size-1);
 		
-		this.numTickets = Integer.parseInt( s.substring( eventName_size+1 + username_size + 1, eventName_size+1 + username_size + 1 + 2) );
+		this.numTickets = Integer.parseInt( s.substring( Ticket.eventName_size+1 + Ticket.username_size + 1, Ticket.eventName_size+1 + Ticket.username_size + 1 + 2) );
 		
 	}
 	

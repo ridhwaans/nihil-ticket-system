@@ -11,6 +11,7 @@ import assets.*;
  * @brief Represents a 'refund' transaction.
  **/
 public class Refund extends Transaction {
+	//static field that identifies the transaction to the server
 	public static final int code = 5;
 	public static final int username_size  = 15;
 	String buyerUsername;
