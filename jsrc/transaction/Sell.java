@@ -3,7 +3,6 @@ package transaction;
 //library imports
 import java.util.Vector;
 import java.util.zip.DataFormatException;
-
 //local imports
 import assets.*;
 
@@ -44,7 +43,8 @@ public class Sell extends Transaction {
 		
 		//now extract decimal portion adding it to ticket price (# of cents)
 		this.ticketPrice += Integer.parseInt( s.substring( eventName_size+1 + username_size + 1 + 3 + 1, eventName_size+1 + username_size + 1 + 3 + 1 + 2 ) );
-		System.out.println(s);
+
+		//validate all fields
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class Sell extends Transaction {
 		
 		//Create a new ticket object representing the tickets to be sold, with the parameters set up
 		//during the constructor, then add this ticket object to the vector of tickets.
-		tickets.add( new Ticket( this.eventName, this.quantity_size, this.ticketPrice, this.seller ) );
+		tickets.add( new Ticket( this.eventName, this.seller, this.quantity_size, this.ticketPrice));
 		
 	}
 

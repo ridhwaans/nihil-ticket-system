@@ -3,7 +3,6 @@ package transaction;
 //library imports
 import java.util.Vector;
 import java.util.zip.DataFormatException;
-
 //local imports
 import assets.*;
 
@@ -33,6 +32,8 @@ public class Buy extends Transaction {
 		this.seller     = s.substring(Ticket.eventName_size+1, Ticket.eventName_size+1 + Ticket.username_size-1);
 		
 		this.numTickets = Integer.parseInt( s.substring( Ticket.eventName_size+1 + Ticket.username_size + 1, Ticket.eventName_size+1 + Ticket.username_size + 1 + 2) );
+
+		//validate all fields
 		
 	}
 	
@@ -40,8 +41,8 @@ public class Buy extends Transaction {
 	 * Applies this buy transaction, updating the given vectors of accounts and available tickets 
 	 * accordingly.
 	 */
-	public void applyTo(Vector<Account> accounts, Vector<Ticket> tickets) throws TransactionException {	
-		
+	public void applyTo(Vector<Account> accounts, Vector<Ticket> tickets)
+			throws TransactionException {	
 		//Search the Vector of tickets for a ticket(s) with the specified seller and event,
 		//take note of the maximum quantity of tickets available from the seller to the event
 		int MaxTickets = 0;

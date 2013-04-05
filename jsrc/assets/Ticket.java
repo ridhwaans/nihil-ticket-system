@@ -1,4 +1,3 @@
-
 package assets;
 
 //library imports
@@ -72,12 +71,12 @@ public class Ticket {
 	 * Constructs a ticket object representing a group of 'quantity' number of tickets
 	 * to some event, being sold from the specified seller (username) 
 	 **/
-	public Ticket(String eventName, int quantity, int price, String username)
+	public Ticket(String eventName, String username, int quantity, int price)
 	{
 		this.eventName = eventName;
+		this.username = username;
 		this.quantity = quantity;
 		this.price = price;
-		this.username = username;
 	}
 	
 	
@@ -88,37 +87,12 @@ public class Ticket {
 		return String.format(
 			"%"+eventName_size+"s %"+username_size+"s %0"+
 				quantity_size+"d %0"+dollars_size+"d.%0"+cents_size+"d",
-			eventName, username, quantity, price/100, price%100);}
-
-	public String toString2(){
-		String LineString = "";
-		
-		LineString += padString( this.eventName, this.eventName_size );
-		LineString += " ";
-		LineString += padString( this.username, this.username_size );
-		LineString += " ";
-		LineString += padString( Integer.toString(quantity), this.quantity_size );
-		LineString += " ";
-		LineString += padString( Integer.toString(price / 100), 3 );
-		LineString += ".";
-		LineString += padString( Integer.toString(price % 100), 2 );		
-		
-		return LineString;
-	}	
-	
-	
-	/**
-	 * Pads the given string adding spaces to the end of it untill its size
-	 * is equal to NumOfChars.
-	 */
-	private String padString(String S, int NumOfChars)
-	{
-		if( S.length() >= NumOfChars ) return S;
-		int SpacesToAdd = NumOfChars - S.length();
-		for(int i = 0; i<SpacesToAdd; i++)
-			S += " ";
-		return S;
+			eventName, username, quantity, price/100, price%100);
 	}
-	
-	
+
+	public boolean equals( Ticket other){
+		return
+			this.eventName.equals( other.eventName) &&
+			this.username.equals( other.username);
+	}
 }

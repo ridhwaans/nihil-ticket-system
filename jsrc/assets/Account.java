@@ -20,8 +20,9 @@ public class Account {
 	
 	public static final int username_size  = 15;
 	public static final int type_size = 2;
+	public static final int credit_size = 9;
 	public static final int dollars_size = 6;
-	public static final int cents_size = 2;
+	public static final int cents_size = credit_size - dollars_size - 1;
 	public static final int token_size = 1;
 
 	/**
@@ -78,7 +79,7 @@ public class Account {
 	public Account(String username, int type, int credit) {
 		this.username = username;
 		this.type = type;
-		this.credit = credit;		
+		this.credit = credit;
 	}
 
 	/**
@@ -107,5 +108,11 @@ public class Account {
 		return String.format(
 			"%"+username_size+"s %"+type_size+"s %0"+dollars_size+"d.%0"+cents_size+"d",
 			username, typeString, credit/100, credit%100);
+	}
+
+	public boolean equals( Account other){
+		return
+			this.username.equals( other.username) &&
+			this.type == other.type;
 	}
 }

@@ -1,7 +1,6 @@
 package transaction;
 
 //library imports
-
 import java.util.Vector;
 import java.util.zip.DataFormatException;
 //local imports
@@ -24,11 +23,14 @@ public class Refund extends Transaction {
 		this.sellerUsername = s.substring(3 + username_size + 1 , username_size-1);
 		this.refund = Integer.parseInt(s.substring(3 + username_size + 1+username_size + 1, 9));
 
+		//validate all fields
+
 	}
 
-	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)throws TransactionException{
-	//account[buyerUsername].credit += refund;
-	//account[sellerUsername].credit -= refund;
+	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)
+			throws TransactionException{
+		//account[buyerUsername].credit += refund;
+		//account[sellerUsername].credit -= refund;
 	}
 }
 
