@@ -71,6 +71,25 @@ j_transactions: \
 	bin/transaction/Sell.class \
 	bin/transaction/TransactionException.class \
 	bin/transaction/Transaction.class
+j_tests: \
+	bin/tests/TestAccount.class \
+	bin/tests/TestTicket.class \
+	bin/tests/TestAddCredit.class \
+	bin/tests/TestBuy.class \
+	bin/tests/TestCreate.class \
+	bin/tests/TestDelete.class \
+	bin/tests/TestRefund.class \
+	bin/tests/TestSell.class
+j_test-all:
+	test-server \
+	test-account \
+	test-ticket \
+	test-addcredit \
+	test-buy \
+	test-create \
+	test-delete \
+	test-refund \
+	test-sell
 
 #Java locals
 bin/NTSServer.class: \
@@ -149,6 +168,55 @@ test-server: bin/NTSServer.class
 		resources/data.cua \
 		resources/data.atf \
 		resources/data.dtf
+
+test-account: bin/tests/TestAccount.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestAccount
+bin/tests/TestAccount.class: jsrc/tests/TestAccount.java \
+		bin/assets/Account.class
+	javac $(cp) $(dest) jsrc/tests/TestAccount.java
+
+test-ticket: bin/tests/TestTicket.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestTicket
+bin/tests/TestTicket.class: jsrc/tests/TestTicket.java \
+		bin/assets/Ticket.class
+	javac $(cp) $(dest) jsrc/tests/TestTicket.java
+
+test-addcredit: bin/tests/TestAddCredit.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestAddCredit
+bin/tests/TestAddCredit.class: jsrc/tests/TestAddCredit.java \
+		bin/transaction/AddCredit.class
+	javac $(cp) $(dest) jsrc/tests/TestAddCredit.java
+
+test-buy: bin/tests/TestBuy.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestBuy
+bin/tests/TestBuy.class: jsrc/tests/TestBuy.java \
+		bin/transaction/Buy.class
+	javac $(cp) $(dest) jsrc/tests/TestBuy.java
+
+test-create: bin/tests/TestCreate.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestCreate
+bin/tests/TestCreate.class: jsrc/tests/TestCreate.java \
+		bin/transaction/Create.class
+	javac $(cp) $(dest) jsrc/tests/TestCreate.java
+
+test-delete: bin/tests/TestDelete.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestDelete
+bin/tests/TestDelete.class: jsrc/tests/TestDelete.java \
+		bin/transaction/Delete.class
+	javac $(cp) $(dest) jsrc/tests/TestDelete.java
+
+test-refund: bin/tests/TestRefund.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestRefund
+bin/tests/TestRefund.class: jsrc/tests/TestRefund.java \
+		bin/transaction/Refund.class
+	javac $(cp) $(dest) jsrc/tests/TestRefund.java
+
+test-sell: bin/tests/TestSell.class
+	java $(cp) org.junit.runner.JUnitCore tests.TestSell
+bin/tests/TestSell.class: jsrc/tests/TestSell.java \
+		bin/transaction/Sell.class
+	javac $(cp) $(dest) jsrc/tests/TestSell.java
+
 
 #C++ groups
 c_all: c_locals c_assets c_commands
