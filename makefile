@@ -5,7 +5,7 @@ clean: clean-specials
 	tools/cleandir .
 	tools/cleandir assets
 	tools/cleandir assets/commands
-	tools/cleandir results
+	tools/cleandir resultsj-test
 	tools/cleandir scripts
 	tools/cleandir tests
 	tools/cleandir tools
@@ -50,19 +50,19 @@ dest = -d bin
 dir_guard = @mkdir -p $(@D)
 
 #groups
-all: c_all j_all
+all: c-all j-all
 resources: \
 	resources/data.atf \
 	resources/data.cua
 
 #Java Groups
-j_all: j_assets j_locals j_transactions
-j_assets: \
+j-all: j-assets j-locals j-transactions
+j-assets: \
 	bin/assets/Account.class \
 	bin/assets/Ticket.class
-j_locals: \
+j-locals: \
 	bin/NTSServer.class
-j_transactions: \
+j-transactions: \
 	bin/transaction/AddCredit.class \
 	bin/transaction/Buy.class \
 	bin/transaction/Create.class \
@@ -71,7 +71,7 @@ j_transactions: \
 	bin/transaction/Sell.class \
 	bin/transaction/TransactionException.class \
 	bin/transaction/Transaction.class
-j_tests: \
+j-tests: \
 	bin/tests/TestAccount.class \
 	bin/tests/TestTicket.class \
 	bin/tests/TestAddCredit.class \
@@ -80,7 +80,7 @@ j_tests: \
 	bin/tests/TestDelete.class \
 	bin/tests/TestRefund.class \
 	bin/tests/TestSell.class
-j_test-all:
+j-test-all:
 	test-server \
 	test-account \
 	test-ticket \
@@ -171,6 +171,8 @@ test-server: bin/NTSServer.class
 
 test-account: bin/tests/TestAccount.class
 	java $(cp) org.junit.runner.JUnitCore tests.TestAccount
+test-account2: bin/tests/TestAccount.class
+	java $(cp) tests.TestAccount
 bin/tests/TestAccount.class: jsrc/tests/TestAccount.java \
 		bin/assets/Account.class
 	javac $(cp) $(dest) jsrc/tests/TestAccount.java
@@ -219,12 +221,12 @@ bin/tests/TestSell.class: jsrc/tests/TestSell.java \
 
 
 #C++ groups
-c_all: c_locals c_assets c_commands
-c_locals: \
+c-all: c-locals c-assets c-commands
+c-locals: \
 	bin/nts-client \
 	bin/nts-client.o \
 	bin/nts-lib.a
-c_assets: \
+c-assets: \
 	bin/assets/Account.o \
 	bin/assets/commands.o \
 	bin/assets/errors.o \
@@ -233,7 +235,7 @@ c_assets: \
 	bin/assets/Ticket.o \
 	bin/assets/Transaction.o \
 	bin/assets/TransactionFile.o
-c_commands: \
+c-commands: \
 	bin/assets/commands/addCredit.o \
 	bin/assets/commands/addCredit_admin.o \
 	bin/assets/commands/buy.o \
@@ -241,7 +243,7 @@ c_commands: \
 	bin/assets/commands/delete.o \
 	bin/assets/commands/refund.o \
 	bin/assets/commands/sell.o
-c_tests: \
+c-tests: \
 	bin/tests/testAccount.out \
 	bin/tests/testAccounts.out \
 	bin/tests/testBuy.out \

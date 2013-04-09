@@ -73,10 +73,8 @@ public class Create extends Transaction {
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)
 			throws TransactionException{
 		//validation?
-		try{
-			Account account = new Account(this.username, this.type, this.credit);
-			if( ! accounts.contains( account))
-				accounts.add(account);}
-		catch( ArrayIndexOutOfBoundsException e){}
+		Account account = new Account(this.username, this.type, this.credit);
+		if( ! accounts.contains( account))
+			accounts.add(account);
 	}
 }

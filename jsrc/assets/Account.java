@@ -111,8 +111,9 @@ public class Account {
 	}
 
 	public boolean equals( Account other){
-		return
-			this.username.equals( other.username) &&
-			this.type == other.type;
+		return this.username.equals( other.username);
+	}
+	public static int maxCredit(){
+		return (int) Math.pow(10, dollars_size + cents_size) - 1;
 	}
 }
