@@ -40,6 +40,7 @@ public class Account {
 		int currIndex = 0;
 		
 		this.username = line.substring(currIndex, currIndex + username_size);
+		this.username = this.username.trim();
 		currIndex += username_size + 1;
 
 		String typeString = line.substring(
@@ -77,7 +78,7 @@ public class Account {
 	 * This is used by the Create transaction.
 	 **/
 	public Account(String username, int type, int credit) {
-		this.username = username;
+		this.username = username.trim();
 		this.type = type;
 		this.credit = credit;
 	}
@@ -106,7 +107,7 @@ public class Account {
 				break;
 		}
 		return String.format(
-			"%"+username_size+"s %"+type_size+"s %0"+dollars_size+"d.%0"+cents_size+"d",
+			"%-"+username_size+"s %"+type_size+"s %0"+dollars_size+"d.%0"+cents_size+"d",
 			username, typeString, credit/100, credit%100);
 	}
 

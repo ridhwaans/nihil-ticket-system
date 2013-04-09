@@ -25,8 +25,8 @@ server-tests: \
 	bin/tests/TestRefund.class \
 	bin/tests/TestSell.class
 server-test-all:
-	server-test \
 	server-test-account \
+	server-test-account2 \
 	server-test-ticket \
 	server-test-addcredit \
 	server-test-buy \
