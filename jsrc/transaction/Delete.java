@@ -73,6 +73,7 @@ public class Delete extends Transaction {
 			Account account = new Account(this.username, this.type, this.credit);
 			if (accounts.contains( account))
 				accounts.remove( account);}
-		catch( ArrayIndexOutOfBoundsException e){}
+		catch( ArrayIndexOutOfBoundsException e){
+			throw new TransactionException("Username not found");}
 	}
 }

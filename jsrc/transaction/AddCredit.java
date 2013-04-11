@@ -16,6 +16,7 @@ public class AddCredit extends Transaction{
 	public AddCredit( String line) throws DataFormatException{
 		//current index in the line
 		int i = 0;
+		
 		//extract
 		this.username = line.substring( i, Account.username_size).trim();
 		//validate
@@ -61,8 +62,11 @@ public class AddCredit extends Transaction{
 		try{
 			Account account = new Account(this.username, this.type, 0);
 			int index = accounts.indexOf( account);
+			if( accounts.get(index).credit + credit > Account.maxCredit())
+				throw new TransactionException("User has too much credit");
 			accounts.get( index).credit += this.credit;}
-		catch( ArrayIndexOutOfBoundsException e){}
+		catch( ArrayIndexOutOfBoundsException e){
+			throw new TransactionException("Username not found");}
 	}
 }
 
