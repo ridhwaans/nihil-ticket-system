@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Vector;
 import java.util.zip.DataFormatException;
 
 import org.junit.Test;
@@ -10,7 +11,9 @@ import org.junit.runners.JUnit4;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
+import transaction.*;
 import assets.Account;
+import assets.Ticket;
 
 @RunWith(JUnit4.class)
 public class TestCreate {
@@ -24,28 +27,29 @@ public static void testCleanup() {
 }
 	
 @Test 
-public void testRead() throws DataFormatException {
-	System.out.println("Test if Create reads a transaction correctly...");
+public void testCreate() throws DataFormatException {
+	System.out.println("Test if a Create transaction object is constructed correctly...");
 	String line = "manager         AA 001000.00";
-	Account account = new Account( line);
-	//assertEquals( line.equals( account.toString()), true);
-	assertEquals( line, account.toString());
+	Transaction transaction = new Create( line);
+	assertEquals( line, transaction.toString());
+}
+
+@Test 
+public void testFailure() throws DataFormatException {
+	System.out.println("Test if a Create transaction rejects object construction of invalid field attributes...");
+	String line = "manag&r         ZZ 001000.00";
+	Transaction transaction = new Create( line);
 }
 
 @Test
-public void testWrite() throws DataFormatException {
-	System.out.println("Test if Create applies a transaction correctly...");
+public void testApplyTo() throws DataFormatException{
+	System.out.println("Test if a Create transaction is applied correctly...");
 	Account account = new Account( "testuser", Account.Buy, 500);
-	assertEquals( true, account.equals( new Account( account.toString())));
+	Transaction transaction = new Create( account.toString());
+	//transaction.applyTo(accounts, tickets);
+	//if (accounts.contains(account))
+	//	assertEquals( account.username.toString(), accounts.getIndexOf(account.username.toString()));
 }
 
-@Test
-public void testApply() {
-	System.out.println("Test if Create applies a transaction correctly...");
-}
-
-@Test
-public void testEquals() {
-
-}
+//testCreateDuplicate
 }

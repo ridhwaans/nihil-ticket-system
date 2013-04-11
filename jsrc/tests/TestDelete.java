@@ -10,6 +10,10 @@ import org.junit.runners.JUnit4;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
+import transaction.Create;
+import transaction.Delete;
+import transaction.Transaction;
+
 import assets.Account;
 
 @RunWith(JUnit4.class)
@@ -24,29 +28,29 @@ public static void testCleanup() {
 }
 	  
 @Test
-public void testRead() throws DataFormatException {
-	System.out.println("Test if Delete reads a transaction correctly...");
+public void testDelete() throws DataFormatException {
+	System.out.println("Test if a Delete transaction object is constructed correctly...");
 	String line = "manager         AA 001000.00";
-	Account account = new Account( line);
-	//assertEquals( line.equals( account.toString()), true);
-	assertEquals( line, account.toString());
+	Transaction transaction = new Delete( line);
+	assertEquals( line, transaction.toString());
+}
+
+@Test 
+public void testFailure() throws DataFormatException {
+	System.out.println("Test if a Delete transaction rejects object construction of invalid field attributes...");
+	String line = "manag&r         ZZ 001000.00";
+	Transaction transaction = new Delete( line);
 }
 
 @Test
-public void testWrite() throws DataFormatException {
-	System.out.println("Test if Delete applies a transaction correctly...");
+public void testApplyTo() throws DataFormatException{
+	System.out.println("Test if a Delete transaction is applied correctly...");
 	Account account = new Account( "testuser", Account.Buy, 500);
-	assertEquals( true, account.equals( new Account( account.toString())));
+	Transaction transaction = new Delete( account.toString());
+	//transaction.applyTo(accounts, tickets);
+	//if ((accounts.contains(account))==false)
+	//	assertEquals( account.username.toString(), accounts.getIndexOf(account.username.toString()));
 }
 
-@Test
-public void testApply() {
-	System.out.println("Test if Delete applies a transaction correctly...");
-}
-
-
-@Test
-public void testEquals() {
-
-}
+//testDelete2
 }
