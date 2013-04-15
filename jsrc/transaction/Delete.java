@@ -30,6 +30,12 @@ public class Delete extends Transaction {
 		//validate
 		if( ! this.username.matches(""))
 			throw new DataFormatException("Invalid username field");
+		if( this.username.matches("([A-Za-z0-9_]+)")==false)
+			throw new DataFormatException("Invalid username field");
+		if (this.username.trim().length() <= 0)
+			throw new DataFormatException("Username field too small");
+		if (this.username.trim().length() > Account.username_size)
+			throw new DataFormatException("Username field too large");
 		//increment i
 		i += Account.username_size + Account.token_size;
 		
@@ -67,13 +73,38 @@ public class Delete extends Transaction {
 			throw new DataFormatException("Credit field too large");
 	}
 	
+	/**
+	 * Applies a Delete transaction by carrying out and deleting a specified Account from the Accounts vector list
+	 */
 	public void applyTo (Vector<Account> accounts, Vector<Ticket> tickets)
 			throws TransactionException{
+		
+		//Username field validation
+		if( this.username.matches("([A-Za-z0-9_]+)")==false)
+			throw new TransactionException("Invalid username field");
+		//if(( 0 <= this.username.trim().length() && this.username.trim().length() <= Account.username_size)==false)
+		if (this.username.trim().length() <= 0)
+			throw new TransactionException("Username field too small");
+		if (this.username.trim().length() > Account.username_size)
+			throw new TransactionException("Username field too large");
+		
+		//Type field validation
+		if(( 0 <= this.type && this.type <= 3)==false)
+			throw new TransactionException();
+
+		//Credit field validation
+		if( this.credit < 0)
+			throw new TransactionException();
+		if( this.credit > Math.pow(10,
+				Account.dollars_size + Account.cents_size) - 1)
+			throw new TransactionException();
+				
 		try {
 			Account account = new Account(this.username, this.type, this.credit);
 			if (accounts.contains( account))
-				accounts.remove( account);}
-		catch( ArrayIndexOutOfBoundsException e){
-			throw new TransactionException("Username not found");}
+				accounts.remove( account);
+			else
+				throw new TransactionException("User not found");}
+		catch( ArrayIndexOutOfBoundsException e){}
 	}
 }
